@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lv Yihang's Web</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="background-container">
+        <canvas id="techCanvas"></canvas>
+        <div class="grid-overlay"></div>
+    </div>
+    
+    <main class="main-content">
+        <div class="card-container">
+            <div class="card">
+                <div class="avatar">
+                    <div class="pulse-ring"></div>
+                    <svg width="80" height="80" viewBox="0 0 100 100" class="avatar-icon">
+                        <circle cx="50" cy="40" r="20" fill="none" stroke="var(--accent-color)" stroke-width="2"/>
+                        <path d="M30,80 C30,65 70,65 70,80 L60,95 L40,95 Z" fill="none" stroke="var(--accent-color)" stroke-width="2"/>
+                    </svg>
+                </div>
+                
+                <div class="info-section">
+                    <h1 class="name">Lv Yihang</h1>
+                    <p class="subtitle">Digital Creator & Innovator</p>
+                    
+                    <div class="status-indicator">
+                        <span class="status-dot"></span>
+                        <span class="status-text">Available for collaboration</span>
+                    </div>
+                    
+                    <div class="time-display">
+                        <span class="time-label">Current Time:</span>
+                        <span class="time-value" id="time"></span>
+                    </div>
+                </div>
+                
+                <div class="tech-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">5+</span>
+                        <span class="stat-label">Years Experience</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">50+</span>
+                        <span class="stat-label">Projects</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">∞</span>
+                        <span class="stat-label">Ideas</span>
+                    </div>
+                </div>
+                
+                <div class="contact-links">
+                    <button class="contact-btn email-btn">Email</button>
+                    <button class="contact-btn github-btn">GitHub</button>
+                    <button class="contact-btn linkedin-btn">LinkedIn</button>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <script>
+        // Update time function
+        function updateTime() {
+            const now = new Date();
+            const timeString = now.toLocaleString('zh-CN', {
+                timeZone: 'Asia/Shanghai',
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+            document.getElementById('time').textContent = timeString;
+        }
+        
+        // Initialize time and update every second
+        updateTime();
+        setInterval(updateTime, 1000);
+        
+        // Canvas animation for tech background
+        const canvas = document.getElementById('techCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+        
+        // Particle system
+        const particles = [];
+        const particleCount = 100;
+        
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.5;
+                this.speedX = (Math.random() - 0.5) * 0.5;
+                this.speedY = (Math.random() - 0.5) * 0.5;
+                this.opacity = Math.random() * 0.5 + 0.2;
+            }
+            
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                
+                if (this.x > canvas.width || this.x < 0) this.speedX *= -1;
+                if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
+            }
+            
+            draw() {
+                ctx.fillStyle = `rgba(100, 200, 255, ${this.opacity})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+        
+        // Initialize particles
+        for (let i = 0; i < particleCount; i++) {
+            particles.push(new Particle());
+        }
+        
+        // Animation loop
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw connections between close particles
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if (distance < 100) {
+                        ctx.strokeStyle = `rgba(100, 200, 255, ${0.2 * (1 - distance/100)})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+                
+                particles[i].update();
+                particles[i].draw();
+            }
+            
+            requestAnimationFrame(animate);
+        }
+        
+        animate();
+        
+        // Add subtle hover effects to contact buttons
+        const contactBtns = document.querySelectorAll('.contact-btn');
+        contactBtns.forEach(btn => {
+            btn.addEventListener('mouseenter', () => {
+                btn.style.transform = 'translateY(-2px)';
+                btn.style.boxShadow = '0 10px 20px rgba(0, 0, 0, 0.2)';
+            });
+            
+            btn.addEventListener('mouseleave', () => {
+                btn.style.transform = 'translateY(0)';
+                btn.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.1)';
+            });
+        });
+    </script>
+</body>
+</html>
