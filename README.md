@@ -1,39 +1,87 @@
-# Lv Yihang's Web Space
+# MeteoHub 🚀
 
-A simple, beautiful personal website built with HTML, CSS, and a touch of JavaScript.
+**MeteoHub** 是专为大气科学领域学生和研究者打造的学术交流平台。
 
-## Files
+> 由吕亦航创建于中国科学院大气物理研究所
 
-- `index.html` - Main page with modern gradient background, animations, and real-time clock
-- `styles.css` - Separate stylesheet for easy customization
+---
 
-## Features
+## 🚀 快速启动（任选一种方式）
 
-- Responsive design
-- Gradient background with glassmorphism effect
-- Smooth animations
-- Real-time clock showing Shanghai time
-- Modern, clean aesthetic
+### 方式 1：后台运行（最简单，推荐）
 
-## How to Use
+```bash
+cd MeteoHub
 
-Simply open `index.html` in any web browser to view the website. No additional setup required!
+# 一键后台启动
+./run-background.sh
 
-## Customization
+# 然后访问：
+# http://120.46.134.210:8080
+```
 
-Feel free to edit:
-- The name in the `<h1>` tag
-- The welcome message in the `<p>` tag
-- The emoji (just replace the 🚀)
-- The gradient colors in CSS
-- Any text content
+服务会在后台持续运行，关闭终端也不会停止。
 
-## Technical Details
+### 方式 2：系统服务（开机自动启动）
 
-- Built with plain HTML, CSS, and JavaScript
-- Uses CSS Grid and Flexbox for layout
-- Includes CSS animations for smooth transitions
-- JavaScript updates the clock every second
-- Responsive design works on mobile and desktop
+```bash
+cd MeteoHub
+sudo ./install-service.sh
+```
 
-Enjoy your new web space! 🌟
+这种方式会在开机时自动启动服务，最稳定。
+
+### 方式 3：前台运行（调试用）
+
+```bash
+./start.sh
+```
+
+---
+
+## 📌 管理命令
+
+```bash
+# 查看服务状态
+./status.sh
+
+# 停止服务
+./stop.sh
+
+# 重启服务
+./restart.sh
+
+# 查看日志
+tail -f server.log
+```
+
+---
+
+## ✨ 功能特色
+
+- 🐍 **Python 代码运行平台** - 在浏览器中直接运行 Python 代码
+- 🔐 **超级用户管理** - 连续点击 Logo 5次，密码: `Lyh200411`
+- 👥 **用户系统** - 注册、登录、好友管理
+- 📝 **博客投稿** - 分享研究成果
+- 📰 **Nature 文章** - 高被引学术动态
+
+---
+
+## 🎨 Logo 设计
+
+现代渐变风格宇航员，融合：
+- 梦幻紫蓝渐变
+- 中国红五星
+- 星光金色装饰
+
+---
+
+## 🌐 访问地址
+
+启动后访问：
+- **主站**: http://120.46.134.210:8080
+- **代码平台**: http://120.46.134.210:8080/#code
+
+---
+
+> 🌤 探索大气的奥秘，连接科学的心灵

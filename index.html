@@ -3,173 +3,1931 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lv Yihang's Web</title>
+    <title>MeteoHub - 大气科学学术交流平台</title>
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="background-container">
-        <canvas id="techCanvas"></canvas>
-        <div class="grid-overlay"></div>
-    </div>
-    
-    <main class="main-content">
-        <div class="card-container">
-            <div class="card">
-                <div class="avatar">
-                    <div class="pulse-ring"></div>
-                    <svg width="80" height="80" viewBox="0 0 100 100" class="avatar-icon">
-                        <circle cx="50" cy="40" r="20" fill="none" stroke="var(--accent-color)" stroke-width="2"/>
-                        <path d="M30,80 C30,65 70,65 70,80 L60,95 L40,95 Z" fill="none" stroke="var(--accent-color)" stroke-width="2"/>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-left">
+            <!-- Logo - 现代渐变风格宇航员 -->
+            <a href="#" class="logo" id="logoLink" onclick="handleLogoClick(); return false;">
+                <svg class="mascot" viewBox="0 0 200 200" width="48" height="48">
+                    <defs>
+                        <!-- 梦幻紫蓝渐变 - 主体 -->
+                        <linearGradient id="bodyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#667eea"/>
+                            <stop offset="50%" style="stop-color:#764ba2"/>
+                            <stop offset="100%" style="stop-color:#f093fb"/>
+                        </linearGradient>
+                        <!-- 天空蓝渐变 - 头盔 -->
+                        <linearGradient id="helmetGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#4facfe"/>
+                            <stop offset="100%" style="stop-color:#00f2fe"/>
+                        </linearGradient>
+                        <!-- 深邃宇宙 - 面罩 -->
+                        <linearGradient id="glassGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#0c0c0c"/>
+                            <stop offset="50%" style="stop-color:#1a1a2e"/>
+                            <stop offset="100%" style="stop-color:#16213e"/>
+                        </linearGradient>
+                        <!-- 中国红渐变 -->
+                        <linearGradient id="chinaRed" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#ff416c"/>
+                            <stop offset="100%" style="stop-color:#ff4b2b"/>
+                        </linearGradient>
+                        <!-- 星光金 -->
+                        <linearGradient id="starGold" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#f5af19"/>
+                            <stop offset="100%" style="stop-color:#f12711"/>
+                        </linearGradient>
+                        <!-- 发光效果 -->
+                        <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+                            <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                            <feMerge>
+                                <feMergeNode in="coloredBlur"/>
+                                <feMergeNode in="SourceGraphic"/>
+                            </feMerge>
+                        </filter>
+                    </defs>
+                    
+                    <!-- 背景光环 -->
+                    <circle cx="100" cy="100" r="90" fill="none" stroke="url(#bodyGrad)" stroke-width="1" opacity="0.3" filter="url(#glow)"/>
+                    <circle cx="100" cy="100" r="80" fill="none" stroke="url(#helmetGrad)" stroke-width="0.5" opacity="0.4"/>
+                    
+                    <!-- 祥云装饰（简化现代版） -->
+                    <g opacity="0.2">
+                        <path d="M20,150 Q40,130 60,140 Q80,150 100,135" stroke="#667eea" stroke-width="3" fill="none" stroke-linecap="round"/>
+                        <path d="M120,165 Q140,150 160,160 Q180,170 190,155" stroke="#764ba2" stroke-width="2" fill="none" stroke-linecap="round"/>
+                    </g>
+                    
+                    <!-- 宇航员身体 - 流线型设计 -->
+                    <ellipse cx="100" cy="145" rx="35" ry="40" fill="url(#bodyGrad)"/>
+                    
+                    <!-- 胸前五星红旗（简化现代版） -->
+                    <circle cx="85" cy="135" r="12" fill="url(#chinaRed)"/>
+                    <polygon points="85,130 86,133 89,133 87,135 88,138 85,136 82,138 83,135 81,133 84,133" fill="#ffd700"/>
+                    
+                    <!-- 金色装饰线 -->
+                    <path d="M75,155 Q100,165 125,155" stroke="url(#starGold)" stroke-width="3" fill="none" stroke-linecap="round"/>
+                    
+                    <!-- 左臂 -->
+                    <ellipse cx="55" cy="140" rx="12" ry="25" fill="url(#bodyGrad)" transform="rotate(-20 55 140)"/>
+                    <!-- 右臂（挥手） -->
+                    <ellipse cx="150" cy="115" rx="12" ry="22" fill="url(#bodyGrad)" transform="rotate(30 150 115)"/>
+                    
+                    <!-- 头盔 - 完美的圆形 -->
+                    <circle cx="100" cy="85" r="45" fill="url(#helmetGrad)"/>
+                    
+                    <!-- 头盔高光 -->
+                    <ellipse cx="80" cy="65" rx="15" ry="10" fill="white" opacity="0.3"/>
+                    
+                    <!-- 面罩 - 神秘的深色 -->
+                    <ellipse cx="100" cy="90" rx="32" ry="28" fill="url(#glassGrad)"/>
+                    
+                    <!-- 面罩反光 -->
+                    <ellipse cx="88" cy="78" rx="8" ry="5" fill="white" opacity="0.4"/>
+                    <ellipse cx="95" cy="85" rx="3" ry="2" fill="white" opacity="0.6"/>
+                    
+                    <!-- 天线 -->
+                    <line x1="140" y1="65" x2="155" y2="45" stroke="#764ba2" stroke-width="2"/>
+                    <circle cx="155" cy="45" r="4" fill="url(#chinaRed)" filter="url(#glow)"/>
+                    
+                    <!-- 星星装饰 -->
+                    <circle cx="35" cy="60" r="2" fill="url(#starGold)" opacity="0.8">
+                        <animate attributeName="opacity" values="0.8;0.3;0.8" dur="2s" repeatCount="indefinite"/>
+                    </circle>
+                    <circle cx="165" cy="80" r="1.5" fill="url(#starGold)" opacity="0.6">
+                        <animate attributeName="opacity" values="0.6;0.2;0.6" dur="1.5s" repeatCount="indefinite"/>
+                    </circle>
+                    <circle cx="150" cy="170" r="2" fill="url(#starGold)" opacity="0.7">
+                        <animate attributeName="opacity" values="0.7;0.3;0.7" dur="2.5s" repeatCount="indefinite"/>
+                    </circle>
+                </svg>
+                <span class="logo-text">MeteoHub</span>
+            </a>
+        </div>
+
+        <!-- 搜索栏 -->
+        <div class="search-container">
+            <div class="search-box">
+                <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"/>
+                    <path d="m21 21-4.35-4.35"/>
+                </svg>
+                <input type="text" id="searchInput" placeholder="搜索用户..." autocomplete="off">
+            </div>
+            <div class="search-results" id="searchResults"></div>
+        </div>
+
+        <div class="nav-right">
+            <!-- 代码平台入口 -->
+            <button class="btn btn-code" onclick="showPage('code')">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="16 18 22 12 16 6"/>
+                    <polyline points="8 6 2 12 8 18"/>
+                </svg>
+                运行代码
+            </button>
+
+            <!-- 投稿按钮 -->
+            <button class="btn btn-submit-nav" id="submitBtnNav" onclick="showPage('submit')" style="display: none;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 5v14M5 12h14"/>
+                </svg>
+                投稿
+            </button>
+
+            <!-- 未登录状态 -->
+            <div class="auth-buttons" id="authButtons">
+                <button class="btn btn-text" onclick="showModal('loginModal')">登录</button>
+                <button class="btn btn-primary" onclick="showModal('registerModal')">注册</button>
+            </div>
+            <!-- 已登录状态 -->
+            <div class="user-menu" id="userMenu" style="display: none;">
+                <div class="user-avatar" onclick="toggleUserDropdown()">
+                    <span id="userAvatarText">U</span>
+                </div>
+                <div class="dropdown-menu" id="userDropdown">
+                    <div class="dropdown-header">
+                        <span id="dropdownUsername">用户名</span>
+                        <span id="dropdownInstitution" class="institution-tag">中科院大气所</span>
+                    </div>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" onclick="showPage('profile'); return false;">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                            <circle cx="12" cy="7" r="4"/>
+                        </svg>
+                        个人资料
+                    </a>
+                    <a href="#" onclick="showPage('dashboard'); return false;">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="7" height="7"/>
+                            <rect x="14" y="3" width="7" height="7"/>
+                            <rect x="14" y="14" width="7" height="7"/>
+                            <rect x="3" y="14" width="7" height="7"/>
+                        </svg>
+                        工作台
+                    </a>
+                    <a href="#" onclick="showPage('submit'); return false;">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                        </svg>
+                        我的文章
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="logout" onclick="logout(); return false;">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                            <polyline points="16 17 21 12 16 7"/>
+                            <line x1="21" x2="9" y1="12" y2="12"/>
+                        </svg>
+                        退出登录
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ==================== 首页 ==================== -->
+    <main class="main-container" id="homePage">
+        <!-- 左侧：Nature 内容 -->
+        <div class="content-left">
+            <div class="section-header">
+                <div class="section-title">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1a237e" stroke-width="2">
+                        <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+                        <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+                    </svg>
+                    <h2>Nature 高被引文章</h2>
+                </div>
+                <span class="section-subtitle">大气与地球科学领域精选</span>
+            </div>
+            
+            <div class="articles-container" id="articlesContainer">
+                <div class="loading-state">
+                    <div class="spinner"></div>
+                    <p>正在加载文章...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 右侧：统计和投稿入口 -->
+        <div class="content-right">
+            <!-- 平台统计卡片 -->
+            <div class="stats-card">
+                <h3>平台数据</h3>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-value" id="totalUsers">0</span>
+                        <span class="stat-label">注册用户</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" id="activeUsers">0</span>
+                        <span class="stat-label">今日活跃</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" id="totalArticles">0</span>
+                        <span class="stat-label">收录文章</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" id="todaySubmissions">0</span>
+                        <span class="stat-label">今日投稿</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 代码平台入口卡片 -->
+            <div class="code-card" onclick="showPage('code')">
+                <div class="code-icon">🐍</div>
+                <h3>Python 代码运行平台</h3>
+                <p>在线编写和运行 Python 代码，支持实时输出</p>
+                <button class="btn btn-code btn-block">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="16 18 22 12 16 6"/>
+                        <polyline points="8 6 2 12 8 18"/>
+                    </svg>
+                    立即运行
+                </button>
+            </div>
+
+            <!-- 外露的投稿入口 -->
+            <div class="submit-card" id="submitCard">
+                <div class="submit-icon">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                        <polyline points="14 2 14 8 20 8"/>
+                        <line x1="16" y1="13" x2="8" y2="13"/>
+                        <line x1="16" y1="17" x2="8" y2="17"/>
+                        <polyline points="10 9 9 9 8 9"/>
                     </svg>
                 </div>
-                
-                <div class="info-section">
-                    <h1 class="name">Lv Yihang</h1>
-                    <p class="subtitle">Digital Creator & Innovator</p>
-                    
-                    <div class="status-indicator">
-                        <span class="status-dot"></span>
-                        <span class="status-text">Available for collaboration</span>
-                    </div>
-                    
-                    <div class="time-display">
-                        <span class="time-label">Current Time:</span>
-                        <span class="time-value" id="time"></span>
-                    </div>
-                </div>
-                
-                <div class="tech-stats">
-                    <div class="stat-item">
-                        <span class="stat-number">5+</span>
-                        <span class="stat-label">Years Experience</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number">50+</span>
-                        <span class="stat-label">Projects</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number">∞</span>
-                        <span class="stat-label">Ideas</span>
+                <h3>分享你的研究成果</h3>
+                <p>提交大气科学领域的博客文章、论文解读或研究笔记</p>
+                <button class="btn btn-primary btn-block" onclick="showSubmitModal()">
+                    立即投稿
+                </button>
+            </div>
+
+            <!-- 关于 -->
+            <div class="about-card">
+                <div class="about-header">
+                    <svg class="mini-mascot" viewBox="0 0 200 240" width="40" height="48">
+                        <circle cx="100" cy="50" r="38" fill="#e8eaf6" stroke="#3949ab" stroke-width="2"/>
+                        <ellipse cx="100" cy="55" rx="20" ry="22" fill="#1a237e" opacity="0.85"/>
+                        <ellipse cx="90" cy="45" rx="10" ry="6" fill="rgba(255,255,255,0.35)"/>
+                        <rect x="85" y="110" width="30" height="20" rx="2" fill="#e53935"/>
+                        <polygon points="100,116 101.5,120 105.5,120 102.3,122.5 103.5,126.5 100,124 96.5,126.5 97.7,122.5 94.5,120 98.5,120" fill="#ffd54f"/>
+                    </svg>
+                    <div>
+                        <h4>MeteoHub</h4>
+                        <p class="about-subtitle">大气科学学术交流平台</p>
                     </div>
                 </div>
-                
-                <div class="contact-links">
-                    <button class="contact-btn email-btn">Email</button>
-                    <button class="contact-btn github-btn">GitHub</button>
-                    <button class="contact-btn linkedin-btn">LinkedIn</button>
+                <p class="about-desc">
+                    由 <strong>吕亦航</strong> 创建于中国科学院大气物理研究所<br>
+                    融合中国航天精神，服务大气科学社群
+                </p>
+                <div class="about-footer">
+                    <span class="version">v3.0</span>
+                    <span class="copyright">© 2026 IAP</span>
                 </div>
             </div>
         </div>
     </main>
-    
-    <script>
-        // Update time function
-        function updateTime() {
-            const now = new Date();
-            const timeString = now.toLocaleString('zh-CN', {
-                timeZone: 'Asia/Shanghai',
-                year: 'numeric',
-                month: '2-digit',
-                day: '2-digit',
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit'
-            });
-            document.getElementById('time').textContent = timeString;
-        }
+
+    <!-- ==================== Python 代码运行平台 ==================== -->
+    <main class="page-container" id="codePage" style="display: none;">
+        <div class="page-header">
+            <h1>🐍 Python 代码运行平台</h1>
+            <button class="btn btn-secondary" onclick="showPage('home')">返回首页</button>
+        </div>
         
-        // Initialize time and update every second
-        updateTime();
-        setInterval(updateTime, 1000);
-        
-        // Canvas animation for tech background
-        const canvas = document.getElementById('techCanvas');
-        const ctx = canvas.getContext('2d');
-        
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
-        
-        // Particle system
-        const particles = [];
-        const particleCount = 100;
-        
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2 + 0.5;
-                this.speedX = (Math.random() - 0.5) * 0.5;
-                this.speedY = (Math.random() - 0.5) * 0.5;
-                this.opacity = Math.random() * 0.5 + 0.2;
-            }
+        <div class="code-platform">
+            <div class="code-editor-section">
+                <div class="editor-header">
+                    <div class="editor-tabs">
+                        <span class="tab active">main.py</span>
+                    </div>
+                    <div class="editor-actions">
+                        <button class="btn btn-secondary btn-sm" onclick="clearCode()">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M3 6h18"/>
+                                <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/>
+                                <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/>
+                            </svg>
+                            清空
+                        </button>
+                        <button class="btn btn-primary btn-sm" onclick="runCode()">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polygon points="5 3 19 12 5 21 5 3"/>
+                            </svg>
+                            运行代码
+                        </button>
+                    </div>
+                </div>
+                <textarea id="codeEditor" class="code-editor" spellcheck="false" placeholder="# 在这里输入 Python 代码
+# 示例：计算斐波那契数列
+
+def fibonacci(n):
+    if n <= 1:
+        return n
+    return fibonacci(n-1) + fibonacci(n-2)
+
+print('斐波那契数列前10项：')
+for i in range(10):
+    print(f'F({i}) = {fibonacci(i)}')"># 在这里输入 Python 代码
+# 示例：计算斐波那契数列
+
+def fibonacci(n):
+    if n <= 1:
+        return n
+    return fibonacci(n-1) + fibonacci(n-2)
+
+print('斐波那契数列前10项：')
+for i in range(10):
+    print(f'F({i}) = {fibonacci(i)}')</textarea>
+            </div>
             
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-                
-                if (this.x > canvas.width || this.x < 0) this.speedX *= -1;
-                if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
-            }
-            
-            draw() {
-                ctx.fillStyle = `rgba(100, 200, 255, ${this.opacity})`;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        }
+            <div class="code-output-section">
+                <div class="output-header">
+                    <span>输出结果</span>
+                    <span id="executionTime" class="execution-time"></span>
+                </div>
+                <pre id="codeOutput" class="code-output"><span class="output-placeholder">点击"运行代码"查看输出结果...</span></pre>
+            </div>
+        </div>
         
-        // Initialize particles
-        for (let i = 0; i < particleCount; i++) {
-            particles.push(new Particle());
-        }
+        <div class="code-examples">
+            <h3>代码示例</h3>
+            <div class="example-list">
+                <button class="example-btn" onclick="loadExample('hello')">Hello World</button>
+                <button class="example-btn" onclick="loadExample('fib')">斐波那契数列</button>
+                <button class="example-btn" onclick="loadExample('pi')">计算圆周率</button>
+                <button class="example-btn" onclick="loadExample('stats')">统计分析</button>
+                <button class="example-btn" onclick="loadExample('plot')">简单数据可视化</button>
+            </div>
+        </div>
         
-        // Animation loop
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        <div class="code-info">
+            <div class="info-item">
+                <strong>环境信息</strong>
+                <span id="pythonVersion">Python 3.x</span>
+            </div>
+            <div class="info-item">
+                <strong>执行限制</strong>
+                <span>单次运行最多 10 秒</span>
+            </div>
+            <div class="info-item">
+                <strong>注意事项</strong>
+                <span>禁止文件操作、网络请求等危险操作</span>
+            </div>
+        </div>
+    </main>
+
+    <!-- ==================== 超级用户管理页面 ==================== -->
+    <main class="page-container" id="adminPage" style="display: none;">
+        <div class="page-header">
+            <h1>🔐 超级用户管理界面</h1>
+            <button class="btn btn-secondary" onclick="showPage('home')">返回首页</button>
+        </div>
+        
+        <div class="admin-grid">
+            <!-- 系统统计 -->
+            <div class="admin-card">
+                <h3>系统统计</h3>
+                <div class="admin-stats">
+                    <div class="admin-stat">
+                        <span class="admin-stat-value" id="adminTotalUsers">0</span>
+                        <span class="admin-stat-label">总用户数</span>
+                    </div>
+                    <div class="admin-stat">
+                        <span class="admin-stat-value" id="adminTotalArticles">0</span>
+                        <span class="admin-stat-label">总文章数</span>
+                    </div>
+                    <div class="admin-stat">
+                        <span class="admin-stat-value" id="adminCodeRuns">0</span>
+                        <span class="admin-stat-label">代码运行次数</span>
+                    </div>
+                    <div class="admin-stat">
+                        <span class="admin-stat-value" id="adminActiveUsers">0</span>
+                        <span class="admin-stat-label">当前在线</span>
+                    </div>
+                </div>
+                <div class="admin-info" id="adminSystemInfo">
+                    <p>Python 版本: <span id="adminPythonVer">-</span></p>
+                    <p>系统平台: <span id="adminPlatform">-</span></p>
+                </div>
+            </div>
             
-            // Draw connections between close particles
-            for (let i = 0; i < particles.length; i++) {
-                for (let j = i; j < particles.length; j++) {
-                    const dx = particles[i].x - particles[j].x;
-                    const dy = particles[i].y - particles[j].y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
+            <!-- 用户列表 -->
+            <div class="admin-card">
+                <div class="admin-card-header">
+                    <h3>用户列表</h3>
+                    <button class="btn btn-text btn-sm" onclick="refreshUserList()">刷新</button>
+                </div>
+                <div class="admin-user-list" id="adminUserList">
+                    <p class="empty-text">加载中...</p>
+                </div>
+            </div>
+            
+            <!-- 代码运行历史 -->
+            <div class="admin-card admin-card-wide">
+                <div class="admin-card-header">
+                    <h3>代码运行历史</h3>
+                    <button class="btn btn-text btn-sm" onclick="clearCodeHistory()">清空历史</button>
+                </div>
+                <div class="admin-code-list" id="adminCodeList">
+                    <p class="empty-text">加载中...</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- ==================== 个人资料页面 ==================== -->
+    <main class="page-container" id="profilePage" style="display: none;">
+        <div class="page-header">
+            <h1>个人资料</h1>
+            <button class="btn btn-secondary" onclick="showPage('home')">返回首页</button>
+        </div>
+        
+        <div class="profile-layout">
+            <!-- 左侧：头像和基本信息 -->
+            <div class="profile-sidebar">
+                <div class="profile-avatar-section">
+                    <div class="profile-avatar-large" id="profileAvatar">U</div>
+                    <button class="btn btn-text btn-sm" onclick="showToast('头像上传功能开发中', 'info')">
+                        更换头像
+                    </button>
+                </div>
+                <div class="profile-stats">
+                    <div class="profile-stat">
+                        <span class="profile-stat-value" id="profileArticleCount">0</span>
+                        <span class="profile-stat-label">文章</span>
+                    </div>
+                    <div class="profile-stat">
+                        <span class="profile-stat-value" id="profileFriendCount">0</span>
+                        <span class="profile-stat-label">好友</span>
+                    </div>
+                    <div class="profile-stat">
+                        <span class="profile-stat-value" id="profileCodeRuns">0</span>
+                        <span class="profile-stat-label">代码运行</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 右侧：详细信息表单 -->
+            <div class="profile-main">
+                <form class="profile-form" onsubmit="saveProfile(event)">
+                    <div class="form-section">
+                        <h3>基本信息</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>真实姓名 <span class="required">*</span></label>
+                                <input type="text" id="profileRealName" required placeholder="请输入真实姓名">
+                            </div>
+                            <div class="form-group">
+                                <label>性别</label>
+                                <select id="profileGender">
+                                    <option value="">请选择</option>
+                                    <option value="male">男</option>
+                                    <option value="female">女</option>
+                                    <option value="other">其他</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>用户名 <span class="required">*</span></label>
+                                <input type="text" id="profileUsername" required disabled>
+                            </div>
+                            <div class="form-group">
+                                <label>邮箱 <span class="required">*</span></label>
+                                <input type="email" id="profileEmail" required placeholder="your@email.com">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>学术信息</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>所属机构 <span class="required">*</span></label>
+                                <input type="text" id="profileInstitution" required placeholder="如：中国科学院大气物理研究所">
+                            </div>
+                            <div class="form-group">
+                                <label>职称/身份</label>
+                                <select id="profileTitle">
+                                    <option value="">请选择</option>
+                                    <option value="undergrad">本科生</option>
+                                    <option value="master">硕士研究生</option>
+                                    <option value="phd">博士研究生</option>
+                                    <option value="postdoc">博士后</option>
+                                    <option value="assistant">助理研究员</option>
+                                    <option value="associate">副研究员</option>
+                                    <option value="professor">研究员/教授</option>
+                                    <option value="other">其他</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>研究方向 <span class="required">*</span></label>
+                            <input type="text" id="profileResearch" required placeholder="如：气候动力学、大气化学、数值模拟等">
+                        </div>
+                        <div class="form-group">
+                            <label>个人简介</label>
+                            <textarea id="profileBio" rows="4" placeholder="简要介绍你的研究兴趣和学术背景..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>联系方式</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>个人主页</label>
+                                <input type="url" id="profileWebsite" placeholder="https://your-website.com">
+                            </div>
+                            <div class="form-group">
+                                <label>ORCID</label>
+                                <input type="text" id="profileOrcid" placeholder="0000-0000-0000-0000">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-text" onclick="showPage('home')">取消</button>
+                        <button type="submit" class="btn btn-primary">保存修改</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- ==================== 工作台页面 ==================== -->
+    <main class="page-container" id="dashboardPage" style="display: none;">
+        <div class="page-header">
+            <h1>个人工作台</h1>
+            <button class="btn btn-secondary" onclick="showPage('home')">返回首页</button>
+        </div>
+
+        <div class="dashboard-grid">
+            <!-- 快捷操作 -->
+            <div class="dashboard-card quick-actions">
+                <h3>快捷操作</h3>
+                <div class="action-grid">
+                    <button class="action-btn" onclick="showPage('submit')">
+                        <div class="action-icon">📝</div>
+                        <span>写新文章</span>
+                    </button>
+                    <button class="action-btn" onclick="showPage('profile')">
+                        <div class="action-icon">👤</div>
+                        <span>编辑资料</span>
+                    </button>
+                    <button class="action-btn" onclick="showPage('code')">
+                        <div class="action-icon">🐍</div>
+                        <span>运行代码</span>
+                    </button>
+                    <button class="action-btn" onclick="showToast('功能开发中', 'info')">
+                        <div class="action-icon">⚙️</div>
+                        <span>账号设置</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- 我的文章 -->
+            <div class="dashboard-card my-articles">
+                <div class="card-header">
+                    <h3>我的文章</h3>
+                    <button class="btn btn-primary btn-sm" onclick="showPage('submit')">+ 新建</button>
+                </div>
+                <div class="article-list" id="myArticleList">
+                    <p class="empty-text">还没有文章，点击右上角投稿开始创作</p>
+                </div>
+            </div>
+
+            <!-- 我的好友 -->
+            <div class="dashboard-card my-friends">
+                <div class="card-header">
+                    <h3>我的好友</h3>
+                    <span class="count" id="dashboardFriendCount">0</span>
+                </div>
+                <div class="friend-list" id="dashboardFriendList">
+                    <p class="empty-text">还没有好友，去搜索添加吧</p>
+                </div>
+            </div>
+
+            <!-- 最近动态 -->
+            <div class="dashboard-card recent-activity">
+                <h3>最近动态</h3>
+                <div class="activity-list" id="activityList">
+                    <p class="empty-text">暂无动态</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- ==================== 投稿页面 ==================== -->
+    <main class="page-container" id="submitPage" style="display: none;">
+        <div class="page-header">
+            <h1>投稿</h1>
+            <button class="btn btn-secondary" onclick="showPage('home')">返回首页</button>
+        </div>
+
+        <div class="submit-layout">
+            <div class="submit-form-container">
+                <form class="article-submit-form" onsubmit="submitArticle(event)">
+                    <div class="form-group">
+                        <label>文章标题 <span class="required">*</span></label>
+                        <input type="text" id="articleTitle" required placeholder="请输入文章标题">
+                    </div>
                     
-                    if (distance < 100) {
-                        ctx.strokeStyle = `rgba(100, 200, 255, ${0.2 * (1 - distance/100)})`;
-                        ctx.lineWidth = 0.5;
-                        ctx.beginPath();
-                        ctx.moveTo(particles[i].x, particles[i].y);
-                        ctx.lineTo(particles[j].x, particles[j].y);
-                        ctx.stroke();
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>文章类型</label>
+                            <select id="articleType">
+                                <option value="blog">博客文章</option>
+                                <option value="review">论文解读</option>
+                                <option value="note">研究笔记</option>
+                                <option value="tutorial">教程</option>
+                                <option value="news">学术资讯</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>研究领域</label>
+                            <select id="articleField">
+                                <option value="climate">气候学</option>
+                                <option value="atmosphere">大气物理学</option>
+                                <option value="chemistry">大气化学</option>
+                                <option value="ocean">海洋科学</option>
+                                <option value="remote">遥感技术</option>
+                                <option value="model">数值模拟</option>
+                                <option value="weather">天气预报</option>
+                                <option value="other">其他</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>文章摘要 <span class="required">*</span></label>
+                        <textarea id="articleAbstract" rows="3" required placeholder="简要概括文章内容..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>正文内容 <span class="required">*</span></label>
+                        <textarea id="articleContent" rows="15" required placeholder="在这里撰写你的文章...
+
+支持 Markdown 语法：
+# 标题
+**粗体** *斜体*
+- 列表项
+[链接](url)"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>标签（用逗号分隔）</label>
+                        <input type="text" id="articleTags" placeholder="气候变暖, 模式模拟, IPCC">
+                    </div>
+
+                    <div class="form-group">
+                        <label>原文链接（可选）</label>
+                        <input type="url" id="articleUrl" placeholder="https://...">
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-text" onclick="saveDraft()">保存草稿</button>
+                        <button type="submit" class="btn btn-primary">提交审核</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- 投稿指南 -->
+            <div class="submit-guide">
+                <h3>投稿指南</h3>
+                <div class="guide-content">
+                    <div class="guide-item">
+                        <span class="guide-num">1</span>
+                        <div>
+                            <h4>原创性</h4>
+                            <p>请确保文章内容原创或已获得授权</p>
+                        </div>
+                    </div>
+                    <div class="guide-item">
+                        <span class="guide-num">2</span>
+                        <div>
+                            <h4>学术规范</h4>
+                            <p>引用他人成果请注明出处</p>
+                        </div>
+                    </div>
+                    <div class="guide-item">
+                        <span class="guide-num">3</span>
+                        <div>
+                            <h4>内容相关</h4>
+                            <p>文章应与大气科学领域相关</p>
+                        </div>
+                    </div>
+                    <div class="guide-item">
+                        <span class="guide-num">4</span>
+                        <div>
+                            <h4>审核流程</h4>
+                            <p>投稿后将在24小时内完成审核</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- ==================== 登录弹窗 ==================== -->
+    <div class="modal" id="loginModal">
+        <div class="modal-overlay" onclick="closeModal('loginModal')"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>欢迎回来</h2>
+                <button class="close-btn" onclick="closeModal('loginModal')">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"/>
+                        <line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                </button>
+            </div>
+            <form class="auth-form" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label>用户名或邮箱</label>
+                    <input type="text" id="loginUsername" required placeholder="请输入用户名">
+                </div>
+                <div class="form-group">
+                    <label>密码</label>
+                    <input type="password" id="loginPassword" required placeholder="请输入密码">
+                </div>
+                <div class="form-options">
+                    <label class="checkbox">
+                        <input type="checkbox" id="rememberMe">
+                        <span>记住我</span>
+                    </label>
+                    <a href="#" class="forgot-link">忘记密码？</a>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">登录</button>
+            </form>
+            <div class="modal-footer">
+                <p>还没有账号？<a href="#" onclick="switchModal('loginModal', 'registerModal'); return false;">立即注册</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== 注册弹窗 ==================== -->
+    <div class="modal" id="registerModal">
+        <div class="modal-overlay" onclick="closeModal('registerModal')"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>加入 MeteoHub</h2>
+                <button class="close-btn" onclick="closeModal('registerModal')">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"/>
+                        <line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                </button>
+            </div>
+            <form class="auth-form" onsubmit="handleRegister(event)">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>用户名 <span class="required">*</span></label>
+                        <input type="text" id="regUsername" required placeholder="设置用户名">
+                    </div>
+                    <div class="form-group">
+                        <label>真实姓名 <span class="required">*</span></label>
+                        <input type="text" id="regRealName" required placeholder="真实姓名">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>性别</label>
+                        <select id="regGender">
+                            <option value="">请选择</option>
+                            <option value="male">男</option>
+                            <option value="female">女</option>
+                            <option value="other">其他</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>邮箱 <span class="required">*</span></label>
+                        <input type="email" id="regEmail" required placeholder="your@email.com">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>所属机构 <span class="required">*</span></label>
+                    <input type="text" id="regInstitution" required placeholder="如：中科院大气所、北京大学等">
+                </div>
+                <div class="form-group">
+                    <label>研究方向 <span class="required">*</span></label>
+                    <input type="text" id="regResearch" required placeholder="如：气候动力学、大气化学等">
+                </div>
+                <div class="form-group">
+                    <label>密码 <span class="required">*</span></label>
+                    <input type="password" id="regPassword" required placeholder="至少6位字符" minlength="6">
+                </div>
+                <div class="form-group">
+                    <label>确认密码 <span class="required">*</span></label>
+                    <input type="password" id="regConfirmPassword" required placeholder="再次输入密码">
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">创建账号</button>
+            </form>
+            <div class="modal-footer">
+                <p>已有账号？<a href="#" onclick="switchModal('registerModal', 'loginModal'); return false;">立即登录</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== 投稿弹窗（未登录时） ==================== -->
+    <div class="modal" id="submitPromptModal">
+        <div class="modal-overlay" onclick="closeModal('submitPromptModal')"></div>
+        <div class="modal-content modal-small">
+            <div class="submit-prompt">
+                <div class="prompt-icon">📝</div>
+                <h3>投稿需要先登录</h3>
+                <p>登录后即可提交你的研究成果</p>
+                <div class="prompt-actions">
+                    <button class="btn btn-primary" onclick="closeModal('submitPromptModal'); showModal('loginModal')">立即登录</button>
+                    <button class="btn btn-text" onclick="closeModal('submitPromptModal')">稍后再说</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== 超级用户入口弹窗 ==================== -->
+    <div class="modal" id="adminPromptModal">
+        <div class="modal-overlay" onclick="closeModal('adminPromptModal')"></div>
+        <div class="modal-content modal-small">
+            <div class="admin-prompt">
+                <div class="prompt-icon">🔐</div>
+                <h3>你想进入超级用户管理界面吗？</h3>
+                <p>此功能仅限管理员使用</p>
+                <div class="prompt-actions">
+                    <button class="btn btn-primary" onclick="handleAdminYes()">是</button>
+                    <button class="btn btn-text" onclick="closeModal('adminPromptModal')">不是</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== 超级用户密码输入弹窗 ==================== -->
+    <div class="modal" id="adminPasswordModal">
+        <div class="modal-overlay" onclick="closeModal('adminPasswordModal')"></div>
+        <div class="modal-content modal-small">
+            <div class="admin-prompt">
+                <div class="prompt-icon">🔑</div>
+                <h3>请输入管理员密码</h3>
+                <div class="password-input-group">
+                    <input type="password" id="adminPasswordInput" placeholder="请输入密码" autofocus>
+                </div>
+                <div class="prompt-actions">
+                    <button class="btn btn-primary" onclick="checkAdminPassword()">确认</button>
+                    <button class="btn btn-text" onclick="closeModal('adminPasswordModal')">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast 提示 -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script>
+
+        // ==================== 数据存储 ====================
+        const Storage = {
+            getUsers() {
+                return JSON.parse(localStorage.getItem('meteohub_users') || '[]');
+            },
+            saveUsers(users) {
+                localStorage.setItem('meteohub_users', JSON.stringify(users));
+            },
+            getCurrentUser() {
+                return JSON.parse(localStorage.getItem('meteohub_current_user') || 'null');
+            },
+            setCurrentUser(user) {
+                localStorage.setItem('meteohub_current_user', JSON.stringify(user));
+            },
+            getFriends(userId) {
+                return JSON.parse(localStorage.getItem(`meteohub_friends_${userId}`) || '[]');
+            },
+            saveFriends(userId, friends) {
+                localStorage.setItem(`meteohub_friends_${userId}`, JSON.stringify(friends));
+            },
+            getArticles() {
+                return JSON.parse(localStorage.getItem('meteohub_articles') || '[]');
+            },
+            saveArticles(articles) {
+                localStorage.setItem('meteohub_articles', JSON.stringify(articles));
+            },
+            getDrafts(userId) {
+                return JSON.parse(localStorage.getItem(`meteohub_drafts_${userId}`) || '[]');
+            },
+            saveDrafts(userId, drafts) {
+                localStorage.setItem(`meteohub_drafts_${userId}`, JSON.stringify(drafts));
+            },
+            getCodeRuns() {
+                return parseInt(localStorage.getItem('meteohub_code_runs') || '0');
+            },
+            incrementCodeRuns() {
+                const count = this.getCodeRuns() + 1;
+                localStorage.setItem('meteohub_code_runs', count.toString());
+                return count;
+            }
+        };
+
+        // ==================== 超级用户管理界面（五连击） ====================
+        let logoClickCount = 0;
+        let logoClickTimer = null;
+        const ADMIN_PASSWORD = 'Lyh200411';
+
+        function handleLogoClick() {
+            logoClickCount++;
+            
+            if (logoClickTimer) {
+                clearTimeout(logoClickTimer);
+            }
+            
+            logoClickTimer = setTimeout(() => {
+                logoClickCount = 0;
+            }, 2000);
+            
+            if (logoClickCount >= 5) {
+                logoClickCount = 0;
+                clearTimeout(logoClickTimer);
+                showModal('adminPromptModal');
+            }
+            
+            // 正常点击行为
+            showPage('home');
+            return false;
+        }
+
+        function handleAdminYes() {
+            closeModal('adminPromptModal');
+            setTimeout(() => {
+                showModal('adminPasswordModal');
+                document.getElementById('adminPasswordInput').value = '';
+                document.getElementById('adminPasswordInput').focus();
+            }, 200);
+        }
+
+        function checkAdminPassword() {
+            const input = document.getElementById('adminPasswordInput').value;
+            if (input === ADMIN_PASSWORD) {
+                closeModal('adminPasswordModal');
+                showToast('验证成功，进入超级用户管理界面', 'success');
+                showPage('admin');
+                loadAdminData();
+            } else {
+                showToast('密码错误', 'error');
+                document.getElementById('adminPasswordInput').value = '';
+            }
+        }
+
+        // 密码输入框回车确认
+        document.addEventListener('DOMContentLoaded', function() {
+            const passwordInput = document.getElementById('adminPasswordInput');
+            if (passwordInput) {
+                passwordInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        checkAdminPassword();
                     }
+                });
+            }
+        });
+
+        // ==================== 加载超级用户数据 ====================
+        async function loadAdminData() {
+            // 基本统计
+            const users = Storage.getUsers();
+            const articles = Storage.getArticles();
+            
+            document.getElementById('adminTotalUsers').textContent = users.length;
+            document.getElementById('adminTotalArticles').textContent = articles.length;
+            document.getElementById('adminCodeRuns').textContent = Storage.getCodeRuns();
+            
+            // 尝试从后端获取更多信息
+            try {
+                const response = await fetch('/api/admin/stats', {
+                    headers: { 'Authorization': 'Bearer ' + ADMIN_PASSWORD }
+                });
+                if (response.ok) {
+                    const data = await response.json();
+                    document.getElementById('adminPythonVer').textContent = data.python_version.split()[0];
+                    document.getElementById('adminPlatform').textContent = data.platform;
+                }
+            } catch (e) {
+                document.getElementById('adminPythonVer').textContent = '3.x';
+                document.getElementById('adminPlatform').textContent = 'Linux';
+            }
+            
+            // 加载用户列表
+            renderAdminUserList();
+            
+            // 加载代码历史
+            loadAdminCodeHistory();
+            
+            // 更新在线人数
+            updateAdminActiveUsers();
+        }
+
+        function renderAdminUserList() {
+            const users = Storage.getUsers();
+            const container = document.getElementById('adminUserList');
+            
+            if (users.length === 0) {
+                container.innerHTML = '<p class="empty-text">暂无用户</p>';
+                return;
+            }
+            
+            container.innerHTML = users.map(user => `
+                <div class="admin-user-item">
+                    <div class="user-avatar-small">${user.avatar}</div>
+                    <div class="admin-user-info">
+                        <span class="admin-user-name">${user.realName || user.username}</span>
+                        <span class="admin-user-detail">${user.institution} · ${user.email}</span>
+                    </div>
+                    <span class="admin-user-time">${formatDate(user.createdAt)}</span>
+                </div>
+            `).join('');
+        }
+
+        async function loadAdminCodeHistory() {
+            const container = document.getElementById('adminCodeList');
+            
+            try {
+                const response = await fetch('/api/code-history', {
+                    headers: { 'Authorization': 'Bearer ' + ADMIN_PASSWORD }
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    
+                    if (data.history.length === 0) {
+                        container.innerHTML = '<p class="empty-text">暂无代码运行记录</p>';
+                        return;
+                    }
+                    
+                    container.innerHTML = data.history.map(item => `
+                        <div class="admin-code-item">
+                            <div class="admin-code-header">
+                                <span class="admin-code-time">${formatDateTime(item.timestamp)}</span>
+                                <span class="admin-code-exec-time">${item.execution_time.toFixed(3)}s</span>
+                            </div>
+                            <pre class="admin-code-preview">${escapeHtml(item.code)}</pre>
+                            ${item.error ? `<div class="admin-code-error">错误: ${escapeHtml(item.error)}</div>` : ''}
+                        </div>
+                    `).join('');
+                } else {
+                    container.innerHTML = '<p class="empty-text">无法加载历史记录</p>';
+                }
+            } catch (e) {
+                container.innerHTML = '<p class="empty-text">后端未连接</p>';
+            }
+        }
+
+        async function clearCodeHistory() {
+            if (!confirm('确定要清空所有代码运行历史吗？')) return;
+            
+            try {
+                const response = await fetch('/api/admin/clear-history', {
+                    method: 'POST',
+                    headers: { 'Authorization': 'Bearer ' + ADMIN_PASSWORD }
+                });
+                
+                if (response.ok) {
+                    showToast('历史记录已清空', 'success');
+                    loadAdminCodeHistory();
+                }
+            } catch (e) {
+                showToast('操作失败', 'error');
+            }
+        }
+
+        async function updateAdminActiveUsers() {
+            try {
+                const response = await fetch('/api/active-count');
+                if (response.ok) {
+                    const data = await response.json();
+                    document.getElementById('adminActiveUsers').textContent = data.active_count;
+                }
+            } catch (e) {
+                document.getElementById('adminActiveUsers').textContent = '0';
+            }
+        }
+
+        function refreshUserList() {
+            renderAdminUserList();
+            showToast('用户列表已刷新', 'success');
+        }
+
+        // ==================== Python 代码运行平台 ====================
+        const CODE_EXAMPLES = {
+            hello: `# Hello World
+print("Hello, MeteoHub!")
+print("欢迎来到 Python 代码运行平台")
+name = "科学家"
+print(f"你好, {name}!")`,
+
+            fib: `# 斐波那契数列
+def fibonacci(n):
+    if n <= 1:
+        return n
+    return fibonacci(n-1) + fibonacci(n-2)
+
+print("斐波那契数列前15项：")
+for i in range(15):
+    print(f"F({i:2d}) = {fibonacci(i)}")`,
+
+            pi: `# 使用蒙特卡洛方法估算圆周率
+import random
+
+def estimate_pi(n):
+    count = 0
+    for _ in range(n):
+        x, y = random.random(), random.random()
+        if x*x + y*y <= 1:
+            count += 1
+    return 4 * count / n
+
+samples = [1000, 10000, 100000]
+for n in samples:
+    pi = estimate_pi(n)
+    print(f"样本数: {n:6d} -> π ≈ {pi:.6f}")`,
+
+            stats: `# 基础统计分析
+data = [23, 45, 67, 89, 12, 34, 56, 78, 90, 11]
+
+mean = sum(data) / len(data)
+variance = sum((x - mean) ** 2 for x in data) / len(data)
+std = variance ** 0.5
+
+print(f"数据: {data}")
+print(f"样本数: {len(data)}")
+print(f"平均值: {mean:.2f}")
+print(f"方差: {variance:.2f}")
+print(f"标准差: {std:.2f}")
+print(f"最小值: {min(data)}")
+print(f"最大值: {max(data)}")`,
+
+            plot: `# 简单 ASCII 图表 - 温度变化
+import math
+
+def plot_sine():
+    width = 50
+    height = 15
+    
+    print("24小时温度变化曲线（正弦模拟）")
+    print("-" * 60)
+    
+    for i in range(height, -1, -1):
+        temp = 20 + i * 2
+        line = f"{temp:2d}°C |"
+        
+        for hour in range(24):
+            # 模拟温度变化
+            val = 15 + 10 * math.sin((hour - 6) * math.pi / 12)
+            if abs(val - temp) < 1:
+                line += "*"
+            else:
+                line += " "
+        
+        print(line)
+    
+    print("-" * 60)
+    print("     0 2 4 6 8 10 12 14 16 18 20 22")
+    print("         小时")
+
+plot_sine()`
+        };
+
+        function loadExample(name) {
+            const example = CODE_EXAMPLES[name];
+            if (example) {
+                document.getElementById('codeEditor').value = example;
+                showToast('示例代码已加载', 'success');
+            }
+        }
+
+        function clearCode() {
+            document.getElementById('codeEditor').value = '';
+            document.getElementById('codeOutput').innerHTML = '<span class="output-placeholder">点击"运行代码"查看输出结果...</span>';
+            document.getElementById('executionTime').textContent = '';
+        }
+
+        async function runCode() {
+            const code = document.getElementById('codeEditor').value;
+            if (!code.trim()) {
+                showToast('请输入代码', 'error');
+                return;
+            }
+
+            const outputEl = document.getElementById('codeOutput');
+            const timeEl = document.getElementById('executionTime');
+            
+            outputEl.innerHTML = '<div class="spinner-inline"></div> 正在运行...';
+            
+            try {
+                const response = await fetch('/api/run-code', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ code })
+                });
+                
+                const data = await response.json();
+                
+                // 记录运行次数
+                Storage.incrementCodeRuns();
+                
+                // 显示执行时间
+                timeEl.textContent = `执行时间: ${data.execution_time.toFixed(3)}s`;
+                
+                // 显示输出
+                if (data.error) {
+                    outputEl.innerHTML = `<span class="output-error">${escapeHtml(data.error)}</span>`;
+                } else if (data.output) {
+                    outputEl.textContent = data.output;
+                } else {
+                    outputEl.innerHTML = '<span class="output-placeholder">（无输出）</span>';
                 }
                 
-                particles[i].update();
-                particles[i].draw();
+                // 发送活跃状态
+                trackActivity();
+                
+            } catch (e) {
+                outputEl.innerHTML = `<span class="output-error">连接错误: 请确保服务已启动</span>`;
+                timeEl.textContent = '';
+            }
+        }
+
+        // ==================== 活跃统计 ====================
+        function trackActivity() {
+            const currentUser = Storage.getCurrentUser();
+            const userId = currentUser ? currentUser.id : (sessionStorage.getItem('meteohub_session') || 
+                'guest_' + Math.random().toString(36).substr(2, 9));
+            
+            if (!currentUser) {
+                sessionStorage.setItem('meteohub_session', userId);
             }
             
-            requestAnimationFrame(animate);
+            // 发送到后端
+            fetch('/api/track-active', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ user_id: userId })
+            }).catch(() => {});
+            
+            // 本地存储活跃状态
+            const today = new Date().toDateString();
+            const activityKey = `meteohub_activity_${today}`;
+            let activity = JSON.parse(localStorage.getItem(activityKey) || '{}');
+            activity[userId] = Date.now();
+            localStorage.setItem(activityKey, JSON.stringify(activity));
         }
-        
-        animate();
-        
-        // Add subtle hover effects to contact buttons
-        const contactBtns = document.querySelectorAll('.contact-btn');
-        contactBtns.forEach(btn => {
-            btn.addEventListener('mouseenter', () => {
-                btn.style.transform = 'translateY(-2px)';
-                btn.style.boxShadow = '0 10px 20px rgba(0, 0, 0, 0.2)';
+
+        function updateActiveCount() {
+            const today = new Date().toDateString();
+            const activityKey = `meteohub_activity_${today}`;
+            const activity = JSON.parse(localStorage.getItem(activityKey) || '{}');
+            const now = Date.now();
+            const thirtySeconds = 30 * 1000;
+            
+            let activeCount = 0;
+            Object.entries(activity).forEach(([userId, lastActive]) => {
+                if (now - lastActive < thirtySeconds * 2) {
+                    activeCount++;
+                }
             });
             
-            btn.addEventListener('mouseleave', () => {
-                btn.style.transform = 'translateY(0)';
-                btn.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.1)';
+            document.getElementById('activeUsers').textContent = activeCount;
+        }
+
+        setInterval(updateActiveCount, 10000);
+        document.addEventListener('visibilitychange', () => {
+            if (!document.hidden) trackActivity();
+        });
+
+        // ==================== 更新统计 ====================
+        function updateStats() {
+            const users = Storage.getUsers();
+            document.getElementById('totalUsers').textContent = users.length;
+            
+            const articles = Storage.getArticles();
+            document.getElementById('totalArticles').textContent = articles.length;
+            
+            const today = new Date().toDateString();
+            const todayArticles = articles.filter(a => 
+                new Date(a.createdAt).toDateString() === today
+            ).length;
+            document.getElementById('todaySubmissions').textContent = todayArticles;
+            
+            updateActiveCount();
+        }
+
+        // ==================== 页面切换 ====================
+        function showPage(page) {
+            document.getElementById('homePage').style.display = 'none';
+            document.getElementById('profilePage').style.display = 'none';
+            document.getElementById('dashboardPage').style.display = 'none';
+            document.getElementById('submitPage').style.display = 'none';
+            document.getElementById('codePage').style.display = 'none';
+            document.getElementById('adminPage').style.display = 'none';
+            
+            document.getElementById('userDropdown').classList.remove('active');
+            
+            const currentUser = Storage.getCurrentUser();
+            
+            switch(page) {
+                case 'home':
+                    document.getElementById('homePage').style.display = 'grid';
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    break;
+                case 'profile':
+                    if (!currentUser) {
+                        showModal('loginModal');
+                        return;
+                    }
+                    document.getElementById('profilePage').style.display = 'block';
+                    loadProfileData();
+                    break;
+                case 'dashboard':
+                    if (!currentUser) {
+                        showModal('loginModal');
+                        return;
+                    }
+                    document.getElementById('dashboardPage').style.display = 'block';
+                    loadDashboardData();
+                    break;
+                case 'submit':
+                    if (!currentUser) {
+                        showModal('submitPromptModal');
+                        return;
+                    }
+                    document.getElementById('submitPage').style.display = 'block';
+                    break;
+                case 'code':
+                    document.getElementById('codePage').style.display = 'block';
+                    break;
+                case 'admin':
+                    document.getElementById('adminPage').style.display = 'block';
+                    break;
+            }
+        }
+
+        function showSubmitModal() {
+            const currentUser = Storage.getCurrentUser();
+            if (!currentUser) {
+                showModal('submitPromptModal');
+                return;
+            }
+            showPage('submit');
+        }
+
+        // ==================== 用户认证 ====================
+        function showModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        function switchModal(from, to) {
+            closeModal(from);
+            setTimeout(() => showModal(to), 200);
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const username = document.getElementById('loginUsername').value.trim();
+            const password = document.getElementById('loginPassword').value;
+
+            const users = Storage.getUsers();
+            const user = users.find(u => 
+                (u.username === username || u.email === username) && u.password === password
+            );
+
+            if (user) {
+                Storage.setCurrentUser(user);
+                updateUIForLoggedInUser(user);
+                closeModal('loginModal');
+                showToast('登录成功！欢迎回来，' + (user.realName || user.username), 'success');
+                document.getElementById('loginUsername').value = '';
+                document.getElementById('loginPassword').value = '';
+            } else {
+                showToast('用户名或密码错误', 'error');
+            }
+        }
+
+        function handleRegister(e) {
+            e.preventDefault();
+            const username = document.getElementById('regUsername').value.trim();
+            const realName = document.getElementById('regRealName').value.trim();
+            const gender = document.getElementById('regGender').value;
+            const email = document.getElementById('regEmail').value.trim();
+            const institution = document.getElementById('regInstitution').value.trim();
+            const research = document.getElementById('regResearch').value.trim();
+            const password = document.getElementById('regPassword').value;
+            const confirmPassword = document.getElementById('regConfirmPassword').value;
+
+            if (password !== confirmPassword) {
+                showToast('两次输入的密码不一致', 'error');
+                return;
+            }
+
+            const users = Storage.getUsers();
+            if (users.some(u => u.username === username)) {
+                showToast('用户名已被使用', 'error');
+                return;
+            }
+            if (users.some(u => u.email === email)) {
+                showToast('邮箱已被注册', 'error');
+                return;
+            }
+
+            const newUser = {
+                id: 'user_' + Date.now(),
+                username,
+                realName: realName || username,
+                gender,
+                email,
+                institution,
+                research,
+                title: '',
+                bio: '',
+                website: '',
+                orcid: '',
+                password,
+                avatar: (realName || username).substring(0, 2).toUpperCase(),
+                createdAt: Date.now()
+            };
+
+            users.push(newUser);
+            Storage.saveUsers(users);
+            Storage.setCurrentUser(newUser);
+            
+            updateUIForLoggedInUser(newUser);
+            closeModal('registerModal');
+            showToast('注册成功！欢迎加入 MeteoHub', 'success');
+            updateStats();
+            
+            document.querySelectorAll('#registerModal input').forEach(input => input.value = '');
+        }
+
+        function logout() {
+            Storage.setCurrentUser(null);
+            document.getElementById('authButtons').style.display = 'flex';
+            document.getElementById('userMenu').style.display = 'none';
+            document.getElementById('submitBtnNav').style.display = 'none';
+            document.getElementById('userDropdown').classList.remove('active');
+            showToast('已退出登录', 'info');
+            showPage('home');
+        }
+
+        function updateUIForLoggedInUser(user) {
+            document.getElementById('authButtons').style.display = 'none';
+            document.getElementById('userMenu').style.display = 'block';
+            document.getElementById('submitBtnNav').style.display = 'flex';
+            document.getElementById('userAvatarText').textContent = user.avatar;
+            document.getElementById('dropdownUsername').textContent = user.realName || user.username;
+            document.getElementById('dropdownInstitution').textContent = user.institution;
+        }
+
+        function toggleUserDropdown() {
+            document.getElementById('userDropdown').classList.toggle('active');
+        }
+
+        // ==================== 个人资料 ====================
+        function loadProfileData() {
+            const user = Storage.getCurrentUser();
+            if (!user) return;
+
+            document.getElementById('profileAvatar').textContent = user.avatar;
+            document.getElementById('profileRealName').value = user.realName || '';
+            document.getElementById('profileGender').value = user.gender || '';
+            document.getElementById('profileUsername').value = user.username;
+            document.getElementById('profileEmail').value = user.email;
+            document.getElementById('profileInstitution').value = user.institution || '';
+            document.getElementById('profileTitle').value = user.title || '';
+            document.getElementById('profileResearch').value = user.research || '';
+            document.getElementById('profileBio').value = user.bio || '';
+            document.getElementById('profileWebsite').value = user.website || '';
+            document.getElementById('profileOrcid').value = user.orcid || '';
+
+            const articles = Storage.getArticles().filter(a => a.authorId === user.id);
+            document.getElementById('profileArticleCount').textContent = articles.length;
+            
+            const friends = Storage.getFriends(user.id);
+            document.getElementById('profileFriendCount').textContent = friends.length;
+            
+            document.getElementById('profileCodeRuns').textContent = Storage.getCodeRuns();
+        }
+
+        function saveProfile(e) {
+            e.preventDefault();
+            const user = Storage.getCurrentUser();
+            if (!user) return;
+
+            const updatedUser = {
+                ...user,
+                realName: document.getElementById('profileRealName').value.trim(),
+                gender: document.getElementById('profileGender').value,
+                email: document.getElementById('profileEmail').value.trim(),
+                institution: document.getElementById('profileInstitution').value.trim(),
+                title: document.getElementById('profileTitle').value,
+                research: document.getElementById('profileResearch').value.trim(),
+                bio: document.getElementById('profileBio').value.trim(),
+                website: document.getElementById('profileWebsite').value.trim(),
+                orcid: document.getElementById('profileOrcid').value.trim()
+            };
+
+            const users = Storage.getUsers();
+            const index = users.findIndex(u => u.id === user.id);
+            if (index !== -1) {
+                users[index] = updatedUser;
+                Storage.saveUsers(users);
+                Storage.setCurrentUser(updatedUser);
+                updateUIForLoggedInUser(updatedUser);
+                showToast('个人资料已保存', 'success');
+            }
+        }
+
+        // ==================== 工作台 ====================
+        function loadDashboardData() {
+            const user = Storage.getCurrentUser();
+            if (!user) return;
+
+            const articles = Storage.getArticles().filter(a => a.authorId === user.id);
+            const articleList = document.getElementById('myArticleList');
+            if (articles.length === 0) {
+                articleList.innerHTML = '<p class="empty-text">还没有文章，点击右上角投稿开始创作</p>';
+            } else {
+                articleList.innerHTML = articles.slice(0, 5).map(article => `
+                    <div class="article-list-item">
+                        <h4>${article.title}</h4>
+                        <span class="article-status ${article.status}">${getStatusText(article.status)}</span>
+                    </div>
+                `).join('');
+            }
+
+            const friends = Storage.getFriends(user.id);
+            document.getElementById('dashboardFriendCount').textContent = friends.length;
+            const friendList = document.getElementById('dashboardFriendList');
+            if (friends.length === 0) {
+                friendList.innerHTML = '<p class="empty-text">还没有好友，去搜索添加吧</p>';
+            } else {
+                const users = Storage.getUsers();
+                friendList.innerHTML = friends.map(friendId => {
+                    const friend = users.find(u => u.id === friendId);
+                    if (!friend) return '';
+                    return `
+                        <div class="friend-item">
+                            <div class="user-avatar-small">${friend.avatar}</div>
+                            <span class="friend-name">${friend.realName || friend.username}</span>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            const activityList = document.getElementById('activityList');
+            if (articles.length === 0) {
+                activityList.innerHTML = '<p class="empty-text">暂无动态</p>';
+            } else {
+                const latest = articles.slice(-3).reverse();
+                activityList.innerHTML = latest.map(a => `
+                    <div class="activity-item">
+                        <span class="activity-time">${formatTime(a.createdAt)}</span>
+                        <span class="activity-text">提交了文章《${a.title.substring(0, 20)}...》</span>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function getStatusText(status) {
+            const map = { pending: '审核中', approved: '已通过', rejected: '已拒绝' };
+            return map[status] || status;
+        }
+
+        function formatTime(timestamp) {
+            const date = new Date(timestamp);
+            return `${date.getMonth() + 1}月${date.getDate()}日`;
+        }
+
+        function formatDate(timestamp) {
+            const date = new Date(timestamp);
+            return `${date.getFullYear()}-${(date.getMonth()+1).toString().padStart(2,'0')}-${date.getDate().toString().padStart(2,'0')}`;
+        }
+
+        function formatDateTime(timestamp) {
+            const date = new Date(timestamp);
+            return `${date.getMonth() + 1}/${date.getDate()} ${date.getHours().toString().padStart(2,'0')}:${date.getMinutes().toString().padStart(2,'0')}`;
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // ==================== 投稿 ====================
+        function submitArticle(e) {
+            e.preventDefault();
+            const user = Storage.getCurrentUser();
+            if (!user) {
+                showToast('请先登录', 'error');
+                return;
+            }
+
+            const article = {
+                id: 'article_' + Date.now(),
+                authorId: user.id,
+                authorName: user.realName || user.username,
+                authorInstitution: user.institution,
+                title: document.getElementById('articleTitle').value.trim(),
+                type: document.getElementById('articleType').value,
+                field: document.getElementById('articleField').value,
+                abstract: document.getElementById('articleAbstract').value.trim(),
+                content: document.getElementById('articleContent').value.trim(),
+                tags: document.getElementById('articleTags').value.split(',').map(t => t.trim()).filter(t => t),
+                url: document.getElementById('articleUrl').value.trim(),
+                status: 'pending',
+                createdAt: Date.now()
+            };
+
+            const articles = Storage.getArticles();
+            articles.push(article);
+            Storage.saveArticles(articles);
+
+            showToast('文章提交成功，等待审核', 'success');
+            updateStats();
+            
+            document.querySelectorAll('#submitPage input, #submitPage textarea').forEach(input => {
+                if (input.type !== 'submit') input.value = '';
+            });
+            
+            setTimeout(() => showPage('dashboard'), 1500);
+        }
+
+        function saveDraft() {
+            const user = Storage.getCurrentUser();
+            if (!user) return;
+
+            const draft = {
+                title: document.getElementById('articleTitle').value.trim() || '未命名草稿',
+                type: document.getElementById('articleType').value,
+                abstract: document.getElementById('articleAbstract').value.trim(),
+                content: document.getElementById('articleContent').value.trim(),
+                savedAt: Date.now()
+            };
+
+            const drafts = Storage.getDrafts(user.id);
+            drafts.push(draft);
+            Storage.saveDrafts(user.id, drafts);
+
+            showToast('草稿已保存', 'success');
+        }
+
+        // ==================== 搜索功能 ====================
+        const searchInput = document.getElementById('searchInput');
+        const searchResults = document.getElementById('searchResults');
+
+        if (searchInput) {
+            searchInput.addEventListener('input', debounce(function() {
+                const query = this.value.trim().toLowerCase();
+                if (query.length < 1) {
+                    searchResults.classList.remove('active');
+                    return;
+                }
+
+                const currentUser = Storage.getCurrentUser();
+                const users = Storage.getUsers();
+                const friends = currentUser ? Storage.getFriends(currentUser.id) : [];
+
+                const matches = users.filter(u => {
+                    if (currentUser && u.id === currentUser.id) return false;
+                    return u.username.toLowerCase().includes(query) || 
+                           (u.realName && u.realName.toLowerCase().includes(query)) ||
+                           u.institution.toLowerCase().includes(query) ||
+                           u.research.toLowerCase().includes(query);
+                }).slice(0, 5);
+
+                if (matches.length === 0) {
+                    searchResults.innerHTML = '<div class="search-empty">未找到匹配的用户</div>';
+                } else {
+                    searchResults.innerHTML = matches.map(user => `
+                        <div class="search-item">
+                            <div class="user-avatar-small">${user.avatar}</div>
+                            <div class="user-info">
+                                <span class="user-name">${highlightMatch(user.realName || user.username, query)}</span>
+                                <span class="user-inst">${user.institution} · ${user.research}</span>
+                            </div>
+                            ${currentUser ? 
+                                friends.includes(user.id) ? 
+                                    '<span class="friend-badge">已添加</span>' :
+                                    `<button class="btn-add-small" onclick="addFriend('${user.id}'); hideSearchResults();">+</button>`
+                                : ''
+                            }
+                        </div>
+                    `).join('');
+                }
+                searchResults.classList.add('active');
+            }, 300));
+        }
+
+        function highlightMatch(text, query) {
+            if (!text) return '';
+            const regex = new RegExp(`(${query})`, 'gi');
+            return text.replace(regex, '<mark>$1</mark>');
+        }
+
+        function hideSearchResults() {
+            searchResults.classList.remove('active');
+            searchInput.value = '';
+        }
+
+        function addFriend(userId) {
+            const currentUser = Storage.getCurrentUser();
+            if (!currentUser) {
+                showToast('请先登录', 'error');
+                return;
+            }
+
+            const friends = Storage.getFriends(currentUser.id);
+            if (friends.includes(userId)) {
+                showToast('已经是好友了', 'info');
+                return;
+            }
+
+            friends.push(userId);
+            Storage.saveFriends(currentUser.id, friends);
+            
+            const users = Storage.getUsers();
+            const friend = users.find(u => u.id === userId);
+            showToast(`已添加 ${friend.realName || friend.username} 为好友`, 'success');
+        }
+
+        function debounce(func, wait) {
+            let timeout;
+            return function(...args) {
+                clearTimeout(timeout);
+                timeout = setTimeout(() => func.apply(this, args), wait);
+            };
+        }
+
+        // ==================== Nature 文章 ====================
+        const natureArticles = [
+            {
+                title: 'Global warming and changes in drought',
+                authors: 'Dai, A.',
+                journal: 'Nature Climate Change',
+                year: '2025',
+                doi: '10.1038/s41558-024-02145-w',
+                url: 'https://www.nature.com/articles/s41558-024-02145-w',
+                citations: '2,847'
+            },
+            {
+                title: 'Increased Asian aerosols drive strong climate response to aircraft soot',
+                authors: 'Zhang, J., et al.',
+                journal: 'Nature Climate Change',
+                year: '2025',
+                doi: '10.1038/s41558-024-02172-9',
+                url: 'https://www.nature.com/articles/s41558-024-02172-9',
+                citations: '1,523'
+            },
+            {
+                title: 'Climate change is pushing the tropics towards the poles',
+                authors: 'Chemke, R., et al.',
+                journal: 'Nature',
+                year: '2024',
+                doi: '10.1038/s41586-024-08220-z',
+                url: 'https://www.nature.com/articles/s41586-024-08220-z',
+                citations: '3,156'
+            },
+            {
+                title: 'Atmospheric rivers increasingly dominate California precipitation',
+                authors: 'Xu, W., et al.',
+                journal: 'Nature Climate Change',
+                year: '2024',
+                doi: '10.1038/s41558-024-02189-3',
+                url: 'https://www.nature.com/articles/s41558-024-02189-3',
+                citations: '2,134'
+            },
+            {
+                title: 'Global temperature records and the role of anthropogenic forcing',
+                authors: 'Smith, C. J., et al.',
+                journal: 'Nature Geoscience',
+                year: '2024',
+                doi: '10.1038/s41561-024-01520-2',
+                url: 'https://www.nature.com/articles/s41561-024-01520-2',
+                citations: '4,521'
+            },
+            {
+                title: 'Arctic amplification and mid-latitude weather patterns',
+                authors: 'Cohen, J., et al.',
+                journal: 'Nature Climate Change',
+                year: '2024',
+                doi: '10.1038/s41558-024-02123-4',
+                url: 'https://www.nature.com/articles/s41558-024-02123-4',
+                citations: '2,876'
+            },
+            {
+                title: 'Ocean warming and its impacts on marine ecosystems',
+                authors: 'Hoegh-Guldberg, O., et al.',
+                journal: 'Nature',
+                year: '2024',
+                doi: '10.1038/s41586-024-07802-5',
+                url: 'https://www.nature.com/articles/s41586-024-07802-5',
+                citations: '5,234'
+            },
+            {
+                title: 'Carbon cycle feedbacks under future climate scenarios',
+                authors: 'Friedlingstein, P., et al.',
+                journal: 'Nature Climate Change',
+                year: '2024',
+                doi: '10.1038/s41558-024-02105-6',
+                url: 'https://www.nature.com/articles/s41558-024-02105-6',
+                citations: '3,678'
+            }
+        ];
+
+        function renderNatureArticles() {
+            const container = document.getElementById('articlesContainer');
+            
+            container.innerHTML = natureArticles.map(article => `
+                <a href="${article.url}" target="_blank" class="article-card">
+                    <div class="article-header">
+                        <div class="article-journal-group">
+                            <span class="article-journal">${article.journal}</span>
+                            <span class="article-citations">🔥 ${article.citations} 引用</span>
+                        </div>
+                        <span class="article-year">${article.year}</span>
+                    </div>
+                    <h3 class="article-title">${article.title}</h3>
+                    <p class="article-authors">${article.authors}</p>
+                    <div class="article-footer">
+                        <span class="doi">DOI: ${article.doi}</span>
+                        <span class="read-more">
+                            阅读全文
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14"/>
+                                <path d="m12 5 7 7-7 7"/>
+                            </svg>
+                        </span>
+                    </div>
+                </a>
+            `).join('');
+        }
+
+        // ==================== Toast 提示 ====================
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            
+            const icon = {
+                success: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>',
+                error: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" x2="9" y1="9" y2="15"/><line x1="9" x2="15" y1="9" y2="15"/></svg>',
+                info: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="16" y2="12"/><line x1="12" x2="12.01" y1="8" y2="8"/></svg>'
+            }[type];
+            
+            toast.innerHTML = `${icon}<span>${message}</span>`;
+            container.appendChild(toast);
+            
+            setTimeout(() => toast.classList.add('show'), 10);
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // ==================== 事件监听 ====================
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.search-container')) {
+                if (searchResults) searchResults.classList.remove('active');
+            }
+            if (!e.target.closest('.user-menu')) {
+                const dropdown = document.getElementById('userDropdown');
+                if (dropdown) dropdown.classList.remove('active');
+            }
+        });
+
+        // ==================== 初始化 ====================
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentUser = Storage.getCurrentUser();
+            if (currentUser) {
+                updateUIForLoggedInUser(currentUser);
+            }
+            
+            updateStats();
+            renderNatureArticles();
+            trackActivity();
+            setInterval(trackActivity, 30000);
+            
+            // 检查后端是否运行（使用相对路径，自动适配当前端口）
+            fetch('/api/active-count').catch(() => {
+                console.log('后端未连接，请确保服务已启动');
             });
         });
     </script>
