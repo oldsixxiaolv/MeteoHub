@@ -1,0 +1,20 @@
+{
+  "name": "qa",
+  "version": "1.0.0",
+  "description": "MeteoHub DOM and real Chrome regression checks",
+  "main": "index.js",
+  "scripts": {
+    "test": "bash run-all.sh",
+    "test:browser": "node browser-integration.cjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "jsdom": "^30.0.1"
+  },
+  "devDependencies": {
+    "playwright-core": "^1.62.1"
+  }
+}

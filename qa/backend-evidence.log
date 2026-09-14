@@ -1,0 +1,62 @@
+=== Hermes backend audit ===
+[OK] A. account isolation holds for 3 users
+[OK] B. concurrent OCC: exactly one writer wins, other gets 409 with new rev
+[FINDING] C. SECRET_KEY env ignored — MEDIUM
+[INFO] D. cross-origin POST without CSRF token: 405
+[INFO] E. test-client: 64KB+ body -> 200; deep nest -> 409; unicode bomb -> 409; __proto__ -> 409
+[INFO] E-real. real-HTTP probe results:
+  65KB wire(66535B): status=200 body='{"revision":1,"state":{"bookmarks":[],"following":[],"pages":[],"profile":{},"projects":[],"publications":[],"questions"'
+  100KB wire(102375B): status=409 body='{"error":"\\u7248\\u672c\\u51b2\\u7a81","revision":1,"state":{"bookmarks":[],"following":[],"pages":[],"profile":{},"project'
+  300KB wire(307175B): status=409 body='{"error":"\\u7248\\u672c\\u51b2\\u7a81","revision":1,"state":{"bookmarks":[],"following":[],"pages":[],"profile":{},"project'
+  500KB wire(511975B): status=409 body='{"error":"\\u7248\\u672c\\u51b2\\u7a81","revision":1,"state":{"bookmarks":[],"following":[],"pages":[],"profile":{},"project'
+  1024KB wire(1048551B): status=409 body='{"error":"\\u7248\\u672c\\u51b2\\u7a81","revision":1,"state":{"bookmarks":[],"following":[],"pages":[],"profile":{},"project'
+  5120KB wire(5242855B): status=400 body='{"error":"\\u8bf7\\u6c42\\u4f53\\u4e0d\\u662f\\u5408\\u6cd5\\u7684 JSON"}\n'
+[OK] F. all probed static paths return 404 (or are in allow-list)
+[FINDING] G. auto-init race -> {200: 2, 500: 18}
+[INFO] H. Set-Cookie=meteohub_session=eyJ1aWQiOjF9.aqUKoQ.QHfireq1KTWuwTeznEq4Y7qrfD8; Expires=Sat, 26 Sep 2026 08:17:37 
+[INFO] H. security headers={'X-Content-Type-Options': None, 'X-Frame-Options': None, 'Content-Security-Policy': None, 'Strict-Transport-Security': None}
+[INFO] J. deleted-user stale cookie: GET /api/state -> 500, PUT /api/state -> 500
+[FINDING] I. stop.sh PID trust — MEDIUM
+
+=== 7 findings ===
+
+[MEDIUM] SECRET_KEY env var is ignored
+  Recipe:   Set SECRET_KEY=mysecret in the environment and restart the server. Mint a cookie with server.make_session_cookie(uid) using a fresh app, restart with the SAME env, and verify the old cookie still works. Today it does NOT — server reads data/secret.key on every call and the env var has no effect.
+  Evidence: server.py:_get_secret_key() reads SECRET_FILE (data/secret.key) and never consults os.environ['SECRET_KEY']. Verified by setting SECRET_KEY and inspecting data/secret.key — env value not present. Migrations between hosts will invalidate sessions.
+
+[MEDIUM] No CSRF token; protection relies solely on SameSite=Lax cookie attribute
+  Recipe:   Open a logged-in tab to http://127.0.0.1:8080. From another origin (e.g. file:// or http://localhost:9999) submit a form/JS POST to http://127.0.0.1:8080/api/state. Without SameSite=Strict, top-level cross-origin POSTs still include the cookie in older browsers, and a determined attacker can use a same-site subdomain bypass. Mitigation: also require a CSRF token in body for state writes.
+  Evidence: server.py:_set_session_cookie sets SameSite='Lax' but no token. State-mutating endpoints (PUT /api/state, POST /api/auth/logout) accept any same-site request as long as the cookie is present. Top-level GET navigations include Lax cookies but cannot mutate state.
+
+[HIGH] MAX_CONTENT_LENGTH=64KB is effectively dead code: real limit is ~256KB and is masked as 400 JSON error
+  Recipe:   PUT /api/state with a real-HTTP body > 64KB (use make_server + urllib; test_client alone masks this). Real limit observed: ~256KB parsed re-encode. 5MB returns 400 '请求体不是合法的 JSON' instead of 413.
+  Evidence: Real-HTTP test (make_server + urllib):
+  64KB+1 body -> 200
+  100KB body -> 200
+  300KB body -> 200
+  500KB body -> 200
+  1MB body -> 200 (first) / 409 (repeat OCC)
+  5MB body -> 400 '请求体不是合法的 JSON'
+_json_body()'s `except Exception` catches RequestEntityTooLarge and returns 400 instead of letting the 413 handler fire.
+
+[MEDIUM] state_get auto-init has TOCTOU race; concurrent first-GETs return 500
+  Recipe:   Register a user; DELETE FROM state WHERE user_id=...; issue 20 concurrent GET /api/state; observe 500s.
+  Evidence: Status codes observed: {200: 2, 500: 18}
+
+[LOW] Static responses lack X-Content-Type-Options: nosniff
+  Recipe:   GET /styles.css and inspect headers.
+  Evidence: Headers seen: {'X-Content-Type-Options': None, 'X-Frame-Options': None, 'Content-Security-Policy': None, 'Strict-Transport-Security': None}
+
+[HIGH] Stale cookie for deleted user → /api/state returns 500 instead of 401
+  Recipe:   Register a user; DELETE FROM users; mint a fresh signed cookie for that user_id; GET /api/state and PUT /api/state. Observed: 500 '服务器内部错误' from FOREIGN KEY constraint failure during the state auto-init / state put paths.
+  Evidence: GET status: 500, body: {"error":"\u670d\u52a1\u5668\u5185\u90e8\u9519\u8bef"}
+
+PUT status: 500, body: {"error":"\u670d\u52a1\u5668\u5185\u90e8\u9519\u8bef"}
+
+
+[MEDIUM] stop.sh blindly trusts PID file without checking process identity
+  Recipe:   Start any unrelated long-lived process. Note its PID. Write that PID into server.pid. Run ./stop.sh. The script kills the unrelated process and removes the PID file.
+  Evidence: stop.sh only checks 'kill -0 $PID' (process exists), never verifies the PID actually belongs to a python running server.py. PID reuse after reboot is the common case (Linux reuses PIDs).
+tests/test_static_and_legacy.py ...............                          [100%]
+
+============================== 51 passed in 2.28s ==============================

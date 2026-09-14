@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:50898",
+  "checks": [
+    "anonymous overview + sample labels",
+    "registration, profile creation, anonymous/account isolation",
+    "publication create, DOI validation, bookmark, search, edit",
+    "question + answer persistence",
+    "researcher directory, follow, detail, own profile",
+    "real Chrome autosave focus, Enter/Backspace focus",
+    "real HTTP failure + retained input + retry",
+    "hierarchical pages, pending save switch, Markdown, projects table/kanban",
+    "server persistence after browser refresh",
+    "honest Python disabled runtime + download",
+    "logout restores anonymous notes, login restores private work",
+    "publication deletion clears bookmark",
+    "390px mobile overview layout",
+    "mobile navigation + knowledge space + typing keyboard shortcuts"
+  ],
+  "errors": []
+}

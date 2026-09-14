@@ -1,0 +1,33 @@
+'use strict';
+const assert = require('node:assert/strict');
+const { loadDom, makeHostStoreFactory } = require('./qa-harness');
+(async () => {
+    const unhandled = [];
+    const onUnhandled = e => unhandled.push(e);
+    process.on('unhandledRejection', onUnhandled);
+    let fail = false;
+    const h = loadDom({ hostStoreFactory(win) {
+        const host = makeHostStoreFactory(win);
+        host.seed({pages:[{id:'p1',title:'Draft',blocks:[{id:'b1',type:'text',text:'Original'}]}], projects:[]});
+        const update = host.update;
+        host.update = mutator => fail ? Promise.reject(new Error('Network unavailable')) : update(mutator);
+        return host;
+    }});
+    const editor = h.$('.workspace-block-content');
+    fail = true;
+    h.typeIn(editor, 'My unsaved research');
+    await h.tick(450);
+    assert.equal(editor.textContent, 'My unsaved research');
+    assert.equal(h.window.document.activeElement, editor);
+    assert.match(h.text('.workspace-save-indicator'), /保存失败/);
+    assert.equal(h.window.MeteoHubStore.get().pages[0].blocks[0].text, 'Original');
+    fail = false;
+    h.click(h.$('.workspace-save-indicator button'));
+    await h.tick(30);
+    assert.equal(h.window.MeteoHubStore.get().pages[0].blocks[0].text, 'My unsaved research');
+    assert.match(h.text('.workspace-save-indicator'), /已保存/);
+    assert.equal(unhandled.length, 0, 'No unhandled promise rejections');
+    process.removeListener('unhandledRejection', onUnhandled);
+    h.dom.window.close();
+    console.log('FAILURE FEEDBACK + RETRY OK');
+})().catch(e => { console.error(e); process.exitCode=1; });

@@ -1,0 +1,97 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Workspace QA Harness (real browser)</title>
+<style>
+  body { font-family: system-ui; margin: 24px; }
+  #log { white-space: pre-wrap; background: #f5f5fa; padding: 12px; border-radius: 8px; max-height: 480px; overflow: auto; font-size: 12px; }
+  #workspace-root { border: 2px dashed #1a237e; min-height: 600px; margin-top: 12px; }
+</style>
+<link rel="stylesheet" href="../workspace.css">
+</head>
+<body>
+  <h1>Workspace QA</h1>
+  <button id="seed">Seed</button>
+  <button id="run">Run tests</button>
+  <div id="workspace-root"></div>
+  <div id="log"></div>
+
+<script src="../workspace.js"></script>
+<script>
+// Stand-alone "host" store simulating app.js semantics: deep clone, dispatch event.
+const Store = {
+  _state: { pages: [], projects: [], profile: {}, publications: [], questions: [], researchers: [], following: [], bookmarks: [] },
+  _initState: null,
+  get() { return this._state; },
+  async update(mutator) {
+    const snapshot = this._state;
+    const draft = JSON.parse(JSON.stringify(snapshot));
+    const res = mutator(draft);
+    if (res && typeof res.then === 'function') await res;
+    this._state = draft;
+    try { localStorage.setItem('meteohub_workspace_state_v1', JSON.stringify(this._state)); } catch(e){}
+    window.dispatchEvent(new CustomEvent('meteohub:state-changed', { detail: { state: this._state } }));
+  }
+};
+window.MeteoHubStore = Store;
+
+const log = (m) => { const el = document.getElementById('log'); el.textContent += m + '\n'; el.scrollTop = el.scrollHeight; };
+
+document.getElementById('seed').addEventListener('click', () => {
+  Store._state = {
+    pages: [{
+      id: 'p1', parentId: null, title: 'Seed Page', icon: 'doc',
+      expanded: true, createdAt: '2024-01-01T00:00:00.000Z', updatedAt: '2024-01-01T00:00:00.000Z',
+      blocks: [
+        { id: 'b1', type: 'text', text: 'first' },
+        { id: 'b2', type: 'text', text: 'second' }
+      ]
+    }],
+    projects: [],
+    profile: {}
+  };
+  window.dispatchEvent(new CustomEvent('meteohub:state-changed'));
+});
+
+const root = document.getElementById('workspace-root');
+window.MeteoWorkspace.mount(root);
+
+document.getElementById('run').addEventListener('click', async () => {
+  log('--- test: focus on first block, press Enter ---');
+  const blocks = Array.from(root.querySelectorAll('.workspace-block-content'));
+  log('blocks before: ' + blocks.length);
+  blocks[1].focus();
+  // Put caret at end
+  const sel = window.getSelection();
+  const range = document.createRange();
+  range.selectNodeContents(blocks[1]);
+  range.collapse(false);
+  sel.removeAllRanges();
+  sel.addRange(range);
+
+  // dispatch Enter via keydown — module listens with addEventListener('keydown')
+  blocks[1].dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true, cancelable: true }));
+  await new Promise(r => setTimeout(r, 100));
+
+  const blocksAfter = Array.from(root.querySelectorAll('.workspace-block-content'));
+  log('blocks after Enter: ' + blocksAfter.length);
+  log('activeElement is block? ' + (document.activeElement && document.activeElement.classList.contains('workspace-block-content')));
+  log('activeElement text: "' + (document.activeElement && document.activeElement.textContent.slice(0, 30)) + '"');
+
+  // Now press Backspace on empty (last) block
+  if (blocksAfter.length === 3) {
+    const last = blocksAfter[2];
+    last.focus();
+    log('--- test: focus empty last block, press Backspace ---');
+    last.dispatchEvent(new KeyboardEvent('keydown', { key: 'Backspace', bubbles: true, cancelable: true }));
+    await new Promise(r => setTimeout(r, 100));
+    const blocksAfter2 = Array.from(root.querySelectorAll('.workspace-block-content'));
+    log('blocks after Backspace: ' + blocksAfter2.length);
+    log('activeElement is block? ' + (document.activeElement && document.activeElement.classList.contains('workspace-block-content')));
+    log('activeElement text: "' + (document.activeElement && document.activeElement.textContent && document.activeElement.textContent.slice(0, 30)) + '"');
+  }
+});
+</script>
+</body>
+</html>
