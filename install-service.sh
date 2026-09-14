@@ -1,73 +1,54 @@
-#!/bin/bash
+#!/usr/bin/env bash
+# Install MeteoHub as a systemd user service so it auto-starts on login.
+# Works on Linux systems running systemd. macOS / Windows: use
+# run-background.sh via launchd / Task Scheduler instead.
 
-# 安装 MeteoHub 为系统服务
-# 这样可以在开机时自动启动，并且更稳定
-
+set -euo pipefail
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-# 查找 Python
-PYTHON_CMD=""
-for cmd in python3 python /root/miniconda3/envs/guochuang/bin/python; do
-    if command -v $cmd &> /dev/null; then
-        if $cmd -c "import flask" 2>/dev/null; then
-            PYTHON_CMD=$cmd
-            break
-        fi
-    fi
-done
-
-if [ -z "$PYTHON_CMD" ]; then
-    echo "❌ 未找到 Python/Flask"
+if ! command -v systemctl >/dev/null 2>&1; then
+    echo "❌ 此脚本仅支持 systemd 用户服务；macOS 请使用 run-background.sh。" >&2
     exit 1
 fi
+source "$SCRIPT_DIR/python-env.sh"
+select_python
+PYTHON_CMD="$(command -v "$PYTHON_CMD")"
 
-# 创建 systemd 服务文件
-SERVICE_FILE="/etc/systemd/system/meteohub.service"
+HOST="${HOST:-127.0.0.1}"
+PORT="${PORT:-8080}"
+SERVICE_FILE="${HOME}/.config/systemd/user/meteohub.service"
+mkdir -p "$(dirname "$SERVICE_FILE")"
 
-echo "📝 创建系统服务..."
-
-cat > /tmp/meteohub.service << EOF
+cat > "$SERVICE_FILE" <<EOF
 [Unit]
-Description=MeteoHub Web Service
+Description=MeteoHub Web Service (user)
 After=network.target
 
 [Service]
 Type=simple
-User=root
-WorkingDirectory=$SCRIPT_DIR
-Environment="PATH=/usr/local/bin:/usr/bin:/bin"
-ExecStart=$PYTHON_CMD $SCRIPT_DIR/server.py
-Restart=always
+WorkingDirectory="$SCRIPT_DIR"
+Environment="HOST=$HOST"
+Environment="PORT=$PORT"
+ExecStart="$PYTHON_CMD" "$SCRIPT_DIR/server.py"
+Restart=on-failure
 RestartSec=5
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=default.target
 EOF
 
-# 复制到 systemd 目录
-sudo cp /tmp/meteohub.service $SERVICE_FILE
+if command -v systemctl >/dev/null 2>&1; then
+    systemctl --user daemon-reload
+    systemctl --user enable meteohub.service
+    systemctl --user start meteohub.service
+    echo
+    echo "✅ 已安装并启动 user-level systemd 服务"
+    echo "   状态:  systemctl --user status meteohub"
+    echo "   日志:  journalctl --user -u meteohub -f"
+else
+    echo "ℹ️  未检测到 systemctl，已写入服务单元文件：$SERVICE_FILE"
+    echo "   请用你的 init 系统（OpenRC / runit / s6 等）启用它。"
+fi
 
-# 重载 systemd
-sudo systemctl daemon-reload
-
-# 启用开机自启
-sudo systemctl enable meteohub.service
-
-# 启动服务
-sudo systemctl start meteohub.service
-
-echo ""
-echo "✅ MeteoHub 系统服务已安装并启动！"
-echo ""
-echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo ""
-echo "🌍 访问地址: http://120.46.134.210:8080"
-echo ""
-echo "📌 管理命令:"
-echo "   查看状态: sudo systemctl status meteohub"
-echo "   停止服务: sudo systemctl stop meteohub"
-echo "   重启服务: sudo systemctl restart meteohub"
-echo "   开机自启: sudo systemctl enable meteohub"
-echo "   禁用自启: sudo systemctl disable meteohub"
-echo ""
-echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo
+echo "🌍 访问地址: http://$HOST:$PORT"

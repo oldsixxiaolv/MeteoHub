@@ -1,0 +1,34 @@
+# Runtime data — MUST stay out of git (contains DB + secret key)
+data/
+server.pid
+server.log
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# Tests
+.pytest_cache/
+.pyright/
+.mypy_cache/
+qa/node_modules/
+
+# macOS resource forks (created by external edits)
+._*
+.DS_Store
+
+qa/preview-runtime.json
+qa/*-actual.png
+
+# Backups (minify snapshots + restore artifacts)
+backups/
+*.orig
+
+# Build outputs (terser/csso write to dist/)
+dist/
+
+# Main project node_modules (terser + csso-cli installed via npm install)
+node_modules/

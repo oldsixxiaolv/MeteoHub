@@ -1,134 +1,86 @@
-# MeteoHub 运行指南
+# 运行 MeteoHub
 
-## 问题说明
+## 本机前台
 
-**Live-server** 只能提供静态文件服务（HTML/CSS/JS），它**无法执行 Python 代码**。
-
-要在网页中运行 Python 代码，必须要有后端服务（server.py）来处理代码执行请求。
-
----
-
-## 解决方案（任选其一）
-
-### ✅ 方案 A：后台运行（推荐，最简单）
-
-运行一次，永久后台运行，关闭终端也不影响：
+需要 Python 3.10+：
 
 ```bash
-cd /root/git/Project_develop/MeteoHub
-
-# 启动后台服务
-./run-background.sh
+cd /path/to/MeteoHub
+bash start.sh
 ```
 
-启动成功后，访问：http://120.46.134.210:8080
+浏览器打开 <http://127.0.0.1:8080>。Flask 同时提供网页和 API，不能只用静态文件服务代替账号后端。
 
-**管理命令：**
-```bash
-./status.sh    # 查看运行状态
-./stop.sh      # 停止服务
-./restart.sh   # 重启服务
-tail -f server.log  # 查看实时日志
-```
-
----
-
-### ✅ 方案 B：系统服务（最稳定，开机自启）
-
-安装为系统服务，随系统启动自动运行：
+指定解释器或其他端口：
 
 ```bash
-cd /root/git/Project_develop/MeteoHub
-sudo ./install-service.sh
+METEOHUB_PYTHON=/path/to/python PORT=9000 bash start.sh
 ```
 
-**管理命令：**
-```bash
-sudo systemctl status meteohub   # 查看状态
-sudo systemctl stop meteohub     # 停止
-sudo systemctl start meteohub    # 启动
-sudo systemctl restart meteohub  # 重启
-```
-
----
-
-### ✅ 方案 C：同时运行两个服务
-
-如果你希望 live-server 提供前端，server.py 提供后端：
-
-**终端 1 - 启动后端（先运行这个）：**
-```bash
-cd /root/git/Project_develop/MeteoHub
-./run-background.sh
-```
-
-**终端 2 - 启动前端（可选）：**
-```bash
-cd /root/git/Project_develop/MeteoHub
-live-server --port=8080
-```
-
-> 注意：如果两个服务都用 8080 端口会冲突，可以把 live-server 改成其他端口，比如 `--port=3000`
-
----
-
-## 为什么不能只用 Live Server？
-
-| 功能 | Live Server | server.py |
-|------|-------------|-----------|
-| 显示网页 | ✅ | ✅ |
-| 运行 Python 代码 | ❌ | ✅ |
-| 用户登录/注册 | ❌ | ✅ |
-| 保存数据 | ❌ | ✅ |
-
-**核心问题**：浏览器里的 JavaScript 无法直接运行你服务器上的 Python 代码，这是安全限制。
-
-必须通过后端 API（server.py）来中转执行。
-
----
-
-## 架构说明
-
-```
-用户浏览器  <--HTTP-->  Flask后端(server.py) <--执行--> Python解释器
-                ↑                                   ↓
-                └──── 返回代码运行结果 ──────────────┘
-```
-
-- **前端**（index.html）：你在浏览器中看到的界面
-- **后端**（server.py）：处理 Python 代码执行、用户数据等
-- **端口 8080**：前后端共用同一个端口（Flask 同时提供前端静态文件和后端 API）
-
----
-
-## 快速检查
-
-运行以下命令检查服务是否正常：
+依赖缺失时脚本创建项目 `.venv` 并从 `requirements.txt` 安装；已有虚拟环境会复用。也可手动准备：
 
 ```bash
-# 检查服务是否在运行
-curl http://120.46.134.210:8080/api/active-count
-
-# 测试代码运行
-curl -X POST http://120.46.134.210:8080/api/run-code \
-  -H "Content-Type: application/json" \
-  -d '{"code": "print(\"Hello\")"}'
+python3 -m venv .venv
+.venv/bin/python -m pip install -r requirements.txt
+.venv/bin/python server.py
 ```
 
----
+## 后台与状态
 
-## 常见问题
-
-**Q: 我运行了 `./run-background.sh`，但是访问不了？**
-A: 检查防火墙是否开放 8080 端口：
 ```bash
-sudo ufw allow 8080
-# 或
-sudo firewall-cmd --add-port=8080/tcp --permanent
+bash run-background.sh
+bash status.sh
+bash stop.sh
+bash restart.sh
 ```
 
-**Q: 如何查看服务是否正常运行？**
-A: 运行 `./status.sh` 或查看日志 `cat server.log`
+后台模式创建 `server.pid`、`server.log`。停服脚本校验 PID、绝对命令路径与目标工作目录；Linux 读取 `/proc`，macOS 使用 `lsof`。验证失败时拒绝停止，重启脚本也会停止执行。不要用 `pkill -f server.py` 杀其他项目。
 
-**Q: 我想修改端口？**
-A: 编辑 `server.py`，修改第 241 行的 `port=8080`
+Linux 的 systemd 用户服务可用 `bash install-service.sh` 安装。该命令会实际安装并启动服务；本轮未执行。macOS 不支持此 systemd 脚本。
+
+## 配置
+
+| 环境变量 | 默认值 | 用途 |
+| --- | --- | --- |
+| `HOST` | `127.0.0.1` | 监听地址 |
+| `PORT` | `8080` | 监听端口 |
+| `METEOHUB_PYTHON` | 自动检测 | 启动脚本的 Python 解释器 |
+| `METEOHUB_DB` | 项目内 `data/meteohub.db` | SQLite 数据库路径 |
+| `SECRET_KEY` | 项目内持久化密钥 | 非空环境变量优先于 `data/secret.key` |
+
+数据库父目录自动创建；自定义数据库不会改变其他 Flask 实例的数据库路径。所有服务实例需要各自妥善配置签名密钥。此版本默认服务仅用于本机，公网部署应单独配置生产 WSGI、HTTPS 与 cookie 安全策略。
+
+## 独立验收环境
+
+不要对真实账户库运行创建/删除数据的端到端测试。以下命令在临时目录创建专用测试库：
+
+```bash
+METEOHUB_TEST_DIR="$(mktemp -d)"
+METEOHUB_DB="$METEOHUB_TEST_DIR/qa.db" SECRET_KEY=local-test-key PORT=9000 \
+  .venv/bin/python server.py
+```
+
+另开终端：
+
+```bash
+.venv/bin/python -m pip install -r requirements-dev.txt
+.venv/bin/python -m pytest tests/ -q
+npm ci --prefix qa
+bash qa/run-all.sh
+METEOHUB_TEST_URL=http://127.0.0.1:9000 \
+CHROME_BIN='/Applications/Google Chrome.app/Contents/MacOS/Google Chrome' \
+node qa/browser-integration.cjs
+```
+
+Linux 可把 `CHROME_BIN` 指向 Chrome/Chromium 可执行文件。DOM 测试不能验证布局，真实浏览器脚本另外验证桌面和移动视口。历史纯打印探针不计入 `run-all.sh` 的通过数量。
+
+## 数据与排错
+
+- 匿名笔记只在当前浏览器；账号笔记在 SQLite；退出恢复原匿名空间。
+- 拉取失败请检查服务和网络后刷新；409 请先复制或导出未保存文本再刷新。
+- 页面缓存可用强制刷新解决，勿直接清除站点数据，以免删除匿名笔记。
+- 端口占用时换 `PORT`，不要停止不明进程。
+- 备份前保留原数据库与 `data/secret.key`；不要删除 `data/` 排查普通启动问题。
+- Python 页面仅编辑/下载脚本，运行按钮禁用；没有服务器代码执行接口。
+
+完整功能、状态 API 与迁移说明见 [README.md](README.md)。

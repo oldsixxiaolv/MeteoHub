@@ -1,11 +1,7 @@
-#!/bin/bash
-
-echo "🔄 正在重启 MeteoHub 服务..."
-
-# 停止现有服务
-./stop.sh > /dev/null 2>&1
-
-sleep 1
-
-# 重新启动
-./run-background.sh
+#!/usr/bin/env bash
+set -euo pipefail
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+cd "$SCRIPT_DIR"
+echo "🔄 重启 MeteoHub…"
+./stop.sh
+exec ./run-background.sh

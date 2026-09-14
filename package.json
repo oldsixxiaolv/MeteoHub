@@ -1,0 +1,21 @@
+{
+  "name": "meteohub",
+  "version": "2.0.0",
+  "description": "MeteoHub · 大气科学学术工作台",
+  "scripts": {
+    "build": "bash build-optimized.sh",
+    "restore": "bash backup-restore.sh restore",
+    "backup": "bash backup-restore.sh backup",
+    "test:backend": "python3 -m pytest tests/ -q",
+    "test:frontend": "bash qa/run-all.sh",
+    "lint": "eslint app.js workspace.js --ext .js",
+    "validate": "node --check app.js && node --check workspace.js && echo 'JS syntax OK'"
+  },
+  "devDependencies": {
+    "csso-cli": "^4.0.2",
+    "terser": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=16"
+  }
+}
