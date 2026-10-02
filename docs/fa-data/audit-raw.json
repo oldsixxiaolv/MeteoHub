@@ -1,0 +1,2261 @@
+{
+  "home": {
+    "url": "/",
+    "tabOrder": [
+      {
+        "tag": "A",
+        "cls": "skip-link",
+        "id": "",
+        "role": "",
+        "ariaLabel": "",
+        "href": "#main",
+        "text": "跳到正文",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "w": 92,
+          "h": 44.89
+        }
+      },
+      {
+        "tag": "A",
+        "cls": "topbar__brand",
+        "id": "",
+        "role": "",
+        "ariaLabel": "",
+        "href": "/MeteoHub/",
+        "text": "MeteoHub",
+        "rect": {
+          "x": 168,
+          "y": 16,
+          "w": 72.8,
+          "h": 23.8
+        }
+      },
+      {
+        "tag": "A",
+        "cls": "topbar__link",
+        "id": "",
+        "role": "",
+        "ariaLabel": "",
+        "href": "/MeteoHub/",
+        "text": "首页",
+        "rect": {
+          "x": 942,
+          "y": 12,
+          "w": 28,
+          "h": 31.8
+        }
+      },
+      {
+        "tag": "A",
+        "cls": "topbar__link",
+        "id": "",
+        "role": "",
+        "ariaLabel": "",
+        "href": "/MeteoHub/portfolio/",
+        "text": "作品集",
+        "rect": {
+          "x": 994,
+          "y": 12,
+          "w": 42,
+          "h": 31.8
+        }
+      },
+      {
+        "tag": "A",
+        "cls": "topbar__link",
+        "id": "",
+        "role": "",
+        "ariaLabel": "",
+        "href": "/MeteoHub/blog/",
+        "text": "博客",
+        "rect": {
+          "x": 1060,
+          "y": 12,
+          "w": 28,
+          "h": 31.8
+        }
+      },
+      {
+        "tag": "A",
+        "cls": "topbar__link",
+        "id": "",
+        "role": "",
+        "ariaLabel": "",
+        "href": "/MeteoHub/papers/",
+        "text": "论文精读",
+        "rect": {
+          "x": 1112,
+          "y": 12,
+          "w": 56,
+          "h": 31.8
+        }
+      },
+      {
+        "tag": "A",
+        "cls": "topbar__link",
+        "id": "",
+        "role": "",
+        "ariaLabel": "",
+        "href": "/MeteoHub/about/",
+        "text": "关于",
+        "rect": {
+          "x": 1192,
+          "y": 12,
+          "w": 28,
+          "h": 31.8
+        }
+      },
+      {
+        "tag": "BUTTON",
+        "cls": "topbar__theme",
+        "id": "",
+        "role": "",
+        "ariaLabel": "切换到浅色模式",
+        "href": "",
+        "text": "",
+        "rect": {
+          "x": 1244,
+          "y": 14,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "tag": "A",
+        "cls": "btn btn--primary",
+        "id": "",
+        "role": "",
+        "ariaLabel": "",
+        "href": "/MeteoHub/papers/",
+        "text": "Explore paper notes ↗",
+        "rect": {
+          "x": 168,
+          "y": 675,
+          "w": 237.19,
+          "h": 44
+        }
+      },
+      {
+        "tag": "A",
+        "cls": "btn btn--outline",
+        "id": "",
+        "role": "",
+        "ariaLabel": "",
+        "href": "/MeteoHub/portfolio/",
+        "text": "View research projects",
+        "rect": {
+          "x": 417,
+          "y": 675,
+          "w": 234.8,
+          "h": 44
+        }
+      },
+      {
+        "tag": "A",
+        "cls": "",
+        "id": "",
+        "role": "",
+        "ariaLabel": "",
+        "href": "https://github.com/oldsixxiaolv/Manuscript_Lvyh",
+        "text": "Manuscript_Lvyh",
+        "rect": {
+          "x": 956,
+          "y": 976,
+          "w": 119.39,
+          "h": 20
+        }
+      },
+      {
+        "tag": "A",
+        "cls": "",
+        "id": "",
+        "role": "",
+        "ariaLabel": "",
+        "href": "mailto:yihang.lv@mail.iap.ac.cn",
+        "text": "邮箱",
+        "rect": {
+          "x": 1248,
+          "y": 860,
+          "w": 24,
+          "h": 20.39
+        }
+      }
+    ],
+    "skipLink": {
+      "found": true,
+      "tag": "A",
+      "text": "跳到正文",
+      "href": "#main",
+      "targetExists": true
+    },
+    "desktop": {
+      "total": 25,
+      "smallCount": 16,
+      "small": [
+        {
+          "tag": "A",
+          "cls": "topbar__brand",
+          "role": "",
+          "ariaLabel": "",
+          "text": "MeteoHub",
+          "href": "/MeteoHub/",
+          "rect": {
+            "x": 168,
+            "y": 16,
+            "w": 72.8,
+            "h": 23.8
+          }
+        },
+        {
+          "tag": "A",
+          "cls": "topbar__link",
+          "role": "",
+          "ariaLabel": "",
+          "text": "首页",
+          "href": "/MeteoHub/",
+          "rect": {
+            "x": 942,
+            "y": 12,
+            "w": 28,
+            "h": 31.8
+          }
+        },
+        {
+          "tag": "A",
+          "cls": "topbar__link",
+          "role": "",
+          "ariaLabel": "",
+          "text": "作品集",
+          "href": "/MeteoHub/portfolio/",
+          "rect": {
+            "x": 994,
+            "y": 12,
+            "w": 42,
+            "h": 31.8
+          }
+        },
+        {
+          "tag": "A",
+          "cls": "topbar__link",
+          "role": "",
+          "ariaLabel": "",
+          "text": "博客",
+          "href": "/MeteoHub/blog/",
+          "rect": {
+            "x": 1060,
+            "y": 12,
+            "w": 28,
+            "h": 31.8
+          }
+        },
+        {
+          "tag": "A",
+          "cls": "topbar__link",
+          "role": "",
+          "ariaLabel": "",
+          "text": "论文精读",
+          "href": "/MeteoHub/papers/",
+          "rect": {
+            "x": 1112,
+            "y": 12,
+            "w": 56,
+            "h": 31.8
+          }
+        },
+        {
+          "tag": "A",
+          "cls": "topbar__link",
+          "role": "",
+          "ariaLabel": "",
+          "text": "关于",
+          "href": "/MeteoHub/about/",
+          "rect": {
+            "x": 1192,
+            "y": 12,
+            "w": 28,
+            "h": 31.8
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "cls": "topbar__theme",
+          "role": "",
+          "ariaLabel": "切换到浅色模式",
+          "text": "",
+          "href": "",
+          "rect": {
+            "x": 1244,
+            "y": 14,
+            "w": 28,
+            "h": 28
+          }
+        },
+        {
+          "tag": "A",
+          "cls": "",
+          "role": "",
+          "ariaLabel": "",
+          "text": "Manuscript_Lvyh",
+          "href": "https://github.com/oldsixxiaolv/Manuscript_Lvyh",
+          "rect": {
+            "x": 956,
+            "y": 865,
+            "w": 119.39,
+            "h": 20
+          }
+        },
+        {
+          "tag": "A",
+          "cls": "",
+          "role": "",
+          "ariaLabel": "",
+          "text": "邮箱",
+          "href": "mailto:yihang.lv@mail.iap.ac.cn",
+          "rect": {
+            "x": 1248,
+            "y": 817,
+            "w": 24,
+            "h": 20.39
+          }
+        },
+        {
+          "tag": "A",
+          "cls": "",
+          "role": "",
+          "ariaLabel": "",
+          "text": "GitHub",
+          "href": "https://github.com/oldsixxiaolv",
+          "rect": {
+            "x": 1229,
+            "y": 845,
+            "w": 42.64,
+            "h": 20.39
+          }
+        },
+        {
+          "tag": "A",
+          "cls": "",
+          "role": "",
+          "ariaLabel": "",
+          "text": "RSS",
+          "href": "/MeteoHub/feed.xml",
+          "rect": {
+            "x": 1250,
+            "y": 874,
+            "w": 22.14,
+            "h": 20.39
+          }
+        },
+        {
+          "tag": "A",
+          "cls": "",
+          "role": "",
+          "ariaLabel": "",
+          "text": "All notes →",
+          "href": "/MeteoHub/blog/",
+          "rect": {
+            "x": 1200,
+            "y": 1600,
+            "w": 72.03,
+            "h": 22.09
+          }
+        },
+        {
+          "tag": "A",
+          "cls": "",
+          "role": "",
+          "ariaLabel": "",
+          "text": "邮箱",
+          "href": "mailto:yihang.lv@mail.iap.ac.cn",
+          "rect": {
+            "x": 1046,
+            "y": 2203,
+            "w": 28,
+            "h": 23.8
+          }
+        },
+        {
+          "tag": "A",
+          "cls": "",
+          "role": "",
+          "ariaLabel": "",
+          "text": "GitHub",
+          "href": "https://github.com/oldsixxiaolv/MeteoHub",
+          "rect": {
+            "x": 1098,
+            "y": 2203,
+            "w": 45.16,
+            "h": 23.8
+          }
+        },
+        {
+          "tag": "A",
+          "cls": "",
+          "role": "",
+          "ariaLabel": "",
+          "text": "RSS",
+          "href": "/MeteoHub/feed.xml",
+          "rect": {
+            "x": 1168,
+            "y": 2203,
+            "w": 27.17,
+            "h": 23.8
+          }
+        },
+        {
+          "tag": "A",
+          "cls": "",
+          "role": "",
+          "ariaLabel": "",
+          "text": "Sitemap",
+          "href": "/MeteoHub/sitemap.xml",
+          "rect": {
+            "x": 1219,
+            "y": 2203,
+            "w": 53.19,
+            "h": 23.8
+          }
+        }
+      ]
+    },
+    "mobile": {
+      "total": 25,
+      "smallCount": 16,
+      "small": [
+        {
+          "tag": "A",
+          "cls": "topbar__brand",
+          "role": "",
+          "ariaLabel": "",
+          "text": "MeteoHub",
+          "href": "/MeteoHub/",
+          "rect": {
+            "x": 16,
+            "y": 16,
+            "w": 72.8,
+            "h": 23.8
+          }
+        },
+        {
+          "tag": "A",
+          "cls": "topbar__link",
+          "role": "",
+          "ariaLabel": "",
+          "text": "首页",
+          "href": "/MeteoHub/",
+          "rect": {
+            "x": 95,
+            "y": 14,
+            "w": 24,
+            "h": 28.39
+          }
+        },
+        {
+          "tag": "A",
+          "cls": "topbar__link",
+          "role": "",
+          "ariaLabel": "",
+          "text": "作品集",
+          "href": "/MeteoHub/portfolio/",
+          "rect": {
+            "x": 135,
+            "y": 14,
+            "w": 36,
+            "h": 28.39
+          }
+        },
+        {
+          "tag": "A",
+          "cls": "topbar__link",
+          "role": "",
+          "ariaLabel": "",
+          "text": "博客",
+          "href": "/MeteoHub/blog/",
+          "rect": {
+            "x": 187,
+            "y": 14,
+            "w": 24,
+            "h": 28.39
+          }
+        },
+        {
+          "tag": "A",
+          "cls": "topbar__link",
+          "role": "",
+          "ariaLabel": "",
+          "text": "论文精读",
+          "href": "/MeteoHub/papers/",
+          "rect": {
+            "x": 227,
+            "y": 14,
+            "w": 48,
+            "h": 28.39
+          }
+        },
+        {
+          "tag": "A",
+          "cls": "topbar__link",
+          "role": "",
+          "ariaLabel": "",
+          "text": "关于",
+          "href": "/MeteoHub/about/",
+          "rect": {
+            "x": 291,
+            "y": 14,
+            "w": 24,
+            "h": 28.39
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "cls": "topbar__theme",
+          "role": "",
+          "ariaLabel": "切换到浅色模式",
+          "text": "",
+          "href": "",
+          "rect": {
+            "x": 331,
+            "y": 14,
+            "w": 28,
+            "h": 28
+          }
+        },
+        {
+          "tag": "A",
+          "cls": "",
+          "role": "",
+          "ariaLabel": "",
+          "text": "Manuscript_Lvyh",
+          "href": "https://github.com/oldsixxiaolv/Manuscript_Lvyh",
+          "rect": {
+            "x": 76,
+            "y": 803,
+            "w": 119.39,
+            "h": 20
+          }
+        },
+        {
+          "tag": "A",
+          "cls": "",
+          "role": "",
+          "ariaLabel": "",
+          "text": "邮箱",
+          "href": "mailto:yihang.lv@mail.iap.ac.cn",
+          "rect": {
+            "x": 16,
+            "y": 858,
+            "w": 24,
+            "h": 20.39
+          }
+        },
+        {
+          "tag": "A",
+          "cls": "",
+          "role": "",
+          "ariaLabel": "",
+          "text": "GitHub",
+          "href": "https://github.com/oldsixxiaolv",
+          "rect": {
+            "x": 48,
+            "y": 858,
+            "w": 42.64,
+            "h": 20.39
+          }
+        },
+        {
+          "tag": "A",
+          "cls": "",
+          "role": "",
+          "ariaLabel": "",
+          "text": "RSS",
+          "href": "/MeteoHub/feed.xml",
+          "rect": {
+            "x": 99,
+            "y": 858,
+            "w": 22.14,
+            "h": 20.39
+          }
+        },
+        {
+          "tag": "A",
+          "cls": "",
+          "role": "",
+          "ariaLabel": "",
+          "text": "All notes →",
+          "href": "/MeteoHub/blog/",
+          "rect": {
+            "x": 16,
+            "y": 1977,
+            "w": 72.03,
+            "h": 22.09
+          }
+        },
+        {
+          "tag": "A",
+          "cls": "",
+          "role": "",
+          "ariaLabel": "",
+          "text": "邮箱",
+          "href": "mailto:yihang.lv@mail.iap.ac.cn",
+          "rect": {
+            "x": 16,
+            "y": 3017,
+            "w": 28,
+            "h": 23.8
+          }
+        },
+        {
+          "tag": "A",
+          "cls": "",
+          "role": "",
+          "ariaLabel": "",
+          "text": "GitHub",
+          "href": "https://github.com/oldsixxiaolv/MeteoHub",
+          "rect": {
+            "x": 68,
+            "y": 3017,
+            "w": 45.16,
+            "h": 23.8
+          }
+        },
+        {
+          "tag": "A",
+          "cls": "",
+          "role": "",
+          "ariaLabel": "",
+          "text": "RSS",
+          "href": "/MeteoHub/feed.xml",
+          "rect": {
+            "x": 137,
+            "y": 3017,
+            "w": 27.17,
+            "h": 23.8
+          }
+        },
+        {
+          "tag": "A",
+          "cls": "",
+          "role": "",
+          "ariaLabel": "",
+          "text": "Sitemap",
+          "href": "/MeteoHub/sitemap.xml",
+          "rect": {
+            "x": 188,
+            "y": 3017,
+            "w": 53.19,
+            "h": 23.8
+          }
+        }
+      ]
+    },
+    "aria": {
+      "issues": [],
+      "landmarks": {
+        "main": true,
+        "nav": true,
+        "header": true,
+        "h1": true,
+        "footer": true
+      },
+      "headingOrder": [
+        {
+          "level": "H1",
+          "text": "Reading the atmosphereas a system."
+        },
+        {
+          "level": "H2",
+          "text": "Monsoon systemsin motion."
+        },
+        {
+          "level": "H2",
+          "text": "Researchprojects"
+        },
+        {
+          "level": "H2",
+          "text": "Fieldnotes"
+        },
+        {
+          "level": "H2",
+          "text": "Paperreader"
+        },
+        {
+          "level": "H2",
+          "text": "Recently collected"
+        }
+      ]
+    },
+    "axe": [
+      {
+        "id": "color-contrast",
+        "impact": "serious",
+        "help": "Elements must meet minimum color contrast ratio thresholds",
+        "nodes": [
+          {
+            "target": [
+              ".home-signal__top > span:nth-child(1)"
+            ],
+            "html": "<span>FIELD NOTE / 01</span>",
+            "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 1.82 (foreground color: #f7e3d2, background color: #ff8e4d, font size: 7.5pt (10px), font weight: normal). Expected contrast rati"
+          },
+          {
+            "target": [
+              ".home-signal__top > span:nth-child(2)"
+            ],
+            "html": "<span>2026—</span>",
+            "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 1.82 (foreground color: #f7e3d2, background color: #ff8e4d, font size: 7.5pt (10px), font weight: normal). Expected contrast rati"
+          },
+          {
+            "target": [
+              ".home-signal__kicker"
+            ],
+            "html": "<p class=\"home-signal__kicker\">Current focus</p>",
+            "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 2.03 (foreground color: #f5f2ea, background color: #ff8e4d, font size: 9.0pt (12px), font weight: normal). Expected contrast rati"
+          },
+          {
+            "target": [
+              "aside > h2"
+            ],
+            "html": "<h2>Monsoon systems<br>in motion.</h2>",
+            "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 2.03 (foreground color: #f5f2ea, background color: #ff8e4d, font size: 43.2pt (57.6px), font weight: normal). Expected contrast r"
+          },
+          {
+            "target": [
+              ".home-signal__metrics > span:nth-child(1)"
+            ],
+            "html": "<span><b>01</b> East Asian monsoon</span>",
+            "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 2.03 (foreground color: #f5f2ea, background color: #ff8e4d, font size: 9.0pt (12px), font weight: normal). Expected contrast rati"
+          },
+          {
+            "target": [
+              "span:nth-child(1) > b"
+            ],
+            "html": "<b>01</b>",
+            "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 2.03 (foreground color: #f5f2ea, background color: #ff8e4d, font size: 8.3pt (11px), font weight: normal). Expected contrast rati"
+          },
+          {
+            "target": [
+              ".home-signal__metrics > span:nth-child(2)"
+            ],
+            "html": "<span><b>02</b> Reanalysis pipelines</span>",
+            "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 2.03 (foreground color: #f5f2ea, background color: #ff8e4d, font size: 9.0pt (12px), font weight: normal). Expected contrast rati"
+          },
+          {
+            "target": [
+              "span:nth-child(2) > b"
+            ],
+            "html": "<b>02</b>",
+            "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 2.03 (foreground color: #f5f2ea, background color: #ff8e4d, font size: 8.3pt (11px), font weight: normal). Expected contrast rati"
+          }
+        ]
+      }
+    ]
+  },
+  "papers": {
+    "url": "/papers/",
+    "tabOrder": [
+      {
+        "tag": "A",
+        "cls": "skip-link",
+        "id": "",
+        "role": "",
+        "ariaLabel": "",
+        "href": "#main",
+        "text": "跳到正文",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "w": 92,
+          "h": 44.89
+        }
+      },
+      {
+        "tag": "A",
+        "cls": "topbar__brand",
+        "id": "",
+        "role": "",
+        "ariaLabel": "",
+        "href": "/MeteoHub/",
+        "text": "MeteoHub",
+        "rect": {
+          "x": 168,
+          "y": 16,
+          "w": 72.8,
+          "h": 23.8
+        }
+      },
+      {
+        "tag": "A",
+        "cls": "topbar__link",
+        "id": "",
+        "role": "",
+        "ariaLabel": "",
+        "href": "/MeteoHub/",
+        "text": "首页",
+        "rect": {
+          "x": 942,
+          "y": 12,
+          "w": 28,
+          "h": 31.8
+        }
+      },
+      {
+        "tag": "A",
+        "cls": "topbar__link",
+        "id": "",
+        "role": "",
+        "ariaLabel": "",
+        "href": "/MeteoHub/portfolio/",
+        "text": "作品集",
+        "rect": {
+          "x": 994,
+          "y": 12,
+          "w": 42,
+          "h": 31.8
+        }
+      },
+      {
+        "tag": "A",
+        "cls": "topbar__link",
+        "id": "",
+        "role": "",
+        "ariaLabel": "",
+        "href": "/MeteoHub/blog/",
+        "text": "博客",
+        "rect": {
+          "x": 1060,
+          "y": 12,
+          "w": 28,
+          "h": 31.8
+        }
+      },
+      {
+        "tag": "A",
+        "cls": "topbar__link",
+        "id": "",
+        "role": "",
+        "ariaLabel": "",
+        "href": "/MeteoHub/papers/",
+        "text": "论文精读",
+        "rect": {
+          "x": 1112,
+          "y": 12,
+          "w": 56,
+          "h": 31.8
+        }
+      },
+      {
+        "tag": "A",
+        "cls": "topbar__link",
+        "id": "",
+        "role": "",
+        "ariaLabel": "",
+        "href": "/MeteoHub/about/",
+        "text": "关于",
+        "rect": {
+          "x": 1192,
+          "y": 12,
+          "w": 28,
+          "h": 31.8
+        }
+      },
+      {
+        "tag": "BUTTON",
+        "cls": "topbar__theme",
+        "id": "",
+        "role": "",
+        "ariaLabel": "切换到浅色模式",
+        "href": "",
+        "text": "",
+        "rect": {
+          "x": 1244,
+          "y": 14,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "tag": "A",
+        "cls": "list__title",
+        "id": "",
+        "role": "",
+        "ariaLabel": "",
+        "href": "/papers/microphysics-zhang/",
+        "text": "微物理方案的尺度依赖：以 WRF 中 Morrison 2-moment 为例",
+        "rect": {
+          "x": 168,
+          "y": 339,
+          "w": 510.78,
+          "h": 44
+        }
+      },
+      {
+        "tag": "A",
+        "cls": "list__title",
+        "id": "",
+        "role": "",
+        "ariaLabel": "",
+        "href": "/papers/holton-rollin-1987/",
+        "text": "On the Role of Moist Convection in the T",
+        "rect": {
+          "x": 168,
+          "y": 440,
+          "w": 587.86,
+          "h": 44
+        }
+      },
+      {
+        "tag": "A",
+        "cls": "list__title",
+        "id": "",
+        "role": "",
+        "ariaLabel": "",
+        "href": "/papers/trmm-lyu-2026/",
+        "text": "New Insights from TRMM Legacy: Stage-Dep",
+        "rect": {
+          "x": 168,
+          "y": 541,
+          "w": 1104,
+          "h": 50.38
+        }
+      },
+      {
+        "tag": "A",
+        "cls": "",
+        "id": "",
+        "role": "",
+        "ariaLabel": "",
+        "href": "mailto:yihang.lv@mail.iap.ac.cn",
+        "text": "邮箱",
+        "rect": {
+          "x": 1046,
+          "y": 786,
+          "w": 28,
+          "h": 23.8
+        }
+      }
+    ],
+    "skipLink": {
+      "found": true,
+      "tag": "A",
+      "text": "跳到正文",
+      "href": "#main",
+      "targetExists": true
+    },
+    "desktop": {
+      "total": 15,
+      "smallCount": 11,
+      "small": [
+        {
+          "tag": "A",
+          "cls": "topbar__brand",
+          "role": "",
+          "ariaLabel": "",
+          "text": "MeteoHub",
+          "href": "/MeteoHub/",
+          "rect": {
+            "x": 168,
+            "y": 16,
+            "w": 72.8,
+            "h": 23.8
+          }
+        },
+        {
+          "tag": "A",
+          "cls": "topbar__link",
+          "role": "",
+          "ariaLabel": "",
+          "text": "首页",
+          "href": "/MeteoHub/",
+          "rect": {
+            "x": 942,
+            "y": 12,
+            "w": 28,
+            "h": 31.8
+          }
+        },
+        {
+          "tag": "A",
+          "cls": "topbar__link",
+          "role": "",
+          "ariaLabel": "",
+          "text": "作品集",
+          "href": "/MeteoHub/portfolio/",
+          "rect": {
+            "x": 994,
+            "y": 12,
+            "w": 42,
+            "h": 31.8
+          }
+        },
+        {
+          "tag": "A",
+          "cls": "topbar__link",
+          "role": "",
+          "ariaLabel": "",
+          "text": "博客",
+          "href": "/MeteoHub/blog/",
+          "rect": {
+            "x": 1060,
+            "y": 12,
+            "w": 28,
+            "h": 31.8
+          }
+        },
+        {
+          "tag": "A",
+          "cls": "topbar__link",
+          "role": "",
+          "ariaLabel": "",
+          "text": "论文精读",
+          "href": "/MeteoHub/papers/",
+          "rect": {
+            "x": 1112,
+            "y": 12,
+            "w": 56,
+            "h": 31.8
+          }
+        },
+        {
+          "tag": "A",
+          "cls": "topbar__link",
+          "role": "",
+          "ariaLabel": "",
+          "text": "关于",
+          "href": "/MeteoHub/about/",
+          "rect": {
+            "x": 1192,
+            "y": 12,
+            "w": 28,
+            "h": 31.8
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "cls": "topbar__theme",
+          "role": "",
+          "ariaLabel": "切换到浅色模式",
+          "text": "",
+          "href": "",
+          "rect": {
+            "x": 1244,
+            "y": 14,
+            "w": 28,
+            "h": 28
+          }
+        },
+        {
+          "tag": "A",
+          "cls": "",
+          "role": "",
+          "ariaLabel": "",
+          "text": "邮箱",
+          "href": "mailto:yihang.lv@mail.iap.ac.cn",
+          "rect": {
+            "x": 1046,
+            "y": 786,
+            "w": 28,
+            "h": 23.8
+          }
+        },
+        {
+          "tag": "A",
+          "cls": "",
+          "role": "",
+          "ariaLabel": "",
+          "text": "GitHub",
+          "href": "https://github.com/oldsixxiaolv/MeteoHub",
+          "rect": {
+            "x": 1098,
+            "y": 786,
+            "w": 45.16,
+            "h": 23.8
+          }
+        },
+        {
+          "tag": "A",
+          "cls": "",
+          "role": "",
+          "ariaLabel": "",
+          "text": "RSS",
+          "href": "/MeteoHub/feed.xml",
+          "rect": {
+            "x": 1168,
+            "y": 786,
+            "w": 27.17,
+            "h": 23.8
+          }
+        },
+        {
+          "tag": "A",
+          "cls": "",
+          "role": "",
+          "ariaLabel": "",
+          "text": "Sitemap",
+          "href": "/MeteoHub/sitemap.xml",
+          "rect": {
+            "x": 1219,
+            "y": 786,
+            "w": 53.19,
+            "h": 23.8
+          }
+        }
+      ]
+    },
+    "mobile": {
+      "total": 15,
+      "smallCount": 11,
+      "small": [
+        {
+          "tag": "A",
+          "cls": "topbar__brand",
+          "role": "",
+          "ariaLabel": "",
+          "text": "MeteoHub",
+          "href": "/MeteoHub/",
+          "rect": {
+            "x": 16,
+            "y": 16,
+            "w": 72.8,
+            "h": 23.8
+          }
+        },
+        {
+          "tag": "A",
+          "cls": "topbar__link",
+          "role": "",
+          "ariaLabel": "",
+          "text": "首页",
+          "href": "/MeteoHub/",
+          "rect": {
+            "x": 95,
+            "y": 14,
+            "w": 24,
+            "h": 28.39
+          }
+        },
+        {
+          "tag": "A",
+          "cls": "topbar__link",
+          "role": "",
+          "ariaLabel": "",
+          "text": "作品集",
+          "href": "/MeteoHub/portfolio/",
+          "rect": {
+            "x": 135,
+            "y": 14,
+            "w": 36,
+            "h": 28.39
+          }
+        },
+        {
+          "tag": "A",
+          "cls": "topbar__link",
+          "role": "",
+          "ariaLabel": "",
+          "text": "博客",
+          "href": "/MeteoHub/blog/",
+          "rect": {
+            "x": 187,
+            "y": 14,
+            "w": 24,
+            "h": 28.39
+          }
+        },
+        {
+          "tag": "A",
+          "cls": "topbar__link",
+          "role": "",
+          "ariaLabel": "",
+          "text": "论文精读",
+          "href": "/MeteoHub/papers/",
+          "rect": {
+            "x": 227,
+            "y": 14,
+            "w": 48,
+            "h": 28.39
+          }
+        },
+        {
+          "tag": "A",
+          "cls": "topbar__link",
+          "role": "",
+          "ariaLabel": "",
+          "text": "关于",
+          "href": "/MeteoHub/about/",
+          "rect": {
+            "x": 291,
+            "y": 14,
+            "w": 24,
+            "h": 28.39
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "cls": "topbar__theme",
+          "role": "",
+          "ariaLabel": "切换到浅色模式",
+          "text": "",
+          "href": "",
+          "rect": {
+            "x": 331,
+            "y": 14,
+            "w": 28,
+            "h": 28
+          }
+        },
+        {
+          "tag": "A",
+          "cls": "",
+          "role": "",
+          "ariaLabel": "",
+          "text": "邮箱",
+          "href": "mailto:yihang.lv@mail.iap.ac.cn",
+          "rect": {
+            "x": 16,
+            "y": 922,
+            "w": 28,
+            "h": 23.8
+          }
+        },
+        {
+          "tag": "A",
+          "cls": "",
+          "role": "",
+          "ariaLabel": "",
+          "text": "GitHub",
+          "href": "https://github.com/oldsixxiaolv/MeteoHub",
+          "rect": {
+            "x": 68,
+            "y": 922,
+            "w": 45.16,
+            "h": 23.8
+          }
+        },
+        {
+          "tag": "A",
+          "cls": "",
+          "role": "",
+          "ariaLabel": "",
+          "text": "RSS",
+          "href": "/MeteoHub/feed.xml",
+          "rect": {
+            "x": 137,
+            "y": 922,
+            "w": 27.17,
+            "h": 23.8
+          }
+        },
+        {
+          "tag": "A",
+          "cls": "",
+          "role": "",
+          "ariaLabel": "",
+          "text": "Sitemap",
+          "href": "/MeteoHub/sitemap.xml",
+          "rect": {
+            "x": 188,
+            "y": 922,
+            "w": 53.19,
+            "h": 23.8
+          }
+        }
+      ]
+    },
+    "aria": {
+      "issues": [],
+      "landmarks": {
+        "main": true,
+        "nav": true,
+        "header": true,
+        "h1": true,
+        "footer": true
+      },
+      "headingOrder": [
+        {
+          "level": "H1",
+          "text": "论文精读"
+        }
+      ]
+    },
+    "axe": []
+  },
+  "paper-detail": {
+    "url": "/papers/trmm-lyu-2026/",
+    "tabOrder": [
+      {
+        "tag": "A",
+        "cls": "skip-link",
+        "id": "",
+        "role": "",
+        "ariaLabel": "",
+        "href": "#main",
+        "text": "跳到正文",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "w": 92,
+          "h": 44.89
+        }
+      },
+      {
+        "tag": "A",
+        "cls": "topbar__brand",
+        "id": "",
+        "role": "",
+        "ariaLabel": "",
+        "href": "/MeteoHub/",
+        "text": "MeteoHub",
+        "rect": {
+          "x": 168,
+          "y": 16,
+          "w": 72.8,
+          "h": 23.8
+        }
+      },
+      {
+        "tag": "A",
+        "cls": "topbar__link",
+        "id": "",
+        "role": "",
+        "ariaLabel": "",
+        "href": "/MeteoHub/",
+        "text": "首页",
+        "rect": {
+          "x": 942,
+          "y": 12,
+          "w": 28,
+          "h": 31.8
+        }
+      },
+      {
+        "tag": "A",
+        "cls": "topbar__link",
+        "id": "",
+        "role": "",
+        "ariaLabel": "",
+        "href": "/MeteoHub/portfolio/",
+        "text": "作品集",
+        "rect": {
+          "x": 994,
+          "y": 12,
+          "w": 42,
+          "h": 31.8
+        }
+      },
+      {
+        "tag": "A",
+        "cls": "topbar__link",
+        "id": "",
+        "role": "",
+        "ariaLabel": "",
+        "href": "/MeteoHub/blog/",
+        "text": "博客",
+        "rect": {
+          "x": 1060,
+          "y": 12,
+          "w": 28,
+          "h": 31.8
+        }
+      },
+      {
+        "tag": "A",
+        "cls": "topbar__link",
+        "id": "",
+        "role": "",
+        "ariaLabel": "",
+        "href": "/MeteoHub/papers/",
+        "text": "论文精读",
+        "rect": {
+          "x": 1112,
+          "y": 12,
+          "w": 56,
+          "h": 31.8
+        }
+      },
+      {
+        "tag": "A",
+        "cls": "topbar__link",
+        "id": "",
+        "role": "",
+        "ariaLabel": "",
+        "href": "/MeteoHub/about/",
+        "text": "关于",
+        "rect": {
+          "x": 1192,
+          "y": 12,
+          "w": 28,
+          "h": 31.8
+        }
+      },
+      {
+        "tag": "BUTTON",
+        "cls": "topbar__theme",
+        "id": "",
+        "role": "",
+        "ariaLabel": "切换到浅色模式",
+        "href": "",
+        "text": "",
+        "rect": {
+          "x": 1244,
+          "y": 14,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "tag": "A",
+        "cls": "paper-toc__link is-active",
+        "id": "",
+        "role": "",
+        "ariaLabel": "",
+        "href": "#p-001",
+        "text": "一、摘要",
+        "rect": {
+          "x": 106,
+          "y": 128,
+          "w": 240.8,
+          "h": 44
+        }
+      },
+      {
+        "tag": "A",
+        "cls": "paper-toc__link",
+        "id": "",
+        "role": "",
+        "ariaLabel": "",
+        "href": "#p-002",
+        "text": "二、摘要续（Plain Language Summary）",
+        "rect": {
+          "x": 106,
+          "y": 176,
+          "w": 240.8,
+          "h": 55.59
+        }
+      },
+      {
+        "tag": "A",
+        "cls": "paper-toc__link",
+        "id": "",
+        "role": "",
+        "ariaLabel": "",
+        "href": "#p-003",
+        "text": "三、引言：雷暴与闪电关系的传统视角",
+        "rect": {
+          "x": 106,
+          "y": 235,
+          "w": 240.8,
+          "h": 55.59
+        }
+      },
+      {
+        "tag": "A",
+        "cls": "paper-toc__link",
+        "id": "",
+        "role": "",
+        "ariaLabel": "",
+        "href": "#p-004",
+        "text": "四、引言：TRMM 快照观测的局限",
+        "rect": {
+          "x": 106,
+          "y": 295,
+          "w": 240.8,
+          "h": 44
+        }
+      }
+    ],
+    "skipLink": {
+      "found": true,
+      "tag": "A",
+      "text": "跳到正文",
+      "href": "#main",
+      "targetExists": true
+    },
+    "desktop": {
+      "total": 52,
+      "smallCount": 22,
+      "small": [
+        {
+          "tag": "A",
+          "cls": "topbar__brand",
+          "role": "",
+          "ariaLabel": "",
+          "text": "MeteoHub",
+          "href": "/MeteoHub/",
+          "rect": {
+            "x": 168,
+            "y": 16,
+            "w": 72.8,
+            "h": 23.8
+          }
+        },
+        {
+          "tag": "A",
+          "cls": "topbar__link",
+          "role": "",
+          "ariaLabel": "",
+          "text": "首页",
+          "href": "/MeteoHub/",
+          "rect": {
+            "x": 942,
+            "y": 12,
+            "w": 28,
+            "h": 31.8
+          }
+        },
+        {
+          "tag": "A",
+          "cls": "topbar__link",
+          "role": "",
+          "ariaLabel": "",
+          "text": "作品集",
+          "href": "/MeteoHub/portfolio/",
+          "rect": {
+            "x": 994,
+            "y": 12,
+            "w": 42,
+            "h": 31.8
+          }
+        },
+        {
+          "tag": "A",
+          "cls": "topbar__link",
+          "role": "",
+          "ariaLabel": "",
+          "text": "博客",
+          "href": "/MeteoHub/blog/",
+          "rect": {
+            "x": 1060,
+            "y": 12,
+            "w": 28,
+            "h": 31.8
+          }
+        },
+        {
+          "tag": "A",
+          "cls": "topbar__link",
+          "role": "",
+          "ariaLabel": "",
+          "text": "论文精读",
+          "href": "/MeteoHub/papers/",
+          "rect": {
+            "x": 1112,
+            "y": 12,
+            "w": 56,
+            "h": 31.8
+          }
+        },
+        {
+          "tag": "A",
+          "cls": "topbar__link",
+          "role": "",
+          "ariaLabel": "",
+          "text": "关于",
+          "href": "/MeteoHub/about/",
+          "rect": {
+            "x": 1192,
+            "y": 12,
+            "w": 28,
+            "h": 31.8
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "cls": "topbar__theme",
+          "role": "",
+          "ariaLabel": "切换到浅色模式",
+          "text": "",
+          "href": "",
+          "rect": {
+            "x": 1244,
+            "y": 14,
+            "w": 28,
+            "h": 28
+          }
+        },
+        {
+          "tag": "A",
+          "cls": "",
+          "role": "",
+          "ariaLabel": "",
+          "text": "DOI",
+          "href": "https://doi.org/10.1029/2026JD046836",
+          "rect": {
+            "x": 387,
+            "y": 346,
+            "w": 22.23,
+            "h": 22.09
+          }
+        },
+        {
+          "tag": "A",
+          "cls": "",
+          "role": "",
+          "ariaLabel": "",
+          "text": "← 回到论文精读列表",
+          "href": "/MeteoHub/papers/",
+          "rect": {
+            "x": 387,
+            "y": 5606,
+            "w": 130.67,
+            "h": 20
+          }
+        },
+        {
+          "tag": "INPUT",
+          "cls": "annot-pane__filter",
+          "role": "",
+          "ariaLabel": "筛选批注",
+          "text": "",
+          "href": "",
+          "rect": {
+            "x": 1147,
+            "y": 129,
+            "w": 160,
+            "h": 32
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "cls": "annot-filter is-active",
+          "role": "",
+          "ariaLabel": "",
+          "text": "全部",
+          "href": "",
+          "rect": {
+            "x": 1061,
+            "y": 177,
+            "w": 42,
+            "h": 30
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "cls": "annot-filter annot-filter--question",
+          "role": "",
+          "ariaLabel": "",
+          "text": "疑问",
+          "href": "",
+          "rect": {
+            "x": 1109,
+            "y": 177,
+            "w": 42,
+            "h": 30
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "cls": "annot-filter annot-filter--insight",
+          "role": "",
+          "ariaLabel": "",
+          "text": "洞见",
+          "href": "",
+          "rect": {
+            "x": 1157,
+            "y": 177,
+            "w": 42,
+            "h": 30
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "cls": "annot-filter annot-filter--critique",
+          "role": "",
+          "ariaLabel": "",
+          "text": "质疑",
+          "href": "",
+          "rect": {
+            "x": 1205,
+            "y": 177,
+            "w": 42,
+            "h": 30
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "cls": "annot-filter annot-filter--figure",
+          "role": "",
+          "ariaLabel": "",
+          "text": "配图",
+          "href": "",
+          "rect": {
+            "x": 1253,
+            "y": 177,
+            "w": 42,
+            "h": 30
+          }
+        },
+        {
+          "tag": "A",
+          "cls": "",
+          "role": "",
+          "ariaLabel": "",
+          "text": "Steinbach et al. 2000 →",
+          "href": "http://hdl.handle.net/11299/215421",
+          "rect": {
+            "x": 1079,
+            "y": 1864,
+            "w": 145.97,
+            "h": 20
+          }
+        },
+        {
+          "tag": "A",
+          "cls": "",
+          "role": "",
+          "ariaLabel": "",
+          "text": "Takahashi 1978 →",
+          "href": "https://doi.org/10.1175/1520-0469(1978)035",
+          "rect": {
+            "x": 1079,
+            "y": 2758,
+            "w": 112.56,
+            "h": 20
+          }
+        },
+        {
+          "tag": "A",
+          "cls": "",
+          "role": "",
+          "ariaLabel": "",
+          "text": "Liu & Zipser 2015 →",
+          "href": "https://doi.org/10.1002/2015gl063776",
+          "rect": {
+            "x": 1079,
+            "y": 3228,
+            "w": 124.86,
+            "h": 20
+          }
+        },
+        {
+          "tag": "A",
+          "cls": "",
+          "role": "",
+          "ariaLabel": "",
+          "text": "邮箱",
+          "href": "mailto:yihang.lv@mail.iap.ac.cn",
+          "rect": {
+            "x": 1046,
+            "y": 5862,
+            "w": 28,
+            "h": 23.8
+          }
+        },
+        {
+          "tag": "A",
+          "cls": "",
+          "role": "",
+          "ariaLabel": "",
+          "text": "GitHub",
+          "href": "https://github.com/oldsixxiaolv/MeteoHub",
+          "rect": {
+            "x": 1098,
+            "y": 5862,
+            "w": 45.16,
+            "h": 23.8
+          }
+        },
+        {
+          "tag": "A",
+          "cls": "",
+          "role": "",
+          "ariaLabel": "",
+          "text": "RSS",
+          "href": "/MeteoHub/feed.xml",
+          "rect": {
+            "x": 1168,
+            "y": 5862,
+            "w": 27.17,
+            "h": 23.8
+          }
+        },
+        {
+          "tag": "A",
+          "cls": "",
+          "role": "",
+          "ariaLabel": "",
+          "text": "Sitemap",
+          "href": "/MeteoHub/sitemap.xml",
+          "rect": {
+            "x": 1219,
+            "y": 5862,
+            "w": 53.19,
+            "h": 23.8
+          }
+        }
+      ]
+    },
+    "mobile": {
+      "total": 31,
+      "smallCount": 22,
+      "small": [
+        {
+          "tag": "A",
+          "cls": "topbar__brand",
+          "role": "",
+          "ariaLabel": "",
+          "text": "MeteoHub",
+          "href": "/MeteoHub/",
+          "rect": {
+            "x": 16,
+            "y": 16,
+            "w": 72.8,
+            "h": 23.8
+          }
+        },
+        {
+          "tag": "A",
+          "cls": "topbar__link",
+          "role": "",
+          "ariaLabel": "",
+          "text": "首页",
+          "href": "/MeteoHub/",
+          "rect": {
+            "x": 95,
+            "y": 14,
+            "w": 24,
+            "h": 28.39
+          }
+        },
+        {
+          "tag": "A",
+          "cls": "topbar__link",
+          "role": "",
+          "ariaLabel": "",
+          "text": "作品集",
+          "href": "/MeteoHub/portfolio/",
+          "rect": {
+            "x": 135,
+            "y": 14,
+            "w": 36,
+            "h": 28.39
+          }
+        },
+        {
+          "tag": "A",
+          "cls": "topbar__link",
+          "role": "",
+          "ariaLabel": "",
+          "text": "博客",
+          "href": "/MeteoHub/blog/",
+          "rect": {
+            "x": 187,
+            "y": 14,
+            "w": 24,
+            "h": 28.39
+          }
+        },
+        {
+          "tag": "A",
+          "cls": "topbar__link",
+          "role": "",
+          "ariaLabel": "",
+          "text": "论文精读",
+          "href": "/MeteoHub/papers/",
+          "rect": {
+            "x": 227,
+            "y": 14,
+            "w": 48,
+            "h": 28.39
+          }
+        },
+        {
+          "tag": "A",
+          "cls": "topbar__link",
+          "role": "",
+          "ariaLabel": "",
+          "text": "关于",
+          "href": "/MeteoHub/about/",
+          "rect": {
+            "x": 291,
+            "y": 14,
+            "w": 24,
+            "h": 28.39
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "cls": "topbar__theme",
+          "role": "",
+          "ariaLabel": "切换到浅色模式",
+          "text": "",
+          "href": "",
+          "rect": {
+            "x": 331,
+            "y": 14,
+            "w": 28,
+            "h": 28
+          }
+        },
+        {
+          "tag": "A",
+          "cls": "",
+          "role": "",
+          "ariaLabel": "",
+          "text": "DOI",
+          "href": "https://doi.org/10.1029/2026JD046836",
+          "rect": {
+            "x": 16,
+            "y": 432,
+            "w": 22.23,
+            "h": 22.09
+          }
+        },
+        {
+          "tag": "A",
+          "cls": "",
+          "role": "",
+          "ariaLabel": "",
+          "text": "← 回到论文精读列表",
+          "href": "/MeteoHub/papers/",
+          "rect": {
+            "x": 16,
+            "y": 8336,
+            "w": 130.67,
+            "h": 20
+          }
+        },
+        {
+          "tag": "INPUT",
+          "cls": "annot-pane__filter",
+          "role": "",
+          "ariaLabel": "筛选批注",
+          "text": "",
+          "href": "",
+          "rect": {
+            "x": 198,
+            "y": 877,
+            "w": 160,
+            "h": 32
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "cls": "annot-filter is-active",
+          "role": "",
+          "ariaLabel": "",
+          "text": "全部",
+          "href": "",
+          "rect": {
+            "x": 17,
+            "y": 925,
+            "w": 42,
+            "h": 30
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "cls": "annot-filter annot-filter--question",
+          "role": "",
+          "ariaLabel": "",
+          "text": "疑问",
+          "href": "",
+          "rect": {
+            "x": 65,
+            "y": 925,
+            "w": 42,
+            "h": 30
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "cls": "annot-filter annot-filter--insight",
+          "role": "",
+          "ariaLabel": "",
+          "text": "洞见",
+          "href": "",
+          "rect": {
+            "x": 113,
+            "y": 925,
+            "w": 42,
+            "h": 30
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "cls": "annot-filter annot-filter--critique",
+          "role": "",
+          "ariaLabel": "",
+          "text": "质疑",
+          "href": "",
+          "rect": {
+            "x": 161,
+            "y": 925,
+            "w": 42,
+            "h": 30
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "cls": "annot-filter annot-filter--figure",
+          "role": "",
+          "ariaLabel": "",
+          "text": "配图",
+          "href": "",
+          "rect": {
+            "x": 209,
+            "y": 925,
+            "w": 42,
+            "h": 30
+          }
+        },
+        {
+          "tag": "A",
+          "cls": "",
+          "role": "",
+          "ariaLabel": "",
+          "text": "Steinbach et al. 2000 →",
+          "href": "http://hdl.handle.net/11299/215421",
+          "rect": {
+            "x": 35,
+            "y": 2268,
+            "w": 145.97,
+            "h": 20
+          }
+        },
+        {
+          "tag": "A",
+          "cls": "",
+          "role": "",
+          "ariaLabel": "",
+          "text": "Takahashi 1978 →",
+          "href": "https://doi.org/10.1175/1520-0469(1978)035",
+          "rect": {
+            "x": 35,
+            "y": 3002,
+            "w": 112.56,
+            "h": 20
+          }
+        },
+        {
+          "tag": "A",
+          "cls": "",
+          "role": "",
+          "ariaLabel": "",
+          "text": "Liu & Zipser 2015 →",
+          "href": "https://doi.org/10.1002/2015gl063776",
+          "rect": {
+            "x": 35,
+            "y": 3357,
+            "w": 124.86,
+            "h": 20
+          }
+        },
+        {
+          "tag": "A",
+          "cls": "",
+          "role": "",
+          "ariaLabel": "",
+          "text": "邮箱",
+          "href": "mailto:yihang.lv@mail.iap.ac.cn",
+          "rect": {
+            "x": 16,
+            "y": 8591,
+            "w": 28,
+            "h": 23.8
+          }
+        },
+        {
+          "tag": "A",
+          "cls": "",
+          "role": "",
+          "ariaLabel": "",
+          "text": "GitHub",
+          "href": "https://github.com/oldsixxiaolv/MeteoHub",
+          "rect": {
+            "x": 68,
+            "y": 8591,
+            "w": 45.16,
+            "h": 23.8
+          }
+        },
+        {
+          "tag": "A",
+          "cls": "",
+          "role": "",
+          "ariaLabel": "",
+          "text": "RSS",
+          "href": "/MeteoHub/feed.xml",
+          "rect": {
+            "x": 137,
+            "y": 8591,
+            "w": 27.17,
+            "h": 23.8
+          }
+        },
+        {
+          "tag": "A",
+          "cls": "",
+          "role": "",
+          "ariaLabel": "",
+          "text": "Sitemap",
+          "href": "/MeteoHub/sitemap.xml",
+          "rect": {
+            "x": 188,
+            "y": 8591,
+            "w": 53.19,
+            "h": 23.8
+          }
+        }
+      ]
+    },
+    "aria": {
+      "issues": [],
+      "landmarks": {
+        "main": true,
+        "nav": true,
+        "header": true,
+        "h1": true,
+        "footer": true
+      },
+      "headingOrder": [
+        {
+          "level": "H1",
+          "text": "New Insights from TRMM Legacy: Stage-Dependent Rel"
+        },
+        {
+          "level": "H2",
+          "text": "一、摘要1"
+        },
+        {
+          "level": "H2",
+          "text": "二、摘要续（Plain Language Summary）1"
+        },
+        {
+          "level": "H2",
+          "text": "三、引言：雷暴与闪电关系的传统视角"
+        },
+        {
+          "level": "H2",
+          "text": "四、引言：TRMM 快照观测的局限"
+        },
+        {
+          "level": "H2",
+          "text": "五、引言：发展阶段与回波结构演化"
+        },
+        {
+          "level": "H2",
+          "text": "六、引言：本文目标与结构"
+        },
+        {
+          "level": "H2",
+          "text": "七、数据：TRMM 卫星与产品1"
+        },
+        {
+          "level": "H2",
+          "text": "八、数据：变量与预处理"
+        },
+        {
+          "level": "H2",
+          "text": "九、方法：改进的 K-means 聚类1"
+        },
+        {
+          "level": "H2",
+          "text": "十、方法：六个聚类参数与最终分类"
+        },
+        {
+          "level": "H2",
+          "text": "十一、结果：对流特征在不同阶段的差异"
+        },
+        {
+          "level": "H2",
+          "text": "十二、结果：Maxht40 vs FlRate 阶段相关1"
+        },
+        {
+          "level": "H2",
+          "text": "十三、结果：水平尺度 vs FlRate 阶段相关1"
+        },
+        {
+          "level": "H2",
+          "text": "十四、结果：综合参数 Volume40 的相关性"
+        },
+        {
+          "level": "H2",
+          "text": "十五、讨论：三阶段机制差异总结"
+        },
+        {
+          "level": "H2",
+          "text": "十六、讨论：方法学价值与推广1"
+        },
+        {
+          "level": "H2",
+          "text": "十七、结论：方法贡献"
+        },
+        {
+          "level": "H2",
+          "text": "十八、结论：阶段分类与总样本一致性1"
+        },
+        {
+          "level": "H2",
+          "text": "十九、结论：trade-off 是核心机制"
+        }
+      ]
+    },
+    "axe": [
+      {
+        "id": "color-contrast",
+        "impact": "serious",
+        "help": "Elements must meet minimum color contrast ratio thresholds",
+        "nodes": [
+          {
+            "target": [
+              "#p-003"
+            ],
+            "html": "<h2 id=\"p-003\">三、引言：雷暴与闪电关系的传统视角</h2>",
+            "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 2.98 (foreground color: #605e5a, background color: #0f0e0c, font size: 16.5pt (22px), font weight: bold). Expected contrast ratio"
+          },
+          {
+            "target": [
+              "#p-004"
+            ],
+            "html": "<h2 id=\"p-004\">四、引言：TRMM 快照观测的局限</h2>",
+            "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 2.98 (foreground color: #605e5a, background color: #0f0e0c, font size: 16.5pt (22px), font weight: bold). Expected contrast ratio"
+          },
+          {
+            "target": [
+              "#p-005"
+            ],
+            "html": "<h2 id=\"p-005\">五、引言：发展阶段与回波结构演化</h2>",
+            "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 2.98 (foreground color: #605e5a, background color: #0f0e0c, font size: 16.5pt (22px), font weight: bold). Expected contrast ratio"
+          },
+          {
+            "target": [
+              "#p-006"
+            ],
+            "html": "<h2 id=\"p-006\">六、引言：本文目标与结构</h2>",
+            "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 2.98 (foreground color: #605e5a, background color: #0f0e0c, font size: 16.5pt (22px), font weight: bold). Expected contrast ratio"
+          },
+          {
+            "target": [
+              "#p-008"
+            ],
+            "html": "<h2 id=\"p-008\">八、数据：变量与预处理</h2>",
+            "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 2.98 (foreground color: #605e5a, background color: #0f0e0c, font size: 16.5pt (22px), font weight: bold). Expected contrast ratio"
+          },
+          {
+            "target": [
+              "#p-010"
+            ],
+            "html": "<h2 id=\"p-010\">十、方法：六个聚类参数与最终分类</h2>",
+            "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 2.98 (foreground color: #605e5a, background color: #0f0e0c, font size: 16.5pt (22px), font weight: bold). Expected contrast ratio"
+          },
+          {
+            "target": [
+              "#p-011"
+            ],
+            "html": "<h2 id=\"p-011\">十一、结果：对流特征在不同阶段的差异</h2>",
+            "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 2.98 (foreground color: #605e5a, background color: #0f0e0c, font size: 16.5pt (22px), font weight: bold). Expected contrast ratio"
+          },
+          {
+            "target": [
+              "#p-014"
+            ],
+            "html": "<h2 id=\"p-014\">十四、结果：综合参数 Volume40 的相关性</h2>",
+            "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 2.98 (foreground color: #605e5a, background color: #0f0e0c, font size: 16.5pt (22px), font weight: bold). Expected contrast ratio"
+          }
+        ]
+      }
+    ]
+  }
+}

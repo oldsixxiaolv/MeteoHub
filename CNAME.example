@@ -1,0 +1,16 @@
+# 这是 CNAME 文件的占位示例。
+#
+# 本项目实际部署到 https://oldsixxiaolv.github.io/MeteoHub/ （项目页子路径）。
+# 默认 username.github.io / 仓库子路径即可，不需要自定义域——下面这行仅作示例。
+#
+# GitHub Pages 自定义域名配置（如果未来要切自定义域）：
+# 1. 复制本文件为 CNAME（无扩展名）放在仓库根
+#    cp CNAME.example CNAME
+# 2. 把下面这行替换成你的真实域名
+#    例如：meteohub.oldsixxiaolv.com
+# 3. 在域名 DNS 服务商添加 CNAME 记录指向 <owner>.github.io
+# 4. 在 src/_data/site.js 的 url 字段同步改为新域名
+#
+# 详细部署步骤见 docs/DEPLOY.md。
+
+meteohub.oldsixxiaolv.com

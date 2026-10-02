@@ -1,83 +1,137 @@
-# MeteoHub · 大气科学学术工作台
+# MeteoHub · 个人学术站点
 
-面向大气科学研究的中文个人工作台：成果库、研究问答、研究者目录、分层知识页面与项目看板。由吕亦航创建于中国科学院大气物理研究所。
+一个为大气科学研究者打造的个人学术站点：**作品集 + 博客 + 论文精读**。
+Eleventy 11ty 从 Markdown 源构建出纯静态站点，零后端、零数据库。
 
-## 已实现
+## 模块
 
-- 成果新增、编辑、删除，关键词/年份/类型筛选、收藏；DOI 格式校验和外链。格式通过不代表 DOI 已向出版机构核实。
-- 提问、回答、点赞；研究者资料目录、关注名单和个人资料。
-- 分层知识页面，标题/文本/待办/代码块，自动保存、失败提示和重试，Markdown 导出。
-- 项目任务表格与看板，任务名称、状态、截止日期和备注。
-- Python 脚本编辑、示例与 `.py` 下载。此版本尚未集成 Python 运行时，运行按钮禁用；服务器不执行用户代码。
-- 用户名/密码注册登录，密码哈希，HttpOnly 签名 cookie；SQLite 持久化和 revision 冲突检测。
+| 模块 | 路径 | 说明 |
+| --- | --- | --- |
+| 首页 | `/` | 自介 bio + Manuscript_Lvyh inline link + 近期博客/作品集/精读入口（Stage 8 起为自介版） |
+| 作品集 | `/portfolio/` | 研究项目，按年份倒序，每个项目有详情页 |
+| 博客 | `/blog/` | 学习笔记与长文思考，按发布日期倒序 |
+| 论文精读 | `/papers/` | 左侧原文 + 右侧批注，六种 kind 配色 + 双向联动 |
+| 关于 | `/about/` | 我是谁 / 研究方向 / 教育背景 / 联系方式 |
 
-**这是个人工作台，并非跨用户公开社区。** 每个账户拥有独立成果、问答和目录；关注不会通知其他用户，问答不会发布到公共信息流。匿名模式包含明确标注的虚构示例，不构成真实论文或科研结论。
+## 论文精读（站点差异化亮点）
+
+论文详情页左半部分渲染论文原文，右半部分是批注侧栏。
+每个批注按 `kind` 分类，配色走设计系统的设计 token（不写死 HEX）：
+
+| kind | 颜色 token | 含义 |
+| --- | --- | --- |
+| `question` | `--color-brand-400` | 疑问 / 待查 |
+| `insight` | `--color-accent-400` | 心得 / 灵感 |
+| `critique` | `--color-warning` | 方法学质疑 |
+| `figure` | `--color-sage-700` | 配合插图说明 |
+| `link` | `--color-sage-500` | 外链补充阅读 |
+| `typo` | `--color-danger` | 待勘误 |
+
+> 上表与 `src/assets/css/components/_paper.css` 保持一致。`docs/papers-interaction.md` 附录 C 曾提议把 `figure` 改成 `--color-brand-300`，但代码目前仍按 `sage-700` 渲染 —— 要改请同时改两边。
+
+段落和批注卡双向联动：点段落到批注卡闪烁、点批注卡回滚段落并闪烁、
+滚动正文时 IntersectionObserver 自动高亮侧栏当前批注卡。键盘 ←/→ 在段间切换，
+Esc 取消高亮。完整交互规范见 `docs/papers-interaction.md`。
+
+## 设计语言
+
+「流场蓝 × 暖橙赭石」的冷暖对照：蓝主调（流场蓝 + sage 数据绿）作理性背景，
+赭石橙（accent-400）作强调与温度感。字体走 Noto Serif SC + Source Serif 4 + Inter，
+长文进 `<article>` 自动切衬线，UI 用无衬线。
+完整规范（颜色 token / 字号阶梯 / 间距 / 圆角阴影）见 `docs/design-system.md`。
 
 ## 启动
 
-需要 Python 3.10+。在项目目录执行：
+需要 Node ≥ 18。
 
 ```bash
-bash start.sh
+npm install      # 一次性
+npm run serve    # http://localhost:8080（带热更新）
+npm run build    # 产出 _site/
 ```
 
-打开 <http://127.0.0.1:8080>。脚本优先使用 `METEOHUB_PYTHON` 指定的解释器、项目 `.venv/bin/python`，再查找 `python3` / `python`。缺依赖时只在项目 `.venv` 中安装，不做全局安装。
+`npm run build` 出的 `_site/` 是纯静态产物，可托管到 GitHub Pages、Vercel、
+Cloudflare Pages、Nginx 等任意静态服务。详细运行 / 调试见 `HOW_TO_RUN.md`。
 
-```bash
-METEOHUB_PYTHON=/path/to/python PORT=9000 bash start.sh
-bash run-background.sh
-bash status.sh
-bash stop.sh
+### 部署到 GitHub Pages 项目页（如 `oldsixxiaolv.github.io/MeteoHub/`）
+
+本项目部署到 project site 子路径（仓 `oldsixxiaolv/MeteoHub`，仓名 ≠ 用户名），需要走 **pathPrefix** 方案：
+
+1. `src/_data/site.js` 的 `url` 必须设为完整部署 URL（含子路径）：`https://oldsixxiaolv.github.io/MeteoHub`。
+2. `eleventy.config.js` 在返回的 config 对象里设 `pathPrefix`（11ty v3 API）—— 它从 `url` 自动派生，不用手写。
+3. **不要**硬编码 `/assets/...`，全部用 `{{ '/assets/css/tokens.css' | url }}` 模板语法 —— 11ty 的 url filter 在 pathPrefix 设置下自动加 `/MeteoHub` 前缀。
+4. dev server 验证：`npm run serve` 下 `--serve` 会把 pathPrefix 降级为 `/`，所以直接开 `http://127.0.0.1:8080/` 即可，不用加前缀；想复现线上前缀就 `PATH_PREFIX=/MeteoHub npm run serve`。
+
+详细方案、代码示例、验证步骤见 **`docs/DEPLOY.md`「项目页路径前缀方案（Stage 8.3）」**节。
+
+## 添加内容
+
+- **博客**：在 `src/content/blog/YYYY-MM-DD-slug/index.md` 加 frontmatter
+  （`title / slug / date / author / tags / excerpt / cover / readingTime / status`）。
+- **作品集**：在 `src/content/portfolio/<slug>/index.md` 加
+  （`title / slug / type / year / role / stack / cover / repo / demo / status`）。
+- **论文**：在 `src/content/papers/<slug>/` 加：
+  - `paper.md`（正文，**YAML frontmatter 必须在第 1 行**，11ty v3 不解析放在 HTML 注释后的 frontmatter）—— 必填 `title / slug / authors / journal / year / doi / tags`，其余按需（`doi_url / pdf / abstract` 或 `summary` / description / cover / status / readingStatus / affiliation / layout）。三篇现有论文的字段并不完全一致，写之前先照抄同目录里最接近的一篇。
+  - `annotations.json`（批注，至少 `id / kind / title / body / tags / createdAt / anchor` 字段，`anchor.value` 必须能命中 paper.md 的段落 id）。
+  - `cover.svg`（1500×600 学术封面）。
+  - `index.md`（可选入口页；被 `eleventyConfig.ignores.add("src/content/papers/*/index.md")` 排除，不参与渲染）。
+
+  段落 id 用 `<h2 id="p-XXX">` 或 `<a id="p-XXX"></a>`，批注 `anchor.value` 必须能命中（frontmatter 必须文件第 1 行，否则 11ty 解析不到）。
+
+三类内容的 `layout` 与 `permalink` 都由各自目录下的 `<dirname>.11tydata.cjs` 注入，新文章不用自己写。
+
+加完后 `npm run serve` 自动 rebuild。
+
+## 目录结构
+
+```
+.
+├── eleventy.config.js     # 11ty 配置（collections / filters / passthrough / pathPrefix / components.css 生成）
+├── package.json
+├── scripts/               # 本地 QA 工具（screenshot / lighthouse / slow3g / contrast check）
+├── HOW_TO_RUN.md          # 详细运行 / 调试 / 部署前 checklist
+├── README.md
+├── CNAME.example          # 自定义域名占位示例（需要时复制为根目录 CNAME）
+├── LICENSE                 # Apache License 2.0
+├── _archive/               # 旧平台归档（不回溯，不参与构建）
+├── docs/                   # 设计 / 信息架构 / 论文交互 / 部署 / 验收报告
+├── src/
+│   ├── _data/site.js       # 全局元信息（标题 / nav / 作者 / site.url）
+│   ├── _includes/
+│   │   ├── layouts/        # base / index / page / detail / paper
+│   │   └── partials/       # header / footer / theme-toggle
+│   ├── assets/
+│   │   ├── css/            # tokens / base / components(7 partial) / layout / pages / a11y / paper-reader
+│   │   ├── js/             # main / nav / theme + paper-reader/ 6 个 ESM 模块
+│   │   ├── img/og/         # og:image 三尺寸
+│   │   └── favicon.svg
+│   ├── eleventy-helpers.cjs
+│   └── content/
+│       ├── about.md
+│       ├── blog/<slug>/index.md
+│       ├── papers/<slug>/paper.md + annotations.json + cover.svg
+│       └── portfolio/<slug>/index.md
+└── .github/workflows/deploy.yml   # GH Pages 自动部署
 ```
 
-前台用 Ctrl+C 停止。后台脚本使用绝对 `server.py` 路径并记录 PID；停服要求命令路径和进程工作目录均匹配，不确定时拒绝发送信号。生产部署需要另行配置 WSGI、HTTPS、安全 cookie 和运维保障；本任务没有部署公网服务。
+## 部署
 
-## 保存与旧数据
+GitHub Pages 部署步骤（Actions 工作流 + Settings 配置 + 自定义域名 +
+故障排查）见 **`docs/DEPLOY.md`**。
 
-- 未登录：保存在当前浏览器的 `meteohub_state_v1_anon`。匿名笔记会在退出账户后恢复，不被账户状态覆盖。
-- 登录：服务端 `data/meteohub.db` 为持久化来源；本机缓存按用户 ID 分开。保存失败保留原提交状态，编辑表单/知识块保留输入以便重试。409 冲突不会自动覆盖服务端，请复制或导出未保存内容后刷新。
-- 初次拉取账户数据失败时，只展示该账户自己的既有缓存并禁止写入未知版本；不会用示例覆盖缓存。
-- 旧 `meteohub_users` / `meteohub_articles` 中可识别的资料、文章自动合入匿名空间；密码字段不迁移。旧键保持原样。旧账号不能作为后端账号登录，请重新注册。
-- 匿名数据不会自动上传到账户。导出 Markdown 可备份知识页面；迁移完整旧状态时，应先备份再按 `/api/state` 契约处理，不要直接覆盖已有账户内容。
+## 贡献与许可
 
-`data/secret.key` 保存签名密钥；设置非空 `SECRET_KEY` 时优先使用环境变量。备份数据时保管好数据库和密钥。清除浏览器存储会删除匿名笔记，勿将“清除站点数据”当成普通刷新。
+源码采用 Apache License 2.0（见 `LICENSE`）。博客正文 / 论文批注等内容采用
+CC BY-NC-SA 4.0。提交 PR / Issue 前请本地跑一遍 `npm run build` 确认无 11ty 错误。
 
-## API
+## 相关链接
 
-| 请求 | 契约 |
-| --- | --- |
-| `POST /api/auth/register`、`login` | `{username,password}` → `{user:{id,username}}`；注册自动登录 |
-| `GET /api/auth/me` | `{user:null或对象}` |
-| `POST /api/auth/logout` | 清除会话 cookie |
-| `GET /api/state` | `{state,revision}`；未登录 401 |
-| `PUT /api/state` | `{state,revision}`；成功版本递增，冲突 409 |
-| `GET /api/active-count` | `{active_count:int}`；30 秒滑动窗口内的匿名活跃计数 |
-| `POST /api/track-active` | `{status:"ok"}`；匿名心跳（无 user_id） |
-| `GET /api/code-runs` | `{count:int}`；历史 `/api/run-code` 调用总数（见下） |
-| `POST /api/run-code`、`GET /api/run-code` | **410 Gone**——服务器端代码执行已下线；保留端点只为返回明确说明 |
-| `GET /api/admin/stats`、`/api/admin/clear-history`、`/api/code-history` | **404 Not Found**——管理端点已下线 |
+- 论文手稿仓：[oldsixxiaolv/Manuscript_Lvyh](https://github.com/oldsixxiaolv/Manuscript_Lvyh) —— 与本站仓（MeteoHub）分开，专门存放合作论文的批注版与配套数据管线（TRMM 2026 论文 + Zenodo doi: 10.5281/zenodo.18041880）
+- 详细运行 / 调试：`HOW_TO_RUN.md`
+- 信息架构：`docs/information-architecture.md`（设计规划稿，含尚未实现的 `/tags/` `/search/` `/cv/`）
+- 设计规范：`docs/design-system.md`
+- 论文精读交互：`docs/papers-interaction.md`
+- 部署说明：`docs/DEPLOY.md`
+- 工程取舍记录：`docs/implementation-notes.md`
 
-`state` 包含 `publications`、`questions`、`researchers`、`following`、`bookmarks`、`pages`、`projects` 数组及 `profile` 对象；知识空间还保存 `ui` 视图偏好。单用户状态上限 2 MiB（UTF-8），请求体额外留 16 KiB 容量。写 API 校验浏览器 Origin，静态文件有白名单，源码、数据库和日志不对外提供。
-
-## 验证
-
-```bash
-python3 -m pip install -r requirements.txt -r requirements-dev.txt
-python3 -m pytest tests/ -q
-npm ci --prefix qa
-bash qa/run-all.sh
-```
-
-真实浏览器回归需要本机 Chrome，并对**专用测试数据库服务**执行（会创建测试账户和数据）：
-
-```bash
-METEOHUB_TEST_URL=http://127.0.0.1:9000 \
-CHROME_BIN='/Applications/Google Chrome.app/Contents/MacOS/Google Chrome' \
-node qa/browser-integration.cjs
-```
-
-当前实测结果、复现命令及截图见 `qa/verification.md`。历史 `qa/backend-review.md` 是早期审查记录，不能代表当前通过状态。
-
-## 限制
-
-没有多人实时协作、公共社区、文件上传、密码找回、账户删除或运行 Python 的能力。当前使用 SQLite 和 Flask 开发服务器，未做并发容量承诺或公网压测。浏览器缓存不是多租户操作系统隔离，共享电脑上的浏览器数据应按本机资料保管。其他浏览器与辅助技术仍需专项验收。
+> `docs/` 下的验收 / 性能类报告（`acceptance-report.md`、`lighthouse-include.md`、`og-image-and-a11y-report.md`、`lighthouse/*.json`、`fa-data/`）是**历史快照**，只反映各自标注日期的实测状态，不随代码更新，需要现状请重跑 `scripts/` 里对应的工具。

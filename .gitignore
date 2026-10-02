@@ -51,5 +51,14 @@ backups/
 # ── Eleventy 构建产物 ───────────────────────────────────
 _site/
 
+# ── QA 产物（可再生，不入库）────────────────────────────
+# 这些是 scripts/ 下的脚本跑出来的证据，约 20MB 二进制。数值结论已经抄进
+# docs/*.md 报告里，原文还引用了 _summary.json（较小，保留）。
+# 重跑：node scripts/screenshot.js / node scripts/lighthouse-runner.js
+docs/screenshots/
+docs/lighthouse/*.json
+!docs/lighthouse/_summary.json
+!docs/lighthouse/_slow3g.json
+
 # ── 依赖 ─────────────────────────────────────────────────
 node_modules/

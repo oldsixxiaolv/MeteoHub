@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>paper-reader demo · MeteoHub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Serif+SC:wght@400;500;700&family=Source+Serif+4:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="../../src/assets/css/tokens.css" />
+  <link rel="stylesheet" href="../../src/assets/css/base.css" />
+  <link rel="stylesheet" href="../../src/assets/css/components.css" />
+  <link rel="stylesheet" href="../../src/assets/css/layout.css" />
+  <link rel="stylesheet" href="../../src/assets/css/pages.css" />
+  <link rel="stylesheet" href="../../src/assets/css/paper-reader.css" />
+  <style>
+    /* demo 内联最小样式（不依赖构建） */
+    body { margin: 0; font-family: var(--font-sans-cn), var(--font-sans-en); background: var(--bg-page); color: var(--text-primary); }
+    .demo-topbar {
+      position: sticky; top: 0; z-index: 10;
+      padding: var(--space-3) var(--gutter);
+      background: color-mix(in srgb, var(--bg-page) 92%, transparent);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border-subtle);
+      font-size: var(--fs-small);
+      color: var(--text-secondary);
+      display: flex; gap: var(--space-3); align-items: center;
+    }
+    .demo-topbar code { font-family: var(--font-mono); font-size: var(--fs-caption); color: var(--text-muted); }
+    article.paper {
+      /* paper-reader.js 期待的 paperRoot 容器 */
+    }
+  </style>
+</head>
+<body>
+  <header class="demo-topbar">
+    <strong>paper-reader demo</strong>
+    <code>Holton & Rolin (1987)</code>
+    <span>·</span>
+    <span>点击段 / 卡试试双向联动；← → 上下段；Esc 取消</span>
+  </header>
+
+  <!-- 8 段 holton-rollin 骨架：每段对应 annotations.json 中的 p-001..p-008 -->
+  <article class="paper">
+    <h2 id="p-001">一、为什么是这篇</h2>
+    <p>
+      QBO（Quasi-Biennial Oscillation）是赤道平流层风场在 20–35 km 高度上呈现
+      的 ~28 个月周期下传振荡。1973 年 Lindzen & Holton 已经能用两类赤道波
+      （开尔文波 + 罗斯贝–重力混合波）把动量通量下传写得很干净，但有一个「刺」
+      始终没拔干净：理论需要 Kelvin 波在 20 hPa 以上有足够强的辐合，而当时的
+      观测并不明确支持这一点。
+    </p>
+
+    <h2 id="p-002">二、关键方程与一段推导</h2>
+    <p>
+      Holton & Rolin 在赤道 β 平面上给出了带湿对流强迫的扰动方程组。下面以
+      Boussinesq + 浮力近似的现代记号呈现，原文用的是位势高度 Φ 作为因变量，
+      逻辑一致；只是 1987 年的排版把 κ Q' 放在右端第二项而不是第四项，我
+      重新对齐到教科书顺序方便理解。
+    </p>
+
+    <h2 id="p-003">右端项的共振结构</h2>
+    <p>
+      把强迫项写成 κ Q̄(z)/(c − ū)² 是关键设计。当基本流 ū 接近 Kelvin 波相速
+      c 时，方程右端被放大，意味着 Kelvin 波强迫能在剪切层被「喂」得很强——
+      这恰好对应 QBO 切变层下传的物理图像。
+    </p>
+
+    <h2 id="p-004">参数化过于简化</h2>
+    <p>
+      Holton–Rolin 把 κ Q' 写成只依赖 z 的函数，忽略纬向与瞬变结构。后续研究
+      （特别是与 TRMM 降水观测对比的工作）发现 Q' 在赤道西太平洋对流中心的
+      瞬变结构对 Kelvin 波相位有显著调制，这是本框架漏掉的一环。
+    </p>
+
+    <h2 id="p-005">三、机制图（Holton–Rolin 视角）</h2>
+    <pre>
+              ┌────────── 平流层 30 hPa ──────────┐
+   深对流      │     Kelvin 波携带动量下沉           │
+   释放潜热 →  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ ▶
+   20 hPa      └────────── 对流层顶 ────────────────┘
+              ↓
+         下传相速度 ~1 km / month
+              ↓
+         周期 ~28 个月</pre>
+
+    <h2 id="p-006">四、这篇工作的几个「非显然」的判断</h2>
+    <p>
+      Holton–Rolin 最大的方法学贡献是：明确把「补丁」与「机制」分开——湿对流
+      强迫不替代原 Lindzen–Holton 框架，只是补一个上对流层辐合修正。这种诚实
+      的角色分工反而让理论更经得起后续检验，比硬做新框架更稳健。
+    </p>
+
+    <p id="p-007">
+      <strong>湿对流是「补丁」，不是「主菜」。</strong> 论文从头到尾强调：没有
+      湿对流，Lindzen–Holton 框架也能跑；湿对流只是修正了 Kelvin 波在上对流层
+      的强度。Plumb (1977) 用 Rossby + Kelvin 的对称组合解释 QBO，避免了对单一
+      Kelvin 波上对流层强度的依赖；Holton–Rolin 提醒我们：湿对流强迫对两类
+      机制都有效，所以从这个角度看，两类机制其实不互斥。
+    </p>
+
+    <h2 id="p-008">五、留给后续工作的三个问题</h2>
+    <p>
+      ERA5 / JRA-3Q 显示 2000 年以后 QBO 周期变长，可能与海温背景态变化有关。
+      本文的湿对流强迫 Q'(z) 是固定形式，没法直接解释趋势——但能否把 SST 异常
+      折算成 Q'(z) 的时间趋势，是一个值得做的小工作。
+    </p>
+  </article>
+
+  <!-- 启动 paper-reader；annotations 路径相对 docs/papers/ 的相对深度 -->
+  <script type="module">
+    import { initPaperReader } from "../../src/assets/js/paper-reader.js";
+    initPaperReader({
+      paperRoot: document.querySelector("article.paper"),
+      annotationsUrl: "../../src/content/papers/holton-rollin-1987/annotations.json",
+    });
+  </script>
+</body>
+</html>

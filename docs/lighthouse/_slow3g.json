@@ -1,0 +1,74 @@
+[
+  {
+    "page": "home",
+    "scheme": "light",
+    "FCP": 4488,
+    "LCP": 4488,
+    "DCL": 5044,
+    "Load": 24473,
+    "tLoad": 24471,
+    "tScreenshot": 26542,
+    "resources": 16,
+    "transferKB": 156
+  },
+  {
+    "page": "home",
+    "scheme": "dark",
+    "FCP": 456,
+    "LCP": 480,
+    "DCL": 478,
+    "Load": 479,
+    "tLoad": 1417,
+    "tScreenshot": 3469,
+    "resources": 15,
+    "transferKB": 0
+  },
+  {
+    "page": "papers",
+    "scheme": "light",
+    "FCP": 936,
+    "LCP": 996,
+    "DCL": 971,
+    "Load": 974,
+    "tLoad": 2004,
+    "tScreenshot": 4050,
+    "resources": 15,
+    "transferKB": 0
+  },
+  {
+    "page": "papers",
+    "scheme": "dark",
+    "FCP": 44,
+    "LCP": 60,
+    "DCL": 51,
+    "Load": 51,
+    "tLoad": 1011,
+    "tScreenshot": 3082,
+    "resources": 15,
+    "transferKB": 0
+  },
+  {
+    "page": "paper-detail",
+    "scheme": "light",
+    "FCP": 936,
+    "LCP": 2424,
+    "DCL": 2420,
+    "Load": 14836,
+    "tLoad": 16766,
+    "tScreenshot": 18867,
+    "resources": 22,
+    "transferKB": 37
+  },
+  {
+    "page": "paper-detail",
+    "scheme": "dark",
+    "FCP": 84,
+    "LCP": 84,
+    "DCL": 87,
+    "Load": 87,
+    "tLoad": 2003,
+    "tScreenshot": 4099,
+    "resources": 22,
+    "transferKB": 0
+  }
+]
