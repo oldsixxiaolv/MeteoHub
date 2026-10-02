@@ -1,0 +1,39 @@
+---
+permalink: /robots.txt
+eleventyExcludeFromCollections: true
+---
+{# ============================================================================
+  robots.txt · 允许全站抓取，仅在 /admin/ 与构建产物下屏蔽
+  ----------------------------------------------------------------------------
+  注释行在生产输出中保留（# 开头），便于人眼调试。
+  Sitemap 用绝对 URL（site.url 已含 pathPrefix）。
+  ========================================================================== #}
+# MeteoHub · robots.txt
+# 站点：{{ site.url }}
+# 生成时间：{{ page.date | dateToIso }}
+
+User-agent: *
+Allow: /
+Disallow: /admin/
+
+# 抓取节流（Googlebot 实际不严格遵守，仅作建议）
+Crawl-delay: 1
+
+# 第三方爬虫
+User-agent: GPTBot
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: Bytespider
+Disallow: /
+
+User-agent: anthropic-ai
+Disallow: /
+
+User-agent: ClaudeBot
+Disallow: /
+
+# Sitemap（site.url 不带尾斜杠，这里手动加 / 分隔，避免拼成 MeteoHubsitemap.xml）
+Sitemap: {{ site.url }}/sitemap.xml

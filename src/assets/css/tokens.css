@@ -1,0 +1,296 @@
+/* ===========================================================================
+   MeteoHub · Design Tokens
+   唯一可信源：docs/design-system.md v1.0
+   ========================================================================= */
+
+/* ---------------------------------------------------------------------------
+   Modern Font Fallback · 用本地系统字体模拟 webfont 的 metrics
+   ---------------------------------------------------------------------------
+   Webfont（Source Serif 4 / Noto Serif SC）下载完成前，浏览器先用 fallback。
+   若 fallback 字体与 webfont 的 advance / ascent / descent 不一致，font swap
+   会把整页文字往下/往上推一下，造成 CLS（layout shift）。
+
+   这里给 fallback 字体起一个独立的 font-family，并通过 size-adjust +
+   ascent-override + descent-override + line-gap-override 四个 metric 把它的
+   行盒/字符宽度调到跟 webfont 几乎一致——swap 时肉眼几乎察觉不到抖动。
+
+   数值参考：
+     · Source Serif 4：UPM 1000，ascent ≈ 950，descent ≈ 270，line-gap ≈ 0
+     · Noto Serif SC：UPM 1000，ascent ≈ 880，descent ≈ 280，line-gap ≈ 0
+     · Georgia / Songti SC 自身 metrics 略有差异，因此 size-adjust 需微调
+   --------------------------------------------------------------------------- */
+@font-face {
+  font-family: "Source Serif 4 Fallback";
+  src: local("Georgia"), local("Times New Roman");
+  ascent-override: 95%;
+  descent-override: 27%;
+  line-gap-override: 0%;
+  size-adjust: 105%;
+}
+
+@font-face {
+  font-family: "Noto Serif SC Fallback";
+  src: local("Songti SC"), local("STSong"), local("SimSun"), local("Source Han Serif SC");
+  ascent-override: 88%;
+  descent-override: 28%;
+  line-gap-override: 0%;
+  size-adjust: 105%;
+}
+
+:root {
+  /* —— Brand · 流场蓝 —— */
+  --color-brand-50:  #eaf3ff;
+  --color-brand-100: #cce0ff;
+  --color-brand-200: #99c2ff;
+  --color-brand-300: #66a4ff;
+  --color-brand-400: #3a86ff;   /* PRIMARY */
+  --color-brand-500: #1f5ec8;   /* P1.4 · lowered from #256ef0 for AA link contrast (was 4.34:1 → now 5.67:1) */
+  --color-brand-600: #1a55c2;
+  --color-brand-700: #143e93;
+  --color-brand-800: #0e2c6b;
+  --color-brand-900: #091b44;
+
+  /* —— Accent · 暖橙赭石 —— */
+  --color-accent-50:  #fff3eb;
+  --color-accent-100: #ffd9bd;
+  --color-accent-200: #ffb787;
+  --color-accent-300: #ff9550;
+  --color-accent-400: #ff7e33;  /* ACCENT */
+  --color-accent-500: #e85f15;
+  --color-accent-600: #b14810;
+  --color-accent-700: #7a320a;
+  --color-accent-800: #4a1d05;
+  --color-accent-900: #260e02;
+
+  /* —— Sage · 数据/观测强调 —— */
+  --color-sage-300: #a4c8a4;
+  --color-sage-500: #6f9e6f;
+  --color-sage-700: #446844;
+
+  /* —— Neutral · 沙岩暖灰 —— */
+  --color-neutral-0:   #ffffff;
+  --color-neutral-50:  #faf8f5;   /* 纸张白 */
+  --color-neutral-100: #f2efea;   /* 背景层 */
+  --color-neutral-200: #e6e2db;   /* 边框 */
+  --color-neutral-300: #d1ccc3;   /* 弱边 */
+  --color-neutral-400: #a8a298;   /* 占位符 */
+  --color-neutral-500: #6b665d;   /* 次要文字 · P1.4 lowered from #7d776d for AA muted text (was 4.19:1 → now 5.38:1) */
+  --color-neutral-600: #575049;   /* 副标题 */
+  --color-neutral-700: #38332d;   /* 正文 */
+  --color-neutral-800: #221f1b;   /* 强正文 */
+  --color-neutral-900: #0f0d0a;   /* 标题 */
+
+  /* —— Semantic State —— */
+  --color-success: #4f9e6e;
+  --color-warning: #d99a2b;
+  --color-danger:  #c84a3a;
+  --color-info:    var(--color-brand-400);
+
+  /* —— Text & Background —— */
+  --text-primary:   var(--color-neutral-900);
+  --text-secondary: var(--color-neutral-600);
+  --text-muted:     var(--color-neutral-500);
+  --text-on-brand:  #ffffff;
+  --link-color:     var(--color-brand-500);
+  --link-hover:     var(--color-brand-700);
+
+  --bg-page:       var(--color-neutral-50);
+  --bg-surface:    var(--color-neutral-0);
+  --bg-elevated:   var(--color-neutral-0);
+  --bg-muted:      var(--color-neutral-100);
+  --bg-subtle:     var(--color-brand-50);
+
+  --border-subtle:  var(--color-neutral-200);
+  --border-default: var(--color-neutral-300);
+  --border-strong:  var(--color-neutral-500);
+
+  /* —— Component-specific · P1.4 —— */
+  --button-primary-bg: #1453d8;  /* brand 主按钮 LIGHT（白字 6.44:1 · AA pass） */
+
+  /* —— Shadows —— */
+  --shadow-1: 0 1px 2px rgba(15, 13, 10, .04),
+              0 1px 1px rgba(15, 13, 10, .03);
+  --shadow-2: 0 4px 12px rgba(15, 13, 10, .06),
+              0 2px 4px rgba(15, 13, 10, .04);
+  --shadow-3: 0 16px 40px rgba(15, 13, 10, .10),
+              0 4px 12px rgba(15, 13, 10, .06);
+  --shadow-focus: 0 0 0 3px rgba(58, 134, 255, .35);
+
+  /* —— Radius —— */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-pill: 999px;
+
+  /* —— Spacing —— */
+  --space-0: 0;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 16px;
+  --space-4: 24px;
+  --space-5: 32px;
+  --space-6: 48px;
+  --space-7: 64px;
+  --space-8: 96px;
+  --space-9: 128px;
+
+  /* —— Containers —— */
+  --container-narrow: 720px;
+  --container-base:   960px;
+  --container-wide:   1200px;
+  --gutter:           clamp(16px, 4vw, 48px);
+  --section-gap:      var(--space-7);
+
+  /* —— Typography —— */
+  /* "Source Serif 4 Fallback" / "Noto Serif SC Fallback" 由下方的 @font-face 提供，
+     走本地系统字体（Georgia / Songti SC）但通过 size-adjust 等 metric override 模拟
+     webfont 的行高/字宽，避免 swap 时整页 layout shift。 */
+  --font-serif-cn: 'Noto Serif SC', 'Noto Serif SC Fallback', 'Songti SC', 'STSong', serif;
+  --font-serif-en: 'Source Serif 4', 'Source Serif 4 Fallback', 'Source Han Serif SC', 'Noto Serif SC', serif;
+  --font-sans-cn:  'PingFang SC', 'Microsoft YaHei', 'Hiragino Sans GB', sans-serif;
+  --font-sans-en:  'Inter', system-ui, -apple-system, 'Helvetica Neue', sans-serif;
+  --font-mono:     'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace;
+
+  --font-body:      var(--font-sans-cn), var(--font-sans-en);
+  --font-editorial: var(--font-serif-cn), var(--font-serif-en);
+  --font-code:      var(--font-mono);
+
+  --fs-display:  3.815rem;
+  --fs-h1:       2.488rem;
+  --fs-h2:       2.074rem;
+  --fs-h3:       1.728rem;
+  --fs-h4:       1.440rem;
+  --fs-h5:       1.200rem;
+  --fs-body-lg:  1.125rem;
+  --fs-body:     1rem;
+  --fs-small:    0.875rem;
+  --fs-caption:  0.75rem;
+
+  --lh-tight: 1.25;
+  --lh-base:  1.70;
+  --lh-loose: 1.85;
+  --tracking-tight: -0.015em;
+  --tracking-base:   0;
+  --tracking-loose:  0.02em;
+  --measure: 72ch;
+
+  /* —— Motion —— */
+  --ease-out:    cubic-bezier(.16, .84, .44, 1);
+  --ease-in-out: cubic-bezier(.65, .05, .36, 1);
+  --dur-fast:    120ms;
+  --dur-base:    200ms;
+  --dur-slow:    320ms;
+}
+
+/* —— Dark mode (auto by system, overridable by [data-theme]) —— */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --color-brand-50:  #0e1a35;
+    --color-brand-100: #142649;
+    --color-brand-200: #1b386a;
+    --color-brand-300: #24528f;
+    --color-brand-400: #4d97ff;
+    --color-brand-500: #6baaff;
+    --color-brand-600: #95c4ff;
+    --color-brand-700: #c0dbff;
+    --color-brand-800: #dbeaff;
+    --color-brand-900: #ecf3ff;
+
+    --color-accent-400: #ff8e4d;
+    --color-accent-500: #ffa874;
+
+    --color-neutral-0:   #0f0e0c;
+    --color-neutral-50:  #161513;
+    --color-neutral-100: #1d1c19;
+    --color-neutral-200: #2a2825;
+    --color-neutral-300: #3a3833;
+    --color-neutral-400: #5a5750;
+    --color-neutral-500: #928d83;   /* P1.4 · lifted from #807c72 for AA muted text dark (was 4.38:1 → now 5.49:1) */
+    --color-neutral-600: #a8a498;
+    --color-neutral-700: #d2cfc6;
+    --color-neutral-800: #e6e3da;
+    --color-neutral-900: #f5f2ea;
+
+    --text-primary:   var(--color-neutral-900);
+    --text-secondary: var(--color-neutral-600);
+    --text-muted:     var(--color-neutral-500);
+    --link-color:     var(--color-brand-400);
+    --link-hover:     var(--color-brand-300);
+
+    --bg-page:       var(--color-neutral-0);
+    --bg-surface:    var(--color-neutral-100);
+    --bg-muted:      #14131180;
+    --bg-subtle:     #1a2336;
+
+    --border-subtle:  var(--color-neutral-200);
+    --border-default: var(--color-neutral-300);
+
+    --shadow-1: 0 1px 2px rgba(0,0,0,.4);
+    --shadow-2: 0 4px 12px rgba(0,0,0,.5), 0 2px 4px rgba(0,0,0,.4);
+    --shadow-3: 0 16px 40px rgba(0,0,0,.6), 0 4px 12px rgba(0,0,0,.4);
+    --shadow-focus: 0 0 0 3px rgba(77, 151, 255, .35);
+
+    --color-success: #6fb988;
+    --color-warning: #e5b257;
+    --color-danger:  #e06757;
+
+    /* P1.4 · brand 主按钮 DARK（同 media-query 自动暗色模式） */
+    --button-primary-bg: #2563eb;
+  }
+}
+
+[data-theme="dark"] {
+  --color-brand-50:  #0e1a35;
+  --color-brand-100: #142649;
+  --color-brand-200: #1b386a;
+  --color-brand-300: #24528f;
+  --color-brand-400: #4d97ff;
+  --color-brand-500: #6baaff;
+  --color-brand-600: #95c4ff;
+  --color-brand-700: #c0dbff;
+  --color-brand-800: #dbeaff;
+  --color-brand-900: #ecf3ff;
+
+  --color-accent-400: #ff8e4d;
+  --color-accent-500: #ffa874;
+
+  /* P1.4 · brand 主按钮 DARK — 浅色用的 #1453d8 在 dark bg (#161513) 上仅 2.72:1，违反 AA。
+     #2563eb：白字 5.17:1（AA pass），背景区分度 3.53:1（non-text pass）。 */
+  --button-primary-bg: #2563eb;
+
+  --color-neutral-0:   #0f0e0c;
+  --color-neutral-50:  #161513;
+  --color-neutral-100: #1d1c19;
+  --color-neutral-200: #2a2825;
+  --color-neutral-300: #3a3833;
+  --color-neutral-400: #5a5750;
+  --color-neutral-500: #928d83;   /* P1.4 · lifted from #807c72 for AA muted text dark (was 4.38:1 → now 5.49:1) */
+  --color-neutral-600: #a8a498;
+  --color-neutral-700: #d2cfc6;
+  --color-neutral-800: #e6e3da;
+  --color-neutral-900: #f5f2ea;
+
+  --text-primary:   var(--color-neutral-900);
+  --text-secondary: var(--color-neutral-600);
+  --text-muted:     var(--color-neutral-500);
+  --link-color:     var(--color-brand-400);
+  --link-hover:     var(--color-brand-300);
+
+  --bg-page:       var(--color-neutral-0);
+  --bg-surface:    var(--color-neutral-100);
+  --bg-muted:      #14131180;
+  --bg-subtle:     #1a2336;
+
+  --border-subtle:  var(--color-neutral-200);
+  --border-default: var(--color-neutral-300);
+
+  --shadow-1: 0 1px 2px rgba(0,0,0,.4);
+  --shadow-2: 0 4px 12px rgba(0,0,0,.5), 0 2px 4px rgba(0,0,0,.4);
+  --shadow-3: 0 16px 40px rgba(0,0,0,.6), 0 4px 12px rgba(0,0,0,.4);
+  --shadow-focus: 0 0 0 3px rgba(77, 151, 255, .35);
+
+  --color-success: #6fb988;
+  --color-warning: #e5b257;
+  --color-danger:  #e06757;
+}

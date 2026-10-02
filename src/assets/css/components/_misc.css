@@ -1,0 +1,29 @@
+/* ===========================================================================
+   MeteoHub · _misc.css (Phase 2B.5)
+   Container utility + global responsive overrides
+   拆分自 components.css（原行号区间: 866-872, 1215-1227）
+   ========================================================================= */
+
+/* ---------- Container (.wrap) ---------- */
+/* ---------- 1. 容器 ---------- */
+.wrap {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+
+/* ---------- Global mobile overrides ---------- */
+/* ---------- 9. 移动端 ---------- */
+@media (max-width: 640px) {
+  .wrap { padding: 0 24px; }
+  .index__title,
+  .list-page__head h1,
+  .detail__head h1,
+  .paper-head h1 {
+    font-size: 26px;
+  }
+  .topbar__nav { gap: var(--space-3); }
+  .topbar__link { font-size: 12px; }
+  .foot__inner { flex-direction: column; align-items: flex-start; gap: var(--space-2); }
+}

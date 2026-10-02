@@ -1,0 +1,522 @@
+/* ============================================================================
+ * MeteoHub · paper-reader.css（Stage 7 简约版）
+ * ----------------------------------------------------------------------------
+ * 双栏精读布局，与 Stage 6 minimalist 主题对齐。
+ *   - 桌面 ≥1024px：左 7 / 右 5；右侧 sticky
+ *   - ≤1024px：上下堆叠
+ *   - ≤768px：单栏；侧栏折叠为手风琴式 section
+ *
+ * v1.1 kind→color 五色（功能性）保留；视觉装饰层简化：
+ *   - 段落边条 4px → 2px
+ *   - 段落 hover 背景移除（仅保留边条）
+ *   - 段落徽章常驻 → 仅 hover 时显示
+ *   - 闪烁动画 1400ms → 800ms
+ *   - 批注卡 box-shadow 移除、border-radius → 0，仅留 hairline
+ *   - 批注卡字号收紧
+ *   - kind chip 背景淡化
+ *   - 筛选输入框边框 → hairline neutral-300
+ *   - 侧栏标题去掉 accent
+ *
+ * 禁止裸 HEX，全部走 design-system tokens。
+ * ========================================================================== */
+
+/* ---------- Premium reading motion ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  .paper-reader h2[id],
+  .paper-reader h3[id],
+  .annot-item {
+    transition: opacity 500ms var(--ease-out), transform 500ms var(--ease-out), background-color var(--dur-base) var(--ease-out);
+  }
+  .paper-reader h2[id], .paper-reader h3[id] { animation: reader-section-in linear both; animation-timeline: view(); animation-range: entry 0% cover 20%; }
+  .annot-item { animation: reader-card-in linear both; animation-timeline: view(); animation-range: entry 0% cover 18%; }
+}
+@keyframes reader-section-in { from { opacity: .35; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+@keyframes reader-card-in { from { opacity: .45; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+
+/* 三栏：TOC (左侧) · paper 正文 (中) · annot-pane (右侧) */
+.paper-reader-wrap {
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr) minmax(0, 2.5fr) minmax(280px, 1.2fr);
+  gap: var(--space-5);
+  max-width: 1320px;
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+  padding-block: var(--space-6) var(--space-7);
+}
+@media (max-width: 1024px) {
+  .paper-reader-wrap {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-6);
+  }
+}
+
+/* ---------- 2. 正文容器（衬线 + 节标题） ---------- */
+.paper-reader {
+  font-family: var(--font-editorial);
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--text-primary);
+  min-width: 0;
+}
+.paper-reader h2[id],
+.paper-reader h3[id] {
+  margin-top: var(--space-7);
+  margin-bottom: var(--space-3);
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  color: var(--text-primary);
+  scroll-margin-top: 96px;
+  /* paper h2/h3 多为学术小节标题，长度跨 2 行常见；balance 避免单字末尾。 */
+  text-wrap: balance;
+}
+.paper-reader h2[id] { font-size: 22px; line-height: 1.25; }
+.paper-reader h3[id] { font-size: 18px; line-height: 1.3; }
+.paper-reader p {
+  margin-block: var(--space-3);
+  /* paper 正文段落密集学术叙事，pretty 防止段末单词/单字孤悬，
+     orphans/widows 保证段首/段尾不单行。 */
+  text-wrap: pretty;
+  orphans: 2;
+  widows: 2;
+  /* paper 内容常含年份/公式编号，tabular 让对齐更稳。 */
+  font-variant-numeric: tabular-nums;
+}
+.paper-reader blockquote {
+  margin-block: var(--space-3);
+  padding-inline-start: var(--space-4);
+  border-inline-start: 2px solid var(--color-accent-400);
+  color: var(--text-secondary);
+  font-style: italic;
+  /* blockquote 已在 base.css 走 pretty+orphans/widows，这里二次声明保持一致。 */
+  text-wrap: pretty;
+  orphans: 2;
+  widows: 2;
+}
+
+/* ---------- 3. 段落锚点（2px 边条，仅 hover 时显示徽章） ---------- */
+.paper-anchor {
+  position: relative;
+  padding-inline-start: var(--space-3);
+  margin-inline-start: calc(-1 * var(--space-3));
+  border-inline-start: 2px solid transparent;
+  border-radius: 0;
+  transition:
+    border-color var(--dur-base) var(--ease-out);
+}
+/* 移除 hover 背景高亮（lead 要求 #2） */
+.paper-anchor:hover { background-color: transparent; }
+.paper-anchor:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-focus);
+}
+
+/* v1.1 kind→color 映射（5 类基础 + typo 红）—— 颜色不变 */
+.paper-anchor--question { border-inline-start-color: var(--color-brand-400); }
+.paper-anchor--insight  { border-inline-start-color: var(--color-accent-400); }
+.paper-anchor--critique { border-inline-start-color: var(--color-warning); }
+.paper-anchor--figure   { border-inline-start-color: var(--color-brand-300); }
+.paper-anchor--link     { border-inline-start-color: var(--color-sage-500); }
+.paper-anchor--typo     { border-inline-start-color: var(--color-danger); }
+
+/* active 态：仅边框颜色保留（lead 要求去 hover 高亮，去 background） */
+.paper-anchor.is-active {
+  background-color: transparent;
+  border-inline-start-width: 2px;  /* 不再加粗 */
+}
+
+/* 段落徽章（count）—— 仅 hover 时显示（lead 要求 #3） */
+.paper-anchor__count {
+  position: absolute;
+  top: -8px;
+  inset-inline-end: -8px;
+  display: inline-grid;
+  place-items: center;
+  min-width: 20px;
+  height: 20px;
+  padding-inline: 5px;
+  border-radius: 999px;
+  background: var(--bg-page);
+  border: 1px solid currentColor;
+  color: var(--color-brand-500);
+  font: 600 11px/1 var(--font-sans-en);
+  letter-spacing: 0;
+  opacity: 0;
+  transform: scale(0.9);
+  transition:
+    opacity var(--dur-base) var(--ease-out),
+    transform var(--dur-base) var(--ease-out);
+  pointer-events: none;
+  user-select: none;
+  box-shadow: none;  /* 去 shadow */
+}
+.paper-anchor:hover .paper-anchor__count,
+.paper-anchor:focus-visible .paper-anchor__count,
+.paper-anchor.is-active .paper-anchor__count {
+  opacity: 1;
+  transform: scale(1);
+}
+/* 徽章颜色随主 kind 变化（与边条同色系） */
+.paper-anchor--question .paper-anchor__count { color: var(--color-brand-500); }
+.paper-anchor--insight  .paper-anchor__count { color: var(--color-accent-600); }   /* P1.4 · was accent-500 (3.26:1 on bg-page) */
+.paper-anchor--critique .paper-anchor__count { color: var(--color-warning); }
+.paper-anchor--figure   .paper-anchor__count { color: var(--color-brand-400); }
+.paper-anchor--link     .paper-anchor__count { color: var(--color-sage-500); }
+.paper-anchor--typo     .paper-anchor__count { color: var(--color-danger); }
+
+/* ---------- 4. 闪烁动画（800ms，更克制） ---------- */
+@keyframes paper-reader-flash {
+  0%   { border-inline-start-color: transparent; }
+  20%  { border-inline-start-color: var(--color-neutral-700); }
+  100% { border-inline-start-color: transparent; }
+}
+@keyframes paper-reader-flash-card {
+  0%   { background-color: transparent; }
+  20%  { background-color: var(--bg-muted); }
+  100% { background-color: transparent; }
+}
+.is-flash {
+  animation: paper-reader-flash 0.8s var(--ease-out);
+}
+.annot-item.is-flash {
+  animation: paper-reader-flash-card 0.8s var(--ease-out);
+}
+@media (prefers-reduced-motion: reduce) {
+  .is-flash, .annot-item.is-flash { animation: none; }
+}
+
+/* ---------- 5. 批注侧栏（hairline 边界、0 圆角、字号收紧） ---------- */
+.annot-pane {
+  position: sticky;
+  top: var(--space-5);
+  align-self: start;
+  width: 100%;
+  max-height: calc(100vh - var(--space-7));
+  overflow-y: auto;
+  padding: var(--space-4);
+  background: transparent;       /* 去 surface */
+  border: 1px solid var(--border-subtle);
+  border-radius: 0;              /* 去圆角 */
+  box-shadow: none;              /* 去 shadow */
+  scrollbar-width: thin;
+}
+.annot-pane::-webkit-scrollbar { width: 6px; }
+.annot-pane::-webkit-scrollbar-thumb {
+  background: var(--border-default);
+  border-radius: 0;              /* 去圆角 */
+}
+.annot-pane__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+  flex-wrap: wrap;
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--border-subtle);
+}
+.annot-filters { display: flex; flex-wrap: wrap; gap: 6px; width: 100%; }
+.annot-filter {
+  min-height: 30px;
+  padding: 3px 8px;
+  border: 1px solid var(--border-default);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text-muted);
+  font: 500 12px/1 var(--font-sans-cn);
+  cursor: pointer;
+}
+.annot-filter:hover, .annot-filter:focus-visible { color: var(--text-primary); border-color: var(--text-secondary); }
+.annot-filter.is-active { color: var(--color-brand-500); border-color: currentColor; background: var(--bg-muted); }
+.annot-filter--insight.is-active { color: var(--color-accent-600); }   /* P1.4 · was accent-500 */
+.annot-filter--critique.is-active { color: var(--color-warning); }
+.annot-filter--figure.is-active { color: var(--color-brand-400); }
+.annot-filter--link.is-active { color: var(--color-sage-500); }
+.annot-filter--typo.is-active { color: var(--color-danger); }
+.annot-pane .paper-toc { position: static; max-height: none; padding: 0 0 var(--space-4); margin-bottom: var(--space-4); border-bottom: 1px solid var(--border-subtle); }
+.annot-pane .paper-toc h2 { margin-bottom: var(--space-2); }
+.annot-pane .paper-toc a { text-decoration: none; }
+.annot-pane__head h2 {
+  margin: 0;
+  font-family: var(--font-sans-cn);
+  font-size: 13px;                /* 字号收紧（lead #7） */
+  font-weight: 500;
+  color: var(--text-muted);       /* 去 accent 色（lead #9） */
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.annot-pane__count {
+  font-variant-numeric: tabular-nums;
+  font-family: var(--font-sans-en);
+}
+.annot-pane__filter {
+  flex: 1 1 180px;
+  min-width: 0;
+  padding: 6px 10px;
+  border: 1px solid var(--border-default);  /* hairline（lead #8） */
+  border-radius: 0;              /* 去圆角 */
+  background: transparent;        /* 去 page 背景 */
+  color: var(--text-primary);
+  font-family: var(--font-sans-cn);
+  font-size: 13px;                /* 字号收紧 */
+  transition: border-color var(--dur-base) var(--ease-out);
+}
+.annot-pane__filter:focus-visible {
+  outline: none;
+  border-color: var(--color-brand-400);
+  box-shadow: var(--shadow-focus);
+}
+
+.annot-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);            /* 间距收紧 */
+}
+
+  .annot-pane__head {
+    position: relative;
+  }
+  .annot-close { display: none; }
+  .annot-toggle { display: none; }
+
+/* annotation list — semantic structure (a11y-clean) */
+.annot-item-wrap {
+  list-style: none;
+}
+.annot-item-wrap + .annot-item-wrap {
+  border-top: 1px solid var(--border-subtle);
+}
+.annot-card {
+  display: block;
+  position: relative;
+}
+.annot-card__head {
+  /* button reset + take over from .annot-item styles */
+  width: 100%;
+  text-align: start;
+  font: inherit;
+  color: inherit;
+  display: block;
+  position: relative;
+  padding: var(--space-3);
+  border-radius: 0;              /* 去圆角（lead #5） */
+  border-inline-start: 2px solid var(--color-brand-400);
+  border-bottom: 0;
+  background: transparent;
+  cursor: pointer;
+  transition:
+    border-inline-start-color var(--dur-base) var(--ease-out),
+    background-color var(--dur-base) var(--ease-out);
+  min-height: 44px;              /* touch target ≥ 44 */
+}
+.annot-card__head:hover {
+  background: var(--bg-muted);
+}
+.annot-card__head:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-focus);
+}
+.annot-card.is-active > .annot-card__head {
+  background: var(--bg-subtle);
+  border-inline-start-width: 2px;
+}
+.annot-card__body {
+  padding: 0 var(--space-3) var(--space-3);
+  border-inline-start: 2px solid transparent;
+}
+.annot-card__head[aria-expanded="true"] + .annot-card__body {
+  border-inline-start-color: var(--kind-edge, var(--color-brand-400));
+}
+
+/* Legacy .annot-item class kept on inner button for highlight.js back-compat */
+.annot-item {
+  font: inherit;
+  color: inherit;
+}
+.annot-item:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-focus);
+}
+.annot-item.is-active {
+  background: var(--bg-subtle);
+}
+
+/* v1.1 kind→color 边条（保留 5 色） */
+.annot-card--question { --kind-edge: var(--color-brand-400); }
+.annot-card--insight  { --kind-edge: var(--color-accent-400); }
+.annot-card--critique { --kind-edge: var(--color-warning); }
+.annot-card--figure   { --kind-edge: var(--color-brand-300); }
+.annot-card--link     { --kind-edge: var(--color-sage-500); }
+.annot-card--typo     { --kind-edge: var(--color-danger); }
+.annot-card__head { border-inline-start-color: var(--kind-edge, var(--color-brand-400)); }
+
+.annot-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  margin-bottom: var(--space-2);
+  font-size: 12px;                /* 字号收紧（lead #5） */
+  color: var(--text-muted);
+  font-family: var(--font-sans-en);
+}
+.annot-kind {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 1px 6px;               /* padding 收紧 */
+  border-radius: 0;              /* 去圆角（lead #6） */
+  font-weight: 500;
+  font-size: 11px;                /* 字号收紧 */
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.6;
+  border: 1px solid currentColor;
+  background: transparent;        /* 背景淡化（lead #6） */
+}
+/* v1.1 kind chip 配色（保留 token，但 chip 背景淡化） */
+.annot-kind--question {
+  color: var(--color-brand-500);
+}
+.annot-kind--insight {
+  color: var(--color-accent-600);   /* P1.4 · was accent-500 */
+}
+.annot-kind--critique {
+  color: var(--color-warning);
+}
+.annot-kind--figure {
+  color: var(--color-brand-400);
+}
+.annot-kind--link {
+  color: var(--color-sage-500);
+}
+.annot-kind--typo {
+  color: var(--color-danger);
+}
+/* 老旧浏览器没 color-mix 仍走透明 */
+@supports not (background: color-mix(in srgb, red, blue)) {
+  .annot-kind { background: transparent; }
+}
+
+.annot-title {
+  /* 原来是 <h3>（block），改成 <span> 后必须显式 display:block，
+     否则 margin-bottom 失效、meta 与标题之间的间距会塌掉。 */
+  display: block;
+  margin: 0 0 var(--space-2);
+  font-family: var(--font-serif);
+  font-size: 16px;                /* 字号收紧（lead #5） */
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--text-primary);
+  letter-spacing: -0.005em;
+}
+.annot-body {
+  margin: 0 0 var(--space-2);
+  font-family: var(--font-editorial);
+  font-size: 14px;                /* 字号收紧 */
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+.annot-tags {
+  list-style: none;
+  margin: 0 0 var(--space-2);
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.annot-tag {
+  padding: 0 6px;
+  border-radius: 0;              /* 去圆角 */
+  background: transparent;
+  font-size: 12px;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+.annot-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+.annot-links a {
+  font-size: 13px;
+  color: var(--link-color);
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;  /* 从 dashed 改 solid hairline */
+}
+.annot-links a:hover {
+  color: var(--link-hover);
+}
+
+/* ---------- 7. 移动端：≤768px 单栏折叠 ---------- */
+@media (max-width: 768px) {
+  .paper-reader-wrap {
+    padding-block: var(--space-4) var(--space-5);
+  }
+  .annot-pane__filter { font-size: 16px; }
+  .annot-pane .paper-toc { display: block; }
+  /* 移动端无 hover，徽章常显 */
+  .paper-anchor__count {
+    opacity: 0.7;                  /* 比桌面更克制 */
+    transform: scale(1);
+  }
+  .paper-anchor {
+    padding-inline-start: var(--space-3);
+    margin-inline-start: calc(-1 * var(--space-3));
+  }
+}
+
+@media (max-width: 768px) {
+  .paper-reader-wrap { position: relative; }
+  .annot-toggle {
+    display: block;
+    position: sticky;
+    bottom: var(--space-4);
+    z-index: 4;
+    width: 100%;
+    min-height: 44px;
+    margin-top: var(--space-4);
+    border: 1px solid var(--color-brand-400);
+    border-radius: var(--radius-sm);
+    background: var(--bg-surface);
+    color: var(--color-brand-500);
+    font-weight: 600;
+  }
+  .annot-pane {
+    position: fixed;
+    inset: auto 0 0;
+    z-index: 20;
+    max-height: 78vh;
+    margin: 0;
+    padding: var(--space-4) var(--gutter) var(--space-6);
+    background: var(--bg-page);
+    box-shadow: 0 -12px 32px rgb(0 0 0 / 18%);
+    transform: translateY(105%);
+    transition: transform var(--dur-slow) var(--ease-out);
+  }
+  .paper-reader-wrap.is-pane-open .annot-pane { transform: translateY(0); }
+  .annot-close { display: inline-flex; min-height: 36px; padding: 0 var(--space-3); border: 1px solid var(--border-default); background: transparent; color: var(--text-secondary); }
+  .annot-pane__head { padding-top: var(--space-2); }
+  .annot-pane__head h2 { flex: 1; }
+  .paper-reader-wrap.is-pane-open::after { content: ""; position: fixed; inset: 0; z-index: 19; background: rgb(0 0 0 / 28%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .annot-pane { transition: none; }
+}
+
+
+@media (prefers-color-scheme: dark) {
+  [data-theme="dark"] .paper-anchor.is-active,
+  [data-theme="dark"] .annot-item.is-active {
+    background: var(--bg-muted);
+  }
+}

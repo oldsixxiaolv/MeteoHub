@@ -1,0 +1,425 @@
+/* ===========================================================================
+   MeteoHub · _list.css (Phase 2B.5)
+   Listing & detail chrome: tag-cloud + page-header + breadcrumb
+   + index page + list page + list core + detail page (+ mobile)
+   拆分自 components.css（原行号区间: 665-705, 706-865, 959-1158）
+   ========================================================================= */
+
+/* ---------- Tag cloud ---------- */
+/* ---------- Tag cloud ---------- */
+.tag-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+
+/* ---------- Project / Blog / Paper list page header ---------- */
+/* ---------- Project / Blog / Paper list page header ---------- */
+.page-header {
+  padding-block: var(--space-7) var(--space-5);
+  border-bottom: 1px solid var(--border-subtle);
+  margin-bottom: var(--space-6);
+}
+
+.page-header h1 {
+  font-size: var(--fs-h1);
+  margin: var(--space-1) 0 var(--space-3);
+}
+
+.page-header p {
+  font-size: var(--fs-body-lg);
+  color: var(--text-secondary);
+  max-width: var(--measure);
+  margin: 0;
+}
+
+
+/* ---------- Breadcrumb ---------- */
+/* ---------- Breadcrumb ---------- */
+.crumbs {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--fs-small);
+  color: var(--text-muted);
+  margin-bottom: var(--space-3);
+}
+
+.crumbs a { color: var(--text-secondary); }
+.crumbs a:hover { color: var(--text-primary); text-decoration: none; }
+.crumbs .sep { opacity: 0.5; }
+.crumbs .current { color: var(--text-primary); font-weight: 600; }
+
+
+/* ---------- Detail page (portfolio / blog) ---------- */
+/* ---------- Detail page (portfolio / blog) ---------- */
+.detail {
+  max-width: var(--container-base);
+  margin-inline: auto;
+}
+.detail__head {
+  margin-bottom: var(--space-5);
+}
+.detail__head h1 {
+  margin: var(--space-2) 0 var(--space-3);
+  font-size: var(--fs-h1);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+.detail__meta {
+  list-style: none;
+  padding: 0;
+  margin: var(--space-4) 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: var(--space-3) var(--space-4);
+  border-block: 1px solid var(--border-subtle);
+  padding-block: var(--space-3);
+}
+.detail__meta li {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: var(--fs-small);
+}
+.detail__meta .muted {
+  color: var(--text-muted);
+  font-size: var(--fs-caption);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.detail__meta strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+.detail__meta a {
+  color: var(--link-color);
+  text-decoration: none;
+  word-break: break-all;
+}
+.detail__meta a:hover {
+  text-decoration: underline;
+}
+.detail__meta-stack {
+  grid-column: 1 / -1;
+}
+.detail__meta-stack > span:last-child {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.detail__post-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px var(--space-3);
+  color: var(--text-muted);
+  font-size: var(--fs-small);
+  margin-block: var(--space-3) var(--space-4);
+}
+.detail__post-meta time { font-variant-numeric: tabular-nums; }
+.detail__post-meta .dot { opacity: 0.5; }
+.detail__body {
+  font-size: var(--fs-body-lg);
+  line-height: var(--lh-loose);
+  color: var(--text-primary);
+}
+.detail__body :is(h2, h3) {
+  margin-block: var(--space-6) var(--space-3);
+  letter-spacing: -0.01em;
+}
+.detail__body h2 { font-size: var(--fs-h2); }
+.detail__body h3 { font-size: var(--fs-h3); }
+.detail__body p { margin-block: var(--space-3); }
+.detail__body ul, .detail__body ol {
+  margin-block: var(--space-3);
+  padding-inline-start: var(--space-5);
+}
+.detail__body li { line-height: var(--lh-base); }
+.detail__body :is(pre, code) {
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+}
+.detail__body pre {
+  background: var(--bg-muted);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+  overflow-x: auto;
+}
+.detail__body :not(pre) > code {
+  background: var(--bg-muted);
+  padding: 1px 6px;
+  border-radius: var(--radius-sm);
+}
+.detail__body blockquote {
+  margin-block: var(--space-3);
+  padding-inline-start: var(--space-4);
+  border-inline-start: 3px solid var(--color-accent-400);
+  color: var(--text-secondary);
+}
+.detail__pager {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+  margin-block: var(--space-6) var(--space-3);
+  padding-block: var(--space-3);
+  border-block: 1px solid var(--border-subtle);
+}
+.detail__pager a {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  text-decoration: none;
+  color: var(--text-secondary);
+  padding: var(--space-2);
+  border-radius: var(--radius-md);
+  transition: background-color var(--dur-base) var(--ease-out);
+}
+.detail__pager a:hover {
+  background: var(--bg-subtle);
+  color: var(--text-primary);
+  text-decoration: none;
+}
+.detail__pager-prev { text-align: start; }
+.detail__pager-next { text-align: end; }
+.detail__pager .muted {
+  color: var(--text-muted);
+  font-size: var(--fs-caption);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.detail__pager strong {
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: var(--fs-small);
+}
+.detail__back {
+  text-align: center;
+  margin-top: var(--space-5);
+  font-size: var(--fs-small);
+}
+.detail__back a {
+  color: var(--text-secondary);
+  text-decoration: none;
+}
+.detail__back a:hover { color: var(--text-primary); text-decoration: underline; }
+
+/* ============================================================================
+ * MeteoHub · 简约高级版（Stage 6）
+ * ----------------------------------------------------------------------------
+ * typography-first：单列 640px · hairline 分隔 · 克制配色 · 无装饰
+ * 不删既有类（依赖 paper-reader.js 等），仅追加新类供新版模板使用。
+ * ========================================================================== */
+
+
+/* ---------- Index page (home) ---------- */
+/* ---------- 4. 索引页（首页 / 列表） ---------- */
+.index {
+  padding: 64px 0 32px;
+}
+.index__head {
+  margin-bottom: var(--space-7);
+}
+.index__title {
+  font-family: var(--font-serif);
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  margin: 0 0 var(--space-2);
+}
+.index__lede {
+  font-family: var(--font-sans-cn);
+  font-size: 15px;
+  color: var(--text-muted);
+  margin: 0;
+}
+.index__section {
+  margin-bottom: var(--space-7);
+}
+.index__section h2 {
+  font-family: var(--font-sans-en);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin: 0 0 var(--space-3);
+}
+
+
+/* ---------- List page header (portfolio / blog / papers) ---------- */
+/* ---------- 5. 列表页（portfolio / blog / papers） ---------- */
+.list-page {
+  padding: 64px 0 32px;
+}
+.list-page__head {
+  margin-bottom: var(--space-7);
+}
+.list-page__head h1 {
+  font-family: var(--font-serif);
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 0 0 var(--space-2);
+}
+.list-page__lede {
+  font-family: var(--font-sans-cn);
+  font-size: 15px;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+
+/* ---------- Text list (core) ---------- */
+/* ---------- 6. 文字列表（核心组件） ---------- */
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.list__item {
+  padding: var(--space-3) 0;
+  border-bottom: 1px solid var(--border-subtle);
+  /* 列表项 body 区域（中长 description）受 orphans/widows 保护；
+     text-wrap: pretty 在多行 description 末尾避免单字 / 单词孤儿。 */
+  text-wrap: pretty;
+}
+.list__item:last-child { border-bottom: none; }
+.list__title {
+  font-family: var(--font-serif);
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--text-primary);
+  text-decoration: none;
+  display: inline-block;
+  /* touch target: 列表标题可能 2 行 ≈ 50px，但仍需 ≥ 44；用 min-height 兜底 */
+  min-height: 44px;
+  /* 列表标题常跨 2 行（中英文混排尤其常见），pretty 比 balance 更克制，
+     仅在末行避免单词/单字孤悬，不重排整段。 */
+  text-wrap: pretty;
+  orphans: 2;
+  widows: 2;
+}
+.list__title:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
+  text-decoration-color: var(--text-secondary);
+}
+.list__meta {
+  font-family: var(--font-sans-cn);
+  font-size: 13px;
+  color: var(--text-muted);
+  margin: 4px 0 0;
+  line-height: 1.5;
+  /* 日期 / 年份 / 期号等数字密集场景对齐：让每个字符等宽，避免混排时的
+     轻微参差；这里不仅 time，meta 整段（含期号）一并 opt-in。 */
+  font-variant-numeric: tabular-nums;
+  text-wrap: pretty;
+}
+
+
+/* ---------- Detail page (mobile / simplified) ---------- */
+/* ---------- 7. 详情页（portfolio / blog） ---------- */
+.detail {
+  padding: 64px 0 32px;
+}
+.detail__head {
+  margin-bottom: var(--space-7);
+}
+.detail__head h1 {
+  font-family: var(--font-serif);
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  margin: 0 0 var(--space-3);
+}
+.detail__meta {
+  font-family: var(--font-sans-cn);
+  font-size: 13px;
+  color: var(--text-muted);
+  margin: 0;
+  line-height: 1.6;
+}
+.detail__meta span { display: inline; }
+.detail__body {
+  font-family: var(--font-editorial);
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--text-primary);
+}
+.detail__body :is(h2, h3) {
+  margin-block: var(--space-6) var(--space-3);
+  letter-spacing: -0.01em;
+}
+.detail__body h2 { font-size: 22px; }
+.detail__body h3 { font-size: 18px; }
+.detail__body p { margin-block: var(--space-3); }
+.detail__body ul, .detail__body ol {
+  margin-block: var(--space-3);
+  padding-inline-start: var(--space-5);
+}
+.detail__body li { line-height: 1.7; }
+.detail__body :is(pre, code) {
+  font-family: var(--font-code);
+  font-size: var(--fs-small);
+}
+.detail__body pre {
+  background: var(--bg-muted);
+  border: 1px solid var(--border-subtle);
+  padding: var(--space-3);
+  overflow-x: auto;
+}
+.detail__body :not(pre) > code {
+  background: var(--bg-muted);
+  padding: 1px 6px;
+}
+.detail__body blockquote {
+  margin-block: var(--space-3);
+  padding-inline-start: var(--space-4);
+  border-inline-start: 2px solid var(--color-accent-400);
+  color: var(--text-secondary);
+}
+.detail__body img { margin: var(--space-4) 0; }
+.detail__pager {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+  margin-block: var(--space-7) var(--space-3);
+  padding-block: var(--space-3);
+  border-block: 1px solid var(--border-subtle);
+}
+.detail__pager-link {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-decoration: none;
+  color: var(--text-muted);
+  font-family: var(--font-sans-cn);
+  font-size: var(--fs-small);
+}
+.detail__pager-link:hover { color: var(--text-primary); text-decoration: none; }
+.detail__pager-link--right { text-align: right; }
+.detail__pager-title {
+  font-family: var(--font-serif);
+  font-size: 15px;
+  color: var(--text-primary);
+}
+.detail__back {
+  margin-top: var(--space-5);
+  font-family: var(--font-sans-cn);
+  font-size: var(--fs-small);
+  color: var(--text-muted);
+}
+.detail__back a {
+  color: var(--text-secondary);
+  text-decoration: none;
+}
+.detail__back a:hover { color: var(--text-primary); text-decoration: underline; text-underline-offset: 3px; }
+

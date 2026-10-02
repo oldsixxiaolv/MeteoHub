@@ -1,0 +1,87 @@
+/* ===========================================================================
+   MeteoHub · _badge.css (Phase 2B.5)
+   Badges / tags / pills
+   拆分自 components.css（原行号区间: 179-258）
+   ========================================================================= */
+
+/* ---------- Badge / Tag ---------- */
+/* ---------- Badge / Tag ---------- */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  height: 24px;
+  padding: 0 10px;
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-caption);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  background: transparent;
+  border: 1px solid var(--border-default);
+  color: var(--text-secondary);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.badge--brand {
+  color: var(--color-brand-500);
+  border-color: var(--color-brand-300);
+  background: var(--color-brand-50);
+}
+[data-theme="dark"] .badge--brand {
+  background: var(--color-brand-50);
+  color: var(--color-brand-300);
+}
+
+.badge--accent {
+  color: var(--color-accent-500);
+  border-color: var(--color-accent-300);
+  background: var(--color-accent-50);
+}
+[data-theme="dark"] .badge--accent {
+  background: var(--color-accent-50);
+  color: var(--color-accent-300);
+}
+
+.badge--sage {
+  color: var(--color-sage-700);
+  border-color: var(--color-sage-300);
+  background: #f0f5ee;
+}
+[data-theme="dark"] .badge--sage {
+  background: #1f2a1f;
+  color: var(--color-sage-300);
+}
+
+.badge--warning {
+  color: #8a5e10;
+  border-color: #e8c477;
+  background: #fdf3d8;
+}
+[data-theme="dark"] .badge--warning {
+  color: var(--color-warning);
+  border-color: var(--color-warning);
+  background: #2a2010;
+}
+
+.badge--danger {
+  color: #8a2e22;
+  border-color: #e0a99f;
+  background: #fbe6e3;
+}
+[data-theme="dark"] .badge--danger {
+  color: var(--color-danger);
+  border-color: var(--color-danger);
+  background: #2a1614;
+}
+
+.badge--filled-brand {
+  background: var(--color-brand-400);
+  color: var(--text-on-brand);
+  border-color: var(--color-brand-400);
+}
+
+a.badge:hover {
+  background: var(--bg-muted);
+  text-decoration: none;
+}
+

@@ -1,0 +1,32 @@
+---
+pagination:
+  data: collections.blog
+  size: 100
+  alias: posts
+permalink: "/blog/"
+layout: layouts/page.njk
+eleventyNavigation:
+  key: Blog
+  order: 3
+---
+
+<article class="list-page">
+  <header class="list-page__head">
+    <h1>博客</h1>
+    <p class="list-page__lede">学习笔记与长文思考，按发布日期倒序。</p>
+  </header>
+
+  <ul class="list">
+    {% for post in posts %}
+      <li class="list__item">
+        {# | url 不能省：Eleventy v3 的 pathPrefix 只在 url filter 里生效，
+           collection item 的 .url 永远是站点根相对的裸路径。部署到
+           GitHub Pages 项目页（/MeteoHub/）时不过滤就会 404。 #}
+        <a class="list__title" href="{{ post.url | url }}">{{ post.data.title }}</a>
+        <p class="list__meta">
+          <time datetime="{{ post.date | date('yyyy-LL-dd') }}">{{ post.date | date('yyyy-MM-dd') }}</time>
+        </p>
+      </li>
+    {% endfor %}
+  </ul>
+</article>

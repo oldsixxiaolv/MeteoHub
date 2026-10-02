@@ -1,0 +1,130 @@
+/* ===========================================================================
+   MeteoHub · _button.css (Phase 2B.5)
+   Interactive: buttons + form inputs
+   拆分自 components.css（原行号区间: 105-176, 259-307）
+   ========================================================================= */
+
+/* ---------- Buttons ---------- */
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 var(--space-4);
+  border-radius: var(--radius-md);
+  font-size: var(--fs-body);
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: background-color var(--dur-base) var(--ease-out),
+              border-color var(--dur-base) var(--ease-out),
+              color var(--dur-base) var(--ease-out),
+              box-shadow var(--dur-base) var(--ease-out);
+  white-space: nowrap;
+}
+
+.btn:hover { text-decoration: none; }
+
+.btn--sm { min-height: 36px; padding: 0 var(--space-3); font-size: var(--fs-small); }
+.btn--lg { min-height: 52px; padding: 0 var(--space-5); font-size: var(--fs-body-lg); }
+
+.btn--primary {
+  background: var(--button-primary-bg);   /* P1.4 · was brand-400 (white-on-#3a86ff = 3.48:1, fail); #1453d8 = 6.44:1 */
+  color: var(--text-on-brand);
+}
+.btn--primary:hover {
+  background: var(--color-brand-700);     /* P1.4 · hover steps further to brand-700 for clear affordance */
+  color: var(--text-on-brand);
+  box-shadow: var(--shadow-2);
+}
+
+.btn--accent {
+  background: var(--color-accent-400);
+  color: var(--text-on-brand);
+}
+.btn--accent:hover {
+  background: var(--color-accent-500);
+  color: var(--text-on-brand);
+  box-shadow: var(--shadow-2);
+}
+
+.btn--ghost {
+  background: transparent;
+  color: var(--color-brand-500);
+  border-color: var(--color-brand-400);
+}
+.btn--ghost:hover {
+  background: var(--bg-subtle);
+  color: var(--color-brand-700);
+  border-color: var(--color-brand-500);
+}
+
+.btn--link {
+  background: transparent;
+  color: var(--color-brand-500);
+  border: 0;
+  padding: 4px 0;
+  min-height: auto;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.btn--link:hover {
+  color: var(--color-brand-700);
+  text-decoration-color: var(--color-brand-400);
+}
+
+
+/* ---------- Form ---------- */
+/* ---------- Form ---------- */
+input[type="text"],
+input[type="email"],
+input[type="url"],
+input[type="search"],
+input[type="password"],
+textarea,
+select {
+  width: 100%;
+  height: 40px;
+  padding: 0 var(--space-3);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  font-size: var(--fs-body);
+  transition: border-color var(--dur-base) var(--ease-out),
+              box-shadow var(--dur-base) var(--ease-out);
+}
+
+textarea {
+  height: auto;
+  min-height: 120px;
+  padding: var(--space-2) var(--space-3);
+  line-height: var(--lh-base);
+  resize: vertical;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--color-brand-400);
+  outline: none;
+  box-shadow: var(--shadow-focus);
+}
+
+label {
+  display: block;
+  font-size: var(--fs-small);
+  color: var(--text-secondary);
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+label .req {
+  color: var(--color-danger);
+  margin-left: 2px;
+}
+

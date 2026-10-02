@@ -1,0 +1,58 @@
+---
+layout: layouts/base.njk
+---
+{# ============================================================================
+  detail.njk · 详情页 layout（portfolio / blog）—— 简约高级版
+  ----------------------------------------------------------------------------
+  - 单列 640px 居中
+  - 顶部 h1 + 一行 metadata
+  - 正文 {{ content | safe }}
+  - 底部 prev/next pager + 回到列表
+  ========================================================================== #}
+{% set isPortfolio = tags and "portfolio" in tags %}
+{% set isBlog = tags and "blog" in tags %}
+{% if isPortfolio %}
+  {% set listHref = "/portfolio/" %}
+  {% set listLabel = "作品集" %}
+{% elif isBlog %}
+  {% set listHref = "/blog/" %}
+  {% set listLabel = "博客" %}
+{% else %}
+  {% set listHref = "/" %}
+  {% set listLabel = "首页" %}
+{% endif %}
+
+<article class="detail">
+  <header class="detail__head">
+    <h1>{{ title }}</h1>
+    <p class="detail__meta">
+      {% if isBlog and date %}
+        <time datetime="{{ page.date | date('yyyy-LL-dd') }}">{{ page.date | date('yyyy-LL-dd') }}</time>
+        {% if readingTime %} · <span>{{ readingTime }} 分钟</span>{% endif %}
+        {% if tags and tags.length %}
+          {% for tag in tags %}<span> · {{ tag }}</span>{% endfor %}
+        {% endif %}
+      {% endif %}
+      {% if isPortfolio %}
+        {% if year %}<span>{{ year }}</span>{% endif %}
+        {% if role %}<span> · {{ role }}</span>{% endif %}
+        {% if type %}<span> · {{ type }}</span>{% endif %}
+        {% if stack and stack.length %}<span> · {{ stack | join(', ') }}</span>{% endif %}
+      {% endif %}
+    </p>
+  </header>
+
+  <div class="detail__body">
+    {{ content | safe }}
+  </div>
+
+  {% if prev or next %}
+  {# prev/next 是 collection item，.url 不带 pathPrefix，必须过 url filter。 #}
+  <nav class="detail__pager" aria-label="上一篇 / 下一篇">
+    {% if prev %}<a class="detail__pager-link" href="{{ prev.url | url }}"><span>← 上一篇</span> <span class="detail__pager-title">{{ prev.data.title }}</span></a>{% endif %}
+    {% if next %}<a class="detail__pager-link detail__pager-link--right" href="{{ next.url | url }}"><span>下一篇 →</span> <span class="detail__pager-title">{{ next.data.title }}</span></a>{% endif %}
+  </nav>
+  {% endif %}
+
+  <p class="detail__back"><a href="{{ listHref | url }}">← 回到{{ listLabel }}</a></p>
+</article>

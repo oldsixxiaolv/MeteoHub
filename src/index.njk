@@ -1,0 +1,74 @@
+---
+layout: layouts/base.njk
+title: 首页
+description: 大气科学研究者，专注东亚季风变异与数据同化。本站汇集我的研究项目、博客长文与论文精读批注。
+eleventyNavigation:
+  key: Home
+  order: 1
+---
+
+<article class="home-shell">
+  <section class="home-hero">
+    <div class="home-hero__copy">
+      <p class="home-eyebrow">ATMOSPHERIC SCIENCE / RESEARCH NOTES</p>
+      <h1 class="home-hero__title">Reading the atmosphere<br /><em>as a system.</em></h1>
+      <p class="home-hero__lede">Yihang Lv studies East Asian monsoon variability, subseasonal predictability, and the tools that make climate research reproducible.</p>
+      <div class="home-hero__actions">
+        <a class="btn btn--primary" href="{{ '/papers/' | url }}">Explore paper notes <span aria-hidden="true">↗</span></a>
+        <a class="btn btn--outline" href="{{ '/portfolio/' | url }}">View research projects</a>
+      </div>
+      {# ⚠️ Phase 2B.1：persona 单一来源 = site.author.jobTitle，不要再硬编码
+         "PhD Candidate" / "Postdoctoral researcher" / "博士后" 等字符串。
+         如要修改学术身份，改 src/_data/site.js → author.jobTitle 即可。 #}
+      <p class="home-hero__micro">{{ site.author.jobTitle }} · {{ site.author.affiliation }}</p>
+    </div>
+
+    <aside class="home-signal" data-reveal aria-label="研究主题摘要">
+      <div class="home-signal__top"><span>FIELD NOTE / 01</span><span>2026—</span></div>
+      <div class="home-signal__orb" aria-hidden="true"><i></i><i></i><i></i><b></b></div>
+      <p class="home-signal__kicker">Current focus</p>
+      <h2>Monsoon systems<br />in motion.</h2>
+      <div class="home-signal__metrics">
+        <span><b>01</b> East Asian monsoon</span>
+        <span><b>02</b> Reanalysis pipelines</span>
+        <span><b>03</b> Predictability</span>
+      </div>
+      <div class="home-signal__foot"><span>QBO × MJO</span><span>ERA5 / JRA-3Q</span></div>
+    </aside>
+  </section>
+
+  <section class="home-intro" data-reveal>
+    <p class="home-intro__label">A working archive</p>
+    <div class="home-intro__body">
+      <p>我在中国科学院大气物理研究所做博士后研究，围绕东亚季风变异、平流层–对流层耦合与次季节尺度可预报性展开工作。</p>
+      <p>这个站点记录研究项目、长文思考，以及把论文原文与批注放在一起的精读。数据管线、可视化工具和合作手稿，则在 <a href="https://github.com/oldsixxiaolv/Manuscript_Lvyh" target="_blank" rel="noopener noreferrer">Manuscript_Lvyh</a> 中继续维护。</p>
+    </div>
+    <div class="home-intro__links"><a href="mailto:yihang.lv@mail.iap.ac.cn">邮箱</a><a href="https://github.com/oldsixxiaolv" target="_blank" rel="noopener noreferrer">GitHub</a><a href="{{ '/feed.xml' | url }}">RSS</a></div>
+  </section>
+
+  <section class="home-pillars" aria-label="站点内容">
+    <a class="home-pillar" data-reveal href="{{ '/portfolio/' | url }}">
+      <span class="home-pillar__number">01</span><span class="home-pillar__tag">RESEARCH</span>
+      <h2>Research<br />projects</h2><p>数据管线、诊断工具与可复用的研究工程。</p><span class="home-pillar__arrow" aria-hidden="true">↗</span>
+    </a>
+    <a class="home-pillar" data-reveal data-reveal-delay="80" href="{{ '/blog/' | url }}">
+      <span class="home-pillar__number">02</span><span class="home-pillar__tag">NOTES</span>
+      <h2>Field<br />notes</h2><p>关于方法、资料和做研究时遇到的问题。</p><span class="home-pillar__arrow" aria-hidden="true">↗</span>
+    </a>
+    <a class="home-pillar home-pillar--accent" data-reveal data-reveal-delay="160" href="{{ '/papers/' | url }}">
+      <span class="home-pillar__number">03</span><span class="home-pillar__tag">READING</span>
+      <h2>Paper<br />reader</h2><p>原文、批注与问题并置的论文精读。</p><span class="home-pillar__arrow" aria-hidden="true">↗</span>
+    </a>
+  </section>
+
+  <section class="home-latest" data-reveal>
+    <div class="home-section-head"><div><p class="home-eyebrow">LATEST SIGNALS</p><h2>Recently collected</h2></div><a href="{{ '/blog/' | url }}">All notes <span aria-hidden="true">→</span></a></div>
+    <div class="home-latest__grid">
+      <div><p class="home-latest__label">Notes</p><ul class="list">{% for post in collections.blog | head(3) %}<li class="list__item"><a class="list__title" href="{{ post.url | url }}">{{ post.data.title }}</a><p class="list__meta"><time datetime="{{ post.date | date('yyyy-LL-dd') }}">{{ post.date | date('yyyy-MM-dd') }}</time></p></li>{% endfor %}</ul></div>
+      {# 状态字段名跟 paper.njk 对齐用 readingStatus：写 status 的话
+         holton（只有 readingStatus）会渲染出空的 "1987 · "，
+         microphysics（只有 status: published）会漏出未翻译的英文。 #}
+      <div><p class="home-latest__label">Papers</p><ul class="list">{% for paper in collections.papers | head(3) %}<li class="list__item"><a class="list__title" href="{{ paper.url | url }}">{{ paper.data.title }}</a><p class="list__meta">{% if paper.data.year %}{{ paper.data.year }}{% endif %}{% if paper.data.readingStatus %} · {{ paper.data.readingStatus | statusLabel }}{% endif %}</p></li>{% endfor %}</ul></div>
+    </div>
+  </section>
+</article>

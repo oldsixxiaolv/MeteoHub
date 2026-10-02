@@ -1,0 +1,16 @@
+---
+layout: layouts/page.njk
+title: 关于
+description: 关于我 — 研究方向、教育背景、联系方式。
+eleventyNavigation:
+  key: About
+  order: 5
+---
+
+<article class="prose">
+  {# about.md 正文从 "## 我是谁" 起，最高级别只有 h2；没有 h1 的页面在
+     屏幕阅读器的 heading 导航 / 大纲里是空的，也拿不到 SEO 的主标题信号。
+     标题取 front-matter 的 title，与 base.njk 的 <title> 单一来源。 #}
+  <h1>{{ title or "关于" }}</h1>
+  {{ aboutHtml | safe }}
+</article>

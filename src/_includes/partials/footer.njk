@@ -1,0 +1,11 @@
+<footer class="foot">
+  <div class="wrap foot__inner">
+    <span>© {{ buildYear }} {{ site.author.name }}</span>
+    <span class="foot__links">
+      {% if site.author.email %}<a href="mailto:{{ site.author.email }}">邮箱</a>{% endif %}
+      {% if site.author.github %}<a href="{{ site.author.github }}" target="_blank" rel="noopener noreferrer">GitHub</a>{% endif %}
+      <a href="{{ '/feed.xml' | url }}">RSS</a>
+      <a href="{{ '/sitemap.xml' | url }}">Sitemap</a>
+    </span>
+  </div>
+</footer>

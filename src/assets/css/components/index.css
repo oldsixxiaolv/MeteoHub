@@ -1,0 +1,40 @@
+/* ===========================================================================
+   MeteoHub · Components · index.css (Phase 2B.5)
+   ---------------------------------------------------------------------------
+   总入口（dev mode）：浏览器看到本文件中的 @import 后，会按顺序拉取 7 个
+   分片 partial 文件。每个 partial 独立可缓存，独立可读，IDE/编辑器跳
+   转定位精准；修改某个组件不会让整个 components.css 重载。
+
+   prod build 后：eleventy.config.js 的 eleventy.after 钩子会把 7 个 partial
+   按本文件声明的顺序拼接成单文件 _site/assets/css/components.css，
+   让浏览器一次下载 1 个请求，命中 HTTP/2 头部压缩、减少 RTT。
+
+   修改顺序时务必遵循"由外壳到内容"的渲染层级：先 nav（chrome），再到
+   交互组件（btn / badge），再到内容列表（list），最后是 paper 这种专用
+   重组件 + misc 工具。
+   ========================================================================= */
+
+/* —— 顺序：nav → button → badge → card → list → paper → misc ——
+   不要随意调整：CSS 选择器特异性在拆分后保持全局一致，但渲染层级仍按
+   "由外到内"会让 base 复写更容易（例如 a11y.css 在最后加载可覆盖）。 */
+
+/* 1. 导航 chrome：brand + nav + theme toggle + topbar + footer */
+@import url("./_nav.css");
+
+/* 2. 交互元素：button + form */
+@import url("./_button.css");
+
+/* 3. 徽标 / 标签 / 状态指示 */
+@import url("./_badge.css");
+
+/* 4. 卡片（占位；未来扩展） */
+@import url("./_card.css");
+
+/* 5. 列表与详情页：tag-cloud + page-header + breadcrumb + index + list + detail (+ mobile) */
+@import url("./_list.css");
+
+/* 6. 论文精读系统：annotation panel + paper header / tabs / toc / body */
+@import url("./_paper.css");
+
+/* 7. 工具与全局响应式覆盖：container + 移动端 media query */
+@import url("./_misc.css");

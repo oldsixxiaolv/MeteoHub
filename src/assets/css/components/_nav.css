@@ -1,0 +1,223 @@
+/* ===========================================================================
+   MeteoHub · _nav.css (Phase 2B.5)
+   Navigation chrome: brand + nav + theme toggle + topbar + footer
+   拆分自 components.css（原行号区间: 5-104, 873-958）
+   ========================================================================= */
+
+/* ---------- Brand ---------- */
+/* ---------- Brand ---------- */
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: var(--fs-h5);
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+  text-decoration: none;
+}
+
+.brand:hover {
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+.brand__logo {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+}
+
+.brand__name em {
+  font-style: normal;
+  color: var(--color-brand-500);
+}
+
+.foot .brand__name {
+  color: var(--text-primary);
+}
+
+
+/* ---------- Nav ---------- */
+/* ---------- Nav ---------- */
+.nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-left: auto;
+}
+
+.nav__link {
+  display: inline-flex;
+  align-items: center;
+  height: 40px;
+  padding: 0 var(--space-3);
+  border-radius: var(--radius-md);
+  font-size: var(--fs-small);
+  font-weight: 500;
+  color: var(--text-secondary);
+  transition: background-color var(--dur-base) var(--ease-out),
+              color var(--dur-base) var(--ease-out);
+}
+
+.nav__link:hover {
+  background: var(--bg-muted);
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+.nav__link[aria-current="page"] {
+  color: var(--color-brand-500);
+  background: var(--bg-subtle);
+  font-weight: 600;
+}
+
+@media (max-width: 720px) {
+  .nav__link {
+    padding: 0 var(--space-2);
+    font-size: var(--fs-caption);
+  }
+}
+
+
+/* ---------- Theme toggle ---------- */
+/* ---------- Theme toggle ---------- */
+.theme-toggle {
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
+  transition: background-color var(--dur-base) var(--ease-out),
+              color var(--dur-base) var(--ease-out);
+}
+
+.theme-toggle:hover {
+  background: var(--bg-muted);
+  color: var(--text-primary);
+}
+
+.theme-toggle svg {
+  width: 18px;
+  height: 18px;
+}
+
+.theme-toggle .icon-sun { display: none; }
+.theme-toggle .icon-moon { display: block; }
+[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
+[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+
+
+/* ---------- Topbar (simplified) ---------- */
+/* ---------- 2. 简化 topbar ---------- */
+/* 用更高 specificity 覆盖 layout.css 的 .topbar { height: 64px } */
+html body .topbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: color-mix(in srgb, var(--bg-page) 90%, transparent);
+  backdrop-filter: saturate(140%) blur(8px);
+  -webkit-backdrop-filter: saturate(140%) blur(8px);
+  border-bottom: 1px solid var(--border-subtle);
+  height: 56px;
+}
+html body .topbar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+}
+.topbar__brand {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-sans-en);
+  font-size: var(--fs-small);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--text-primary);
+  text-decoration: none;
+}
+/* expand touch hit-area vertically: 16px top/bottom padding visual + brand visual height ~24px */
+.topbar__brand::before {
+  content: "";
+  position: absolute;
+  inset: -10px 0;
+}
+.topbar__brand:hover { text-decoration: none; }
+.topbar__nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+.topbar__link {
+  position: relative;
+  font-family: var(--font-sans-cn);
+  font-size: var(--fs-small);
+  color: var(--text-muted);
+  text-decoration: none;
+  padding: 4px 0;
+  transition: color var(--dur-base) var(--ease-out);
+}
+/* Expand touch hit-area to ≥44×44px via invisible pseudo without changing visual size */
+.topbar__link::before {
+  content: "";
+  position: absolute;
+  inset: -10px 0;  /* 10px top/bottom → 4+8+22(font)+8+4 = ~46px hit height */
+}
+.topbar__link:hover { color: var(--text-primary); text-decoration: none; }
+.topbar__link[aria-current="page"] { color: var(--text-primary); font-weight: 500; }
+.topbar__link[aria-current="page"]::after { content: ""; position: absolute; right: 0; bottom: -7px; left: 0; height: 2px; background: var(--color-accent-400); }
+
+.topbar__theme {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-md);
+  color: var(--text-muted);
+  transition: color var(--dur-base) var(--ease-out);
+}
+/* expand touch hit-area to 44×44 (28 + 8 each side) */
+.topbar__theme::before {
+  content: "";
+  position: absolute;
+  inset: -8px;
+}
+.topbar__theme:hover { color: var(--text-primary); }
+.topbar__theme .icon-moon { display: none; }
+[data-theme="dark"] .topbar__theme .icon-sun { display: none; }
+[data-theme="dark"] .topbar__theme .icon-moon { display: block; }
+
+
+/* ---------- Footer ---------- */
+/* ---------- 3. 简化 footer ---------- */
+.foot {
+  margin-top: 96px;
+  padding: 24px 0;
+  border-top: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+  font-family: var(--font-sans-cn);
+  font-size: var(--fs-small);
+}
+.foot__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+.foot__links {
+  display: flex;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+.foot a {
+  color: var(--text-muted);
+  text-decoration: none;
+}
+.foot a:hover { color: var(--text-primary); text-decoration: underline; text-underline-offset: 3px; }
+

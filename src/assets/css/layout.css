@@ -1,0 +1,108 @@
+/* ===========================================================================
+   MeteoHub · Layout (Wrap, Container, Section, Grid)
+   ========================================================================= */
+
+.wrap {
+  width: 100%;
+  max-width: var(--container-wide);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.wrap-narrow {
+  width: 100%;
+  max-width: var(--container-base);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.wrap-prose {
+  width: 100%;
+  max-width: var(--container-narrow);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* —— Section (vertical rhythm) —— */
+.section {
+  margin-block: var(--space-7);
+}
+.section__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: var(--space-4);
+  margin-bottom: var(--space-5);
+  flex-wrap: wrap;
+}
+
+.section__title {
+  font-size: var(--fs-h2);
+  line-height: var(--lh-tight);
+  margin: 0;
+}
+
+.eyebrow {
+  font-size: var(--fs-small);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin: 0 0 var(--space-2);
+  font-weight: 600;
+}
+.split {
+  display: grid;
+  grid-template-columns: 8fr 4fr;
+  gap: var(--space-6);
+  align-items: start;
+}
+
+@media (max-width: 1024px) {
+  .split { grid-template-columns: 1fr; gap: var(--space-5); }
+}
+
+/* —— Topbar —— */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  height: 64px;
+  background: color-mix(in srgb, var(--bg-page) 88%, transparent);
+  -webkit-backdrop-filter: blur(10px) saturate(160%);
+  backdrop-filter: blur(10px) saturate(160%);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.topbar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* —— Footer ——
+   注：footer 的实际样式在 components/_nav.css（简化版 topbar/footer chrome）。
+   早先这里还有一套 .foot / .foot__grid / .foot h4 / .foot ul / .foot__base，
+   对应的是早已删除的多栏 footer 结构（.foot__grid、.foot__base 现在没有任何
+   模板输出），而且本文件在 components.css 之后加载，会把 _nav.css 的 footer
+   颜色/间距反向覆盖回去，所以一并移除。 */
+
+/* —— Utilities —— */
+.row { display: flex; align-items: center; gap: var(--space-3); }
+.spacer { flex: 1; }
+.divider { height: 1px; background: var(--border-subtle); margin-block: var(--space-5); border: 0; }
+.text-mut { color: var(--text-muted); }
+.text-sec { color: var(--text-secondary); }
+.text-ctr  { text-align: center; }
+
+.mt-0 { margin-top: 0; }
+.mt-3 { margin-top: var(--space-3); }
+.mt-4 { margin-top: var(--space-4); }
+.mt-5 { margin-top: var(--space-5); }
+.mt-6 { margin-top: var(--space-6); }
+.mb-3 { margin-bottom: var(--space-3); }
+.mb-4 { margin-bottom: var(--space-4); }
+.mb-5 { margin-bottom: var(--space-5); }
+.hide-mobile { display: initial; }
+@media (max-width: 720px) { .hide-mobile { display: none; } }
+.show-mobile { display: none; }
+@media (max-width: 720px) { .show-mobile { display: initial; } }

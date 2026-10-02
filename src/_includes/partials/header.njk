@@ -1,0 +1,43 @@
+{# ============================================================================
+  header.njk · 简化版 topbar（简约高级）
+  ----------------------------------------------------------------------------
+  - 左侧站名（MeteoHub），无 logo
+  - 右侧 4 个文字链接
+  - 高度 56px，hairline border-bottom
+  ========================================================================== #}
+{% set navItems = site.nav %}
+{% set currentUrl = page.url %}
+
+<header class="topbar">
+  <div class="wrap topbar__inner">
+    <a class="topbar__brand" href="{{ '/' | url }}"
+       {% if page.url == "/" or page.url == "/MeteoHub/" %}aria-current="page"{% endif %}>{{ site.shortTitle }}</a>
+
+    <nav class="topbar__nav" aria-label="主导航">
+      {% for item in navItems %}
+        {% set href = item.href %}
+        {# 只有站内根相对路径才可能是"当前页"。早期版本这里先算一个
+           isExternal 变量却从来没用过，等于外链判定形同虚设。 #}
+        {% set isCurrent =
+             href and href.startsWith("/") and
+             ((currentUrl == href) or
+              (href != "/" and currentUrl and currentUrl.indexOf(href) == 0)) %}
+        <a class="topbar__link"
+           href="{{ href | url }}"
+           {% if isCurrent %}aria-current="page"{% endif %}>{{ item.label }}</a>
+      {% endfor %}
+      <button class="topbar__theme" type="button" data-theme-toggle aria-label="切换主题" aria-pressed="false">
+        <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="4"></circle>
+          <path d="M12 2v2"></path><path d="M12 20v2"></path>
+          <path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path>
+          <path d="M2 12h2"></path><path d="M20 12h2"></path>
+          <path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path>
+        </svg>
+        <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+      </button>
+    </nav>
+  </div>
+</header>

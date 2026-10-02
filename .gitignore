@@ -1,34 +1,55 @@
-# Runtime data — MUST stay out of git (contains DB + secret key)
-data/
-server.pid
-server.log
+# ── AI agent 本地工作区 ──────────────────────────────────
+# .claude/worktrees/           每个 agent 一个本地 worktree，纯机器本地状态
+# .claude/planning-with-files/ 按 UUID 命名的会话规划笔记，每次会话都会变动
+# 两者都不进版本控制：前者体积大且与他人无关，后者是临时工作日志而非项目文档。
+.claude/
 
-# Python
+# ── macOS / exFAT 产物 ───────────────────────────────────
+# 本项目在外接 exFAT 盘上开发，macOS 与 Windows 都可能留下元数据。
+# ._* 是 AppleDouble 资源叉：每次外部编辑都会复制一份，_site/ 里也会带进来
+# （.github/workflows/deploy.yml 有一道 find _site -name '._*' -delete 兜底）。
+._*
+.DS_Store
+.AppleDouble
+.Spotlight-V100/
+.Trashes/
+.fseventsd
+.fseventsd/
+
+# Windows 侧在 exFAT 上可能生成的
+Thumbs.db
+desktop.ini
+$RECYCLE.BIN/
+System Volume Information/
+
+# ── Python（scripts/ 下有 contrast_check.py 等脚本）─────
 __pycache__/
 *.pyc
 *.pyo
 .venv/
 venv/
 
-# Tests
+# 测试 / 类型检查缓存
 .pytest_cache/
 .pyright/
 .mypy_cache/
-qa/node_modules/
 
-# macOS resource forks (created by external edits)
-._*
-.DS_Store
-
-qa/preview-runtime.json
-qa/*-actual.png
-
-# Backups (minify snapshots + restore artifacts)
+# ── 旧 Flask 平台遗留 ───────────────────────────────────
+# 现站已是纯静态，这些只在「回滚到 _archive/meteohub-legacy/」时才会出现。
+# data/ 必须继续忽略：回滚会恢复 data/secret.key 与 SQLite 库，绝不能进版本库。
+data/
+server.pid
+server.log
+# 注意：这里不要忽略 qa/。_archive/meteohub-legacy/qa/ 里是旧站的真实
+# 测试脚本（test-01-smoke.js … test-11-store-identity.js），是归档的一部分。
+# 里面真正是垃圾的部分（node_modules/、preview-runtime.json、*-actual.png）
+# 已由上面的通用规则覆盖，无需整目录忽略。
+dist/
 backups/
 *.orig
 
-# Build outputs (terser/csso write to dist/)
-dist/
+# ── Eleventy 构建产物 ───────────────────────────────────
+_site/
 
-# Main project node_modules (terser + csso-cli installed via npm install)
+# ── 依赖 ─────────────────────────────────────────────────
 node_modules/

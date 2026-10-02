@@ -1,21 +1,21 @@
 {
   "name": "meteohub",
-  "version": "2.0.0",
-  "description": "MeteoHub · 大气科学学术工作台",
+  "version": "1.0.0",
+  "description": "MeteoHub · 个人学术站点 (作品集 + 博客 + 论文精读)",
+  "private": true,
   "scripts": {
-    "build": "bash build-optimized.sh",
-    "restore": "bash backup-restore.sh restore",
-    "backup": "bash backup-restore.sh backup",
-    "test:backend": "python3 -m pytest tests/ -q",
-    "test:frontend": "bash qa/run-all.sh",
-    "lint": "eslint app.js workspace.js --ext .js",
-    "validate": "node --check app.js && node --check workspace.js && echo 'JS syntax OK'"
-  },
-  "devDependencies": {
-    "csso-cli": "^4.0.2",
-    "terser": "^5.0.0"
+    "serve": "eleventy --serve --quiet --port=8080",
+    "build": "eleventy"
   },
   "engines": {
-    "node": ">=16"
+    "node": ">=18"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.1.6",
+    "luxon": "^3.4.0",
+    "markdown-it": "^14.1.0"
+  },
+  "optionalDependencies": {
+    "marked": "^12.0.0"
   }
 }

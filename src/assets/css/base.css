@@ -1,0 +1,360 @@
+/* ===========================================================================
+   MeteoHub · Base (Reset + Element Defaults)
+   ========================================================================= */
+
+/* —— Modern reset (modified from Andy Bell + josh comeau) —— */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  line-height: 1.7;
+  font-family: var(--font-editorial);
+  font-size: 17px;
+  color: var(--text-primary);
+  background-color: var(--bg-page);
+  transition: background-color var(--dur-base) var(--ease-out),
+              color var(--dur-base) var(--ease-out);
+  font-feature-settings: "kern" 1, "liga" 1;
+  /* 默认 proportional-nums（优雅数字风格）；表格、年份、日期场景通过
+     `.tabular` 工具类或具体选择器显式 opt-in 到 `tabular-nums`。 */
+  font-variant-numeric: proportional-nums;
+  /* Chrome 122+ / Safari 18+ / Firefox 待落地；现代浏览器其实已默认处理
+     CJK ↔ Latin 之间的间距，这里显式声明以便未来行为变化时保持一致。 */
+  text-autospace: normal;
+}
+
+img, picture, svg, video, canvas {
+  display: block;
+  max-width: 100%;
+}
+
+input, button, textarea, select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+a {
+  color: var(--link-color);
+  text-decoration: none;
+  transition: color var(--dur-base) var(--ease-out);
+}
+
+a:hover {
+  color: var(--link-hover);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1.5px;
+}
+
+/* —— Headings —— */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-primary);
+  font-weight: 700;
+  line-height: var(--lh-tight);
+  letter-spacing: var(--tracking-tight);
+  /* text-wrap: balance 让浏览器均匀分配多行标题的字符，避免末行单字（或中文
+     单字）孤悬。Chrome 114+ / Safari 17.5+ / Firefox 121+ 才支持，老浏览器
+     自动 fallback 到普通换行，不影响可读性。 */
+  text-wrap: balance;
+}
+
+h1 { font-size: var(--fs-h1); }
+h2 { font-size: var(--fs-h2); }
+h3 { font-size: var(--fs-h3); }
+h4 { font-size: var(--fs-h4); }
+h5 { font-size: var(--fs-h5); }
+h6 { font-size: var(--fs-body); }
+
+p {
+  line-height: var(--lh-base);
+  color: var(--text-primary);
+  /* text-wrap: pretty 在段末避免单词/字符孤悬（比 balance 更克制，不重新排
+     整段）。orphans/widows 控制段首/段尾最少保留 2 行，印刷级排版守则。 */
+  text-wrap: pretty;
+  orphans: 2;
+  widows: 2;
+}
+
+ul, ol {
+  padding-left: var(--space-4);
+}
+
+li {
+  line-height: var(--lh-base);
+  /* list 项跨多行时（paper 摘要、blog 内容），pretty + orphans/widows
+     可防止"标题孤立一行"或"末行单词孤儿"的视觉噪音。 */
+  text-wrap: pretty;
+  orphans: 2;
+  widows: 2;
+}
+
+hr {
+  border: 0;
+  height: 1px;
+  background: var(--border-subtle);
+  margin-block: var(--space-5);
+}
+
+/* —— Code inline + block —— */
+code, kbd, samp, pre {
+  font-family: var(--font-code);
+  font-size: 0.92em;
+}
+
+code {
+  background: var(--bg-muted);
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+}
+
+pre {
+  background: var(--bg-muted);
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  overflow-x: auto;
+  line-height: 1.55;
+  border: 1px solid var(--border-subtle);
+}
+
+pre code {
+  background: none;
+  padding: 0;
+  border-radius: 0;
+}
+
+/* —— Blockquote —— */
+blockquote {
+  margin: var(--space-5) 0;
+  padding: var(--space-4) var(--space-5);
+  border-inline-start: 3px solid var(--color-accent-400);
+  background: var(--bg-muted);
+  border-radius: var(--radius-lg);
+  font-family: var(--font-editorial);
+  font-size: var(--fs-body-lg);
+  line-height: var(--lh-loose);
+  color: var(--text-secondary);
+  /* blockquote 多为长引文，pretty + orphans/widows 让引用块的视觉收尾更稳。 */
+  text-wrap: pretty;
+  orphans: 2;
+  widows: 2;
+}
+
+blockquote p + p {
+  margin-top: var(--space-2);
+}
+
+blockquote cite,
+blockquote footer {
+  display: block;
+  margin-top: var(--space-3);
+  font-style: normal;
+  font-size: var(--fs-small);
+  color: var(--text-muted);
+}
+
+/* —— Figure / Figcaption —— */
+figure {
+  margin: var(--space-5) 0;
+}
+
+figcaption {
+  margin-top: var(--space-2);
+  font-size: var(--fs-small);
+  color: var(--text-muted);
+  text-align: center;
+}
+
+/* —— Table —— */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: var(--space-4) 0;
+  font-size: var(--fs-small);
+}
+
+th, td {
+  text-align: left;
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+th {
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: var(--bg-muted);
+}
+
+/* —— Focus ring —— */
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-focus);
+  border-radius: var(--radius-sm);
+}
+
+/* —— Selection —— */
+::selection {
+  background: var(--color-brand-100);
+  color: var(--text-primary);
+}
+
+@media (prefers-color-scheme: dark) {
+  ::selection {
+    background: var(--color-brand-700);
+    color: var(--color-neutral-900);
+  }
+}
+
+/* —— Reduced motion —— */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* —— Reveal-on-scroll progressive enhancement —— */
+.motion-ready .reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 700ms var(--ease-out) var(--reveal-delay, 0ms),
+              transform 700ms var(--ease-out) var(--reveal-delay, 0ms);
+}
+.motion-ready .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .motion-ready .reveal--view {
+      animation: reveal-view linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 28%;
+    }
+  }
+}
+
+@keyframes reveal-view {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: none; }
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--button-primary-bg);   /* P1.4 · was brand-400 (white-on-#3a86ff = 3.48:1, fail) */
+  color: var(--text-on-brand);
+  padding: 8px 12px;
+  border-radius: 0 0 var(--radius-md) 0;
+  z-index: 1000;
+}
+
+.skip-link:focus {
+  left: 0;
+}
+
+/* —— Article typography (long-form reading) —— */
+.article {
+  font-family: var(--font-editorial);
+  font-size: var(--fs-body-lg);
+  line-height: var(--lh-loose);
+  color: var(--text-primary);
+}
+
+.article > * + * {
+  margin-top: var(--space-3);
+}
+
+.article h2,
+.article h3,
+.article h4 {
+  margin-top: var(--space-6);
+  margin-bottom: var(--space-2);
+}
+
+.article h2 { font-size: var(--fs-h2); }
+.article h3 { font-size: var(--fs-h3); }
+.article h4 { font-size: var(--fs-h4); }
+
+.article a {
+  color: var(--link-color);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--color-brand-200);
+}
+
+.article a:hover {
+  text-decoration-color: var(--color-brand-400);
+}
+
+.article blockquote {
+  margin-block: var(--space-4);
+}
+
+.article pre {
+  font-size: var(--fs-small);
+}
+
+.article img {
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+}
+
+.article ul, .article ol {
+  padding-left: var(--space-5);
+}
+
+.article li + li {
+  margin-top: var(--space-1);
+}
+
+/* —— measure for long text —— */
+.measure {
+  max-width: var(--measure);
+}
+
+/* —— tabular numerals utility ——
+   body 默认 proportional-nums（优雅）。需要在表格、年份列表、统计数字等
+   场景让数字等宽对齐时，给容器或文本加 class="tabular"。 */
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* —— prose for long-form article body (about / 404) ——
+   .prose 与 .measure 同义但语义更明确，给 <article class="prose"> 用；
+   不引入 typography 全套（已由 base 的 h1-h6/p 继承），仅控制 max-width。 */
+.prose {
+  max-width: var(--measure);
+  margin-inline: auto;
+}

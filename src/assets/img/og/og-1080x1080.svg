@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080" width="1080" height="1080" role="img" aria-label="MeteoHub — Yihang Lv, Atmospheric Sciences. 以大气之名，写下可被验证的东西。">
+  <title>MeteoHub — Yihang Lv · Atmospheric Sciences</title>
+
+  <!-- ============================================================
+       MeteoHub · og:image (1080×1080, square)
+       Brand: 流场蓝 × 暖橙赭石 · editorial modern · paper-textured
+       ============================================================ -->
+
+  <defs>
+    <filter id="paper" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="11" stitchTiles="stitch"/>
+      <feColorMatrix values="0 0 0 0 0.27
+                             0 0 0 0 0.22
+                             0 0 0 0 0.16
+                             0 0 0 0.045 0"/>
+      <feComposite in2="SourceGraphic" operator="in"/>
+    </filter>
+
+    <linearGradient id="paperGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f7f2e6"/>
+      <stop offset="100%" stop-color="#efe7d4"/>
+    </linearGradient>
+
+    <linearGradient id="accentStream" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#c2691f" stop-opacity="0"/>
+      <stop offset="40%" stop-color="#c2691f" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#d97706" stop-opacity="1"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Base paper -->
+  <rect width="1080" height="1080" fill="url(#paperGrad)"/>
+  <rect width="1080" height="1080" fill="#8a6e44" filter="url(#paper)" opacity="0.6"/>
+
+  <!-- Editorial bleed frame -->
+  <rect x="60" y="60" width="960" height="960" fill="none" stroke="#0b3a5b" stroke-opacity="0.12" stroke-width="1"/>
+
+  <!-- ============================================================
+       Top: wordmark centered
+       ============================================================ -->
+  <g font-family="'Source Serif 4', 'Noto Serif SC', 'Times New Roman', Georgia, serif" fill="#0b3a5b" text-anchor="middle">
+    <text x="540" y="138" font-size="26" font-weight="600" letter-spacing="8">METEOHUB</text>
+    <text x="540" y="166" font-size="13" fill-opacity="0.55" letter-spacing="3">EST · 2026 · IAP-CAS</text>
+  </g>
+
+  <line x1="460" y1="194" x2="620" y2="194" stroke="#c2691f" stroke-width="2"/>
+
+  <!-- ============================================================
+       Center: streamline art (流场线) — hero element
+       ============================================================ -->
+  <g transform="translate(140, 260)">
+    <!-- Concentric-ish streamline field, square layout -->
+    <g stroke="#0b3a5b" fill="none" stroke-linecap="round">
+      <path d="M40,180  C140,140 260,260 400,220 S680,180 800,220" stroke-opacity="0.18" stroke-width="1.2"/>
+      <path d="M40,260  C140,220 260,340 400,300 S680,260 800,300" stroke-opacity="0.22" stroke-width="1.3"/>
+      <path d="M40,340  C140,300 260,420 400,380 S680,340 800,380" stroke-opacity="0.25" stroke-width="1.4"/>
+      <path d="M40,420  C140,380 260,500 400,460 S680,420 800,460" stroke-opacity="0.22" stroke-width="1.3"/>
+      <path d="M40,500  C140,460 260,580 400,540 S680,500 800,540" stroke-opacity="0.18" stroke-width="1.2"/>
+    </g>
+
+    <!-- Accent streamline: warm orange -->
+    <path d="M40,380 C140,340 260,460 400,420 S680,380 800,420"
+          fill="none" stroke="url(#accentStream)" stroke-width="3.5" stroke-linecap="round"/>
+
+    <!-- Direction markers on accent streamline -->
+    <g fill="#c2691f">
+      <circle cx="170" cy="368" r="3"/>
+      <circle cx="320" cy="406" r="3"/>
+      <circle cx="500" cy="411" r="3"/>
+      <circle cx="680" cy="396" r="3"/>
+    </g>
+
+    <!-- Coordinate / pressure annotations -->
+    <g font-family="'Source Serif 4', 'Noto Serif SC', Georgia, serif" fill="#0b3a5b" fill-opacity="0.42" font-size="12" letter-spacing="1.5">
+      <text x="40"  y="50">850 hPa · u-component</text>
+      <text x="40"  y="640">500 hPa · v-component</text>
+      <text x="660" y="50" text-anchor="start">φ 39.9° N · λ 116.4° E</text>
+    </g>
+  </g>
+
+  <!-- ============================================================
+       Bottom: identity + tagline block (centered)
+       ============================================================ -->
+  <g font-family="'Source Serif 4', 'Noto Serif SC', 'Times New Roman', Georgia, serif" fill="#0b1720" text-anchor="middle">
+    <text x="540" y="876" font-size="64" font-weight="600" letter-spacing="-1">Yihang Lv</text>
+    <text x="540" y="918" font-size="28" fill="#0b3a5b" letter-spacing="6">吕亦航</text>
+    <text x="540" y="956" font-size="18" fill="#0b3a5b" fill-opacity="0.78" letter-spacing="2">Atmospheric Sciences · PhD Candidate</text>
+  </g>
+
+  <!-- Tagline rule + tagline -->
+  <g font-family="'Source Serif 4', 'Noto Serif SC', 'Times New Roman', Georgia, serif" text-anchor="middle">
+    <line x1="490" y1="984" x2="590" y2="984" stroke="#c2691f" stroke-width="2"/>
+    <text x="540" y="1014" font-size="16" fill="#0b3a5b" letter-spacing="2">以大气之名，写下可被验证的东西。</text>
+  </g>
+</svg>

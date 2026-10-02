@@ -1,0 +1,266 @@
+/* ============================================================
+   MeteoHub · a11y.css (Phase 2A.3)
+   高级 a11y 场景适配：在不破坏设计语言的前提下兼容
+     - prefers-reduced-motion: reduce  (运动前庭障碍 / 偏头痛)
+     - prefers-contrast: more          (需要更强对比)
+     - forced-colors: active           (Windows High Contrast)
+   ============================================================ */
+
+
+/* ————————————————————————————————————————————————
+   1. prefers-reduced-motion · 兜底安全网
+   base.css 已经在 reveal-on-scroll / paper-reader / 主题切换
+   等显式动画处做过 no-preference gating。这里再加一层全局兜底，
+   确保任何后加的 @keyframes / transition 都被迫停下。
+   ———————————————————————————————————————————————— */
+@media (prefers-reduced-motion: reduce) {
+  /* 关键：保留 transition 用于状态切换 (e.g. hover / focus / theme toggle)，
+     但时长压到 0.01ms 让浏览器在视觉上瞬切。 */
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+
+/* ————————————————————————————————————————————————
+   2. prefers-contrast: more · 增强对比
+   用户主动要求更高对比度（一般是视觉障碍辅助技术触发）。
+   我们：
+     · 把 muted text 从 neutral-500 推到 neutral-700（更深一档）
+     · 把 brand 链接从 brand-500 推到 brand-700（更深一档）
+     · 给所有 button / badge / chip 加 1px solid 边框，
+       确保它们在去色 / 高对比场景下不会"消失"
+   不动的：背景色（保留品牌识别）、暖橙赭石 accent（色彩不影响阅读）
+   ———————————————————————————————————————————————— */
+@media (prefers-contrast: more) {
+  :root {
+    --color-neutral-500: var(--color-neutral-700);  /* muted text 更深 */
+    --color-brand-500:   var(--color-brand-700);    /* link 更深 */
+  }
+
+  /* 所有 button：加 1px solid border，颜色用 currentColor 跟随主题 */
+  .btn,
+  .btn--primary,
+  .btn--outline,
+  .btn--ghost {
+    border: 1px solid currentColor !important;
+  }
+
+  /* badge / chip：去色场景下靠 border 区分，不靠颜色 */
+  .badge,
+  .badge--accent,
+  .badge--brand,
+  .badge--muted,
+  .annot-kind,
+  .annot-filter,
+  .paper-anchor {
+    border: 1px solid currentColor !important;
+  }
+
+  /* 表单元素 */
+  input, textarea, select {
+    border: 1px solid var(--text-primary) !important;
+  }
+
+  /* focus ring 在高对比需求下要更明显 */
+  :focus-visible {
+    box-shadow: 0 0 0 3px var(--color-brand-400) !important;
+  }
+}
+
+
+/* ————————————————————————————————————————————————
+   3. forced-colors: active · Windows High Contrast 适配
+   用户开启系统级高对比（常见：Windows High Contrast Mode、macOS Increase Contrast
+   拉到最右、Chrome forced-colors 模拟）。浏览器只保证 8 种系统色 + 强制边框可见，
+   我们所有的设计 token / 渐变 / backdrop-filter 都可能失真。
+
+   策略：
+     a. 把 design token 重映射到 system color（让所有 var(--xxx) 自动正确）
+     b. 移除 backdrop-filter / gradient（高对比下退化为纯色）
+     c. 给所有交互元素强制 visible border（因为颜色被强制接管后，纯色块可能糊在一起）
+     d. 强化 focus-visible（用 Highlight 系统色）
+   ———————————————————————————————————————————————— */
+@media (forced-colors: active) {
+  /* —— 3a. Token 重映射到 system colors —— */
+  :root {
+    /* 背景族 → Canvas (页面级) / CanvasText (文字级) */
+    --bg-page:       Canvas;
+    --bg-card:       Canvas;
+    --bg-elevated:   Canvas;
+    --bg-muted:      Canvas;
+    --bg-tint:       Canvas;
+    --bg-paper:      Canvas;
+    --color-neutral-50:   Canvas;
+    --color-neutral-100:  Canvas;
+    --color-neutral-0:    Canvas;
+
+    /* 文字族 → CanvasText */
+    --text-primary:    CanvasText;
+    --text-secondary:  CanvasText;
+    --text-on-brand:   ButtonText;     /* 主按钮文字走 ButtonText 系统色 */
+    --color-neutral-900: CanvasText;
+    --color-neutral-700: CanvasText;
+    --color-neutral-600: CanvasText;
+    --color-neutral-500: CanvasText;
+    --color-neutral-400: CanvasText;
+
+    /* Brand → LinkText / ButtonFace (链接用 LinkText，按钮背景 ButtonFace) */
+    --color-brand-400: LinkText;
+    --color-brand-500: LinkText;
+    --color-brand-600: LinkText;
+    --color-brand-700: LinkText;
+    --link-color:      LinkText;
+    --button-primary-bg: ButtonFace;
+    --text-on-brand:     ButtonText;
+
+    /* Accent → Mark (浏览器通常用黄色作 mark) */
+    --color-accent-50:  Mark;
+    --color-accent-100: Mark;
+    --color-accent-200: CanvasText;
+    --color-accent-300: CanvasText;
+    --color-accent-400: Mark;
+    --color-accent-500: Mark;
+    --color-accent-600: Mark;
+    --color-accent-700: MarkText;
+    --color-accent-800: MarkText;
+    --color-accent-900: MarkText;
+
+    /* Border → CanvasText (保证所有边框在系统色下都可见) */
+    --border:           CanvasText;
+    --border-strong:    CanvasText;
+    --border-muted:     CanvasText;
+
+    /* Selection → Highlight / HighlightText */
+    --color-brand-100:  Highlight;
+  }
+
+  /* —— 3b. 移除 backdrop-filter / gradient / 模糊背景 —— */
+  *,
+  *::before,
+  *::after {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  /* paper-textured / noise / 半透明渐变 在 forced-colors 下退化为纯色 */
+  .site-header,
+  .topbar,
+  .glass,
+  .paper-textured,
+  [data-paper-textured],
+  .home-signal,
+  .home-hero,
+  .annot-card {
+    background-image: none !important;
+    background: Canvas !important;
+  }
+
+  /* 任何 linear-gradient 都被压成 solid */
+  [style*="linear-gradient"],
+  [style*="radial-gradient"],
+  .accent-highlight,
+  .underline-highlight,
+  .under-mark,
+  .under-warn {
+    background-image: none !important;
+    background: Canvas !important;
+    color: CanvasText !important;
+    text-decoration: underline !important;
+    text-decoration-color: CanvasText !important;
+  }
+
+  /* —— 3c. 强制可见边框 —— */
+  /* 所有 button 必须有可见边框（颜色被接管后，纯色块可能糊在一起） */
+  .btn,
+  .btn--primary,
+  .btn--outline,
+  .btn--ghost {
+    border: 2px solid ButtonText !important;
+    background: ButtonFace !important;
+    color: ButtonText !important;
+    forced-color-adjust: none;
+  }
+
+  /* 链接必须有 visible underline，否则颜色接管后无法与正文区分 */
+  a,
+  a:link,
+  a:visited {
+    color: LinkText !important;
+    text-decoration: underline !important;
+    text-decoration-color: LinkText !important;
+  }
+  a:visited { color: VisitedText !important; text-decoration-color: VisitedText !important; }
+  a:hover   { color: LinkText !important; }
+  a:active  { color: ActiveText !important; }
+
+  /* badge / chip 必须有可见边框 */
+  .badge,
+  .badge--accent,
+  .badge--brand,
+  .badge--muted,
+  .annot-kind,
+  .annot-filter,
+  .annot-item,
+  .paper-anchor {
+    border: 1px solid CanvasText !important;
+    background: Canvas !important;
+    color: CanvasText !important;
+    forced-color-adjust: none;
+  }
+
+  /* 输入框 / textarea / select */
+  input,
+  textarea,
+  select,
+  .form-control {
+    border: 1px solid CanvasText !important;
+    background: Field !important;
+    color: FieldText !important;
+    forced-color-adjust: none;
+  }
+
+  /* hr / 分割线 用 CanvasText 才看得见 */
+  hr,
+  .divider {
+    border-color: CanvasText !important;
+    background: CanvasText !important;
+    forced-color-adjust: none;
+  }
+
+  /* —— 3d. Focus ring —— */
+  :focus-visible {
+    outline: 3px solid Highlight !important;
+    outline-offset: 2px !important;
+    box-shadow: none !important;
+  }
+
+  /* 选中文本 */
+  ::selection {
+    background: Highlight !important;
+    color: HighlightText !important;
+  }
+
+  /* ——— 3e. 关键 paper-reader / 信号面板 兜底 —— */
+  /* 这些组件在常规模式下用了 backdrop-filter / paper-textured，forced-colors 下
+     退化为 Canvas 纯色 + CanvasText 文字，所有边框/角标保留 */
+  .home-signal,
+  .annot-card {
+    border: 1px solid CanvasText !important;
+  }
+
+  /* skip-link 必须醒目 */
+  .skip-link {
+    border: 2px solid CanvasText !important;
+    background: Highlight !important;
+    color: HighlightText !important;
+  }
+
+  /* 主题切换图标按钮 */
+  .theme-toggle {
+    border: 1px solid CanvasText !important;
+  }
+}

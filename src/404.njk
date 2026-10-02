@@ -1,0 +1,32 @@
+---
+layout: layouts/page.njk
+title: 404 · 迷路了
+permalink: /404.html
+description: 你访问的页面不存在 — 回到首页或浏览作品集。
+eleventyExcludeFromCollections: true
+---
+
+<section class="section wrap-b">
+  <header class="section__head section__head--list">
+    <div>
+      <p class="eyebrow">404</p>
+      <h1 class="section__title">这里没东西</h1>
+    </div>
+  </header>
+
+  <div class="prose">
+    <p>
+      你访问的页面不存在，或者被搬到了别处。可能是链接已经过时，
+      也可能是 URL 拼写错了一两个字符。
+    </p>
+    <p>
+      先 <a href="{{ '/' | url }}">回首页</a> 看看最新内容，或浏览下面这些：
+    </p>
+    <ul>
+      <li><a href="{{ '/portfolio/' | url }}">作品集</a> — 研究项目 / 数据管线 / 可视化</li>
+      <li><a href="{{ '/blog/' | url }}">博客</a> — 长文思考 / 学习笔记</li>
+      <li><a href="{{ '/papers/' | url }}">论文精读</a> — 双栏批注 + 锚点联动</li>
+      <li><a href="{{ '/about/' | url }}">关于</a> — 研究方向 / 联系方式</li>
+    </ul>
+  </div>
+</section>

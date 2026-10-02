@@ -1,0 +1,41 @@
+---
+permalink: /sitemap.xml
+eleventyExcludeFromCollections: true
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  {% set allPages = collections.all | sort(false, false, "url") %}
+  {% for entry in allPages %}
+    {% if entry.url and not entry.data.eleventyExcludeFromCollections %}
+  <url>
+    <loc>{{ site.url }}{{ entry.url }}</loc>
+    <lastmod>{{ entry.date | dateToIso }}</lastmod>
+    {% if entry.url == "/" %}
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    {% elif entry.url == "/portfolio/" or entry.url == "/blog/" or entry.url == "/papers/" %}
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    {% elif entry.url == "/about/" %}
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    {% elif entry.url == "/404.html" %}
+    <changefreq>yearly</changefreq>
+    <priority>0.1</priority>
+    {% elif entry.url and (entry.url | slice(0, 11) == "/portfolio/") %}
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    {% elif entry.url and (entry.url | slice(0, 6) == "/blog/") %}
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    {% elif entry.url and (entry.url | slice(0, 8) == "/papers/") %}
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    {% else %}
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+    {% endif %}
+  </url>
+    {% endif %}
+  {% endfor %}
+</urlset>
